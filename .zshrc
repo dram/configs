@@ -4,6 +4,9 @@ HISTFILE=~/.zshis
 HISTSIZE=100
 SAVEHIST=100
 PATH+=:$HOME/bin:/usr/sbin:/sbin
+
+export EDITOR=vim
+
 unsetopt beep
 
 # Copy from Aaron Toponce's blog.
@@ -27,6 +30,7 @@ bindkey -v
 export LESS_TERMCAP_md=$'\E[36m'
 
 alias ls='ls -F'
+alias vi=vim
 alias grep='grep -nH --color=auto'
 alias codecolor='pygmentize -f html'
 
