@@ -21,6 +21,16 @@ zle -N zle-keymap-select
 setopt prompt_subst
 PS1='${VIMODE}'$'%{\e[32m%}%~%{\e[31m%}%(0?..%?)%{\e[0m%}%# '
 
+# Copy from http://aperiodic.net/phil/prompt/
+# Dynamically change screen's title to recently command name.
+setopt extended_glob
+preexec () {
+	if [[ "$TERM" == "screen" ]]; then
+		local CMD=${1[(wr)^(*=*|sudo|-*)]}
+		echo -ne "\ek$CMD\e\\"
+	fi
+}
+
 # Change to softcursor.
 #TERM=linux
 #echo -e '\033[?18;127;8c'

@@ -8,7 +8,3 @@ altscreen on
 
 # scroll in putty
 #termcapinfo xterm* ti@:te@
-
-screen -t man	2
-screen -t vi	1
-screen -t sh	0
