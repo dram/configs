@@ -10,9 +10,9 @@ export EDITOR=vim
 unsetopt beep
 
 # From http://zshwiki.org/home/examples/zlewidgets
+VIMODE=0
 function zle-line-init zle-keymap-select {
-	RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
-	RPS2=$RPS1
+	VIMODE="${${KEYMAP/vicmd/32}/(main|viins)/0}"
 	zle reset-prompt
 }
 
@@ -23,7 +23,7 @@ then
 fi
 
 setopt prompt_subst
-PS1='${VIMODE}'$'%{\e[32m%}%~%{\e[31m%}%(0?..%?)%{\e[0m%}%# '
+PS1=$'%{\e[32m%}%~%{\e[31m%}%(0?..%?)%{\e[${VIMODE}m%}%#%{\e[0m%} '
 
 # Copy from http://aperiodic.net/phil/prompt/
 # Dynamically change screen's title to recently command name.
