@@ -16,8 +16,11 @@ function zle-line-init zle-keymap-select {
 	zle reset-prompt
 }
 
-zle -N zle-line-init
-zle -N zle-keymap-select
+if [ ${ZSH_VERSION%.?} != "4.2" ]
+then
+	zle -N zle-line-init
+	zle -N zle-keymap-select
+fi
 
 setopt prompt_subst
 PS1='${VIMODE}'$'%{\e[32m%}%~%{\e[31m%}%(0?..%?)%{\e[0m%}%# '
