@@ -29,7 +29,7 @@ bindkey -v
 
 export LESS_TERMCAP_md=$'\E[36m'
 
-alias ls='ls -F'
+alias ls='ls -F --color'
 alias vi=vim
 alias grep='grep -nH --color=auto'
 alias codecolor='pygmentize -f html'
