@@ -6,8 +6,7 @@ startup_message off
 vbell off
 altscreen on
 
-# scroll in putty
-#termcapinfo xterm* ti@:te@
+defscrollback 5000
 
 # allow bold colors
 attrcolor b ".I"
