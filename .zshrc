@@ -1,5 +1,7 @@
 # .zshrc
 
+LANG=en_US
+
 HISTFILE=~/.zshis
 HISTSIZE=100
 SAVEHIST=100
@@ -29,7 +31,7 @@ PS1=$'%{\e[32m%}%~%{\e[31m%}%(0?..%?)%{\e[${VIMODE}m%}%#%{\e[0m%} '
 # Dynamically change screen's title to recently command name.
 setopt extended_glob
 preexec () {
-	if [[ "$TERM" == "screen" ]]; then
+	if [[ ${TERM#screen} != ${TERM} ]]; then
 		local CMD=${1[(wr)^(*=*|sudo|-*)]}
 		echo -ne "\ek$CMD\e\\"
 	fi
