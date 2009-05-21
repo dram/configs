@@ -8,3 +8,8 @@ altscreen on
 
 # scroll in putty
 #termcapinfo xterm* ti@:te@
+
+# allow bold colors
+attrcolor b ".I"
+# erase background with current bg color
+defbce "on"
