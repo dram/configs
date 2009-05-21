@@ -9,13 +9,14 @@ export EDITOR=vim
 
 unsetopt beep
 
-# Copy from Aaron Toponce's blog.
-# URL: http://pthree.org/2009/03/28/add-vim-editing-mode-to-your-zsh-prompt/
-function zle-keymap-select {
-    VIMODE="${${KEYMAP/vicmd/C}/(main|viins)/}"
-    zle reset-prompt
+# From http://zshwiki.org/home/examples/zlewidgets
+function zle-line-init zle-keymap-select {
+	RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+	RPS2=$RPS1
+	zle reset-prompt
 }
 
+zle -N zle-line-init
 zle -N zle-keymap-select
 
 setopt prompt_subst
