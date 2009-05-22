@@ -20,6 +20,7 @@ set wildignore=*.o
 set ttymouse=xterm2
 
 let g:c_no_comment_fold=1
+let g:is_posix=1
 
 set csprg=gtags-cscope
 cs add GTAGS
