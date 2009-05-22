@@ -17,7 +17,11 @@ set hidden
 set confirm
 set nonumber
 set wildignore=*.o
+
+" mouse scrolling in putty
 set ttymouse=xterm2
+set mouse=a
+:map! <M-Esc>[62~ <MouseDown>
 
 let g:c_no_comment_fold=1
 let g:is_posix=1
