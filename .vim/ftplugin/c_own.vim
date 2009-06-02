@@ -7,7 +7,7 @@ setl autoindent smartindent
 setl smarttab
 
 setl formatoptions=tcqlron
-setl cinoptions=:0,l1,t0,g0,(0,i0
+setl cinoptions=:0,l1,t0,g0,(1s,i0
 
 setl foldmethod=syntax
 setl foldnestmax=1
