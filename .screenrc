@@ -8,6 +8,8 @@ altscreen on
 
 defscrollback 5000
 
+shell zsh
+
 # allow bold colors
 attrcolor b ".I"
 # erase background with current bg color
