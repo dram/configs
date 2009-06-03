@@ -25,9 +25,6 @@ map! <M-Esc>[62~ <MouseDown>
 let g:c_no_comment_fold=1
 let g:is_posix=1
 
-set csprg=gtags-cscope
-cs add GTAGS
-
 let mapleader = ','
 nmap <silent> <leader>m		:MRU<CR>
 nmap <silent> <leader>t		:GtagsCursor<CR>
