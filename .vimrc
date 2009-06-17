@@ -17,6 +17,8 @@ set confirm
 set nonumber
 set wildignore=*.o
 
+runtime ftplugin/man.vim
+
 " mouse scrolling in putty
 set ttymouse=xterm2
 set mouse=a
