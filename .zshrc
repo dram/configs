@@ -25,7 +25,7 @@ then
 fi
 
 setopt prompt_subst
-PS1=$'%{\e[32m%}%~%{\e[31m%}%(0?..%?)%{\e[${VIMODE}m%}@%m%#%{\e[0m%} '
+PS1=$'%{\e[32m%}%~@%{\e[0m%}%m%{\e[31m%}%(0?..%?)%{\e[${VIMODE}m%}%#%{\e[0m%} '
 
 # Copy from http://aperiodic.net/phil/prompt/
 # Dynamically change screen's title to recently command name.
