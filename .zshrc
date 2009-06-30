@@ -1,11 +1,9 @@
 # .zshrc
 
-LANG=en_US
-
 HISTFILE=~/.zshis
 HISTSIZE=100
 SAVEHIST=100
-PATH+=:$HOME/bin:/usr/sbin:/sbin
+PATH+=:$HOME/bin:/usr/sbin:/sbin:$HOME/.gem/ruby/1.8/bin
 
 export EDITOR=vim
 
