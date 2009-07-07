@@ -7,7 +7,8 @@ syntax on
 set nobackup
 set autoindent
 set bg=dark
-color impact
+set term=xterm-256color
+color herald
 set vb t_vb=
 set ic smartcase
 set winminheight=0
@@ -26,6 +27,7 @@ map! <M-Esc>[62~ <MouseDown>
 
 let g:c_no_comment_fold=1
 let g:is_posix=1
+let MRU_Max_Entries=30
 
 let mapleader = ','
 nmap <silent> <leader>m		:MRU<CR>
