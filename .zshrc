@@ -3,7 +3,7 @@
 HISTFILE=~/.zshis
 HISTSIZE=100
 SAVEHIST=100
-PATH+=:$HOME/bin:/usr/sbin:/sbin:$HOME/.gem/ruby/1.8/bin
+PATH+=:$HOME/bin:/usr/sbin:/sbin
 
 export EDITOR=vim
 
