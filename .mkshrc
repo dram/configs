@@ -1,0 +1,9 @@
+HISTFILE=$HOME/.mksh_history
+
+export EDITOR=vim
+export MANPAGER='less -M +p'
+
+alias ls='ls -F --color'
+export LESS_TERMCAP_md='[36m'
+
+PS1='[32m${PWD/#$HOME/~}[31m${?/#0/}[0m$ '
