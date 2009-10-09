@@ -2,7 +2,7 @@ HISTFILE=$HOME/.mksh_history
 
 export PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
 export EDITOR=vi
-export MANPAGER='less -M +p'
+export PAGER='less -M +p'
 
 alias ls='ls -F'
 export LESS_TERMCAP_md='[36m'
