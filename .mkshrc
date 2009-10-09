@@ -1,7 +1,7 @@
 HISTFILE=$HOME/.mksh_history
 
 export PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
-export EDITOR=vim
+export EDITOR=vi
 export MANPAGER='less -M +p'
 
 alias ls='ls -F'
