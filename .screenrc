@@ -1,7 +1,7 @@
 caption always "%{= dd} %-Lw%n[%t]%+Lw %="
 sorendition +b kG
 
-escape "`/"
+escape "^Jj"
 startup_message off
 vbell off
 altscreen on
