@@ -6,6 +6,8 @@ startup_message off
 vbell off
 altscreen on
 
+bind , title
+bind l other
 defscrollback 5000
 
 # allow bold colors
