@@ -6,7 +6,7 @@ startup_message off
 vbell off
 altscreen on
 
-bind , title
+bind , eval 'title ""' title
 bind l other
 defscrollback 5000
 
