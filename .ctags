@@ -1,0 +1,4 @@
+--langmap=scheme:
+--langdef=scm
+--langmap=scm:.ss.scm
+--regex-scm=/^[[:space:]]*(\(|[[])define[^[:space:]]*[[:space:]]+(\(|[[])?([^][[:space:]()]+)/\3/d,definition/i
