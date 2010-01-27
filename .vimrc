@@ -25,6 +25,8 @@ let g:c_no_comment_fold=1
 let g:is_posix=1
 let MRU_Max_Entries=30
 
+autocmd BufEnter,FileType scheme :syntax sync minlines=50
+
 let mapleader = ','
 nmap <silent> <leader>m		:MRU<CR>
 nmap <silent> <leader>t		:GtagsCursor<CR>
