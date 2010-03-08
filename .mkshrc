@@ -4,7 +4,6 @@ export PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
 export EDITOR=vi
 export PAGER='less -M +p'
 
-alias ls='ls -F'
 export LESS_TERMCAP_md='[36m'
 
 PS1='[32m${PWD/#$HOME/~}[31m${?/#0/}[0m
