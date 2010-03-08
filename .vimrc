@@ -17,7 +17,6 @@ set hidden
 set confirm
 set nonumber
 set wildignore=*.o
-set textwidth=72
 
 runtime ftplugin/man.vim
 
