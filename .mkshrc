@@ -1,12 +1,24 @@
-HISTFILE=$HOME/.mksh_history
+#!/bin/mksh
+
+# .mkshrc
 
 export PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
-export EDITOR=vi
-export PAGER='less -M +p'
 
-export LESS_TERMCAP_md='[36m'
+case "$-" in *i*)
+	# interative mode settings
 
-PS1='[32m${PWD/#$HOME/~}[31m${?/#0/}[0m
+	HISTFILE=$HOME/.mksh_history
+
+	export EDITOR=vi
+	export LESS_TERMCAP_md='[36m'
+	export PAGER='less -M +p'
+
+	PS1='[32m${PWD/#$HOME/~}[31m${?/#0/}[0m
 $ '
+
+	alias ls='ls -F'
+
+	;;
+esac
 
 # vim:ft=sh
