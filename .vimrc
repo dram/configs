@@ -7,8 +7,7 @@ syntax on
 set nobackup
 set autoindent
 set bg=dark
-set term=xterm-256color
-color impact
+color ir_black
 set vb t_vb=
 set ic smartcase
 set winminheight=0
