@@ -24,6 +24,7 @@ let g:is_posix=1
 let MRU_Max_Entries=30
 
 autocmd BufEnter,FileType scheme :syntax sync minlines=50
+au BufNewFile,BufRead *.fr :setf forth
 
 let mapleader = ','
 nmap <silent> <leader>m		:MRU<CR>
