@@ -15,6 +15,7 @@ set laststatus=2
 set hidden
 set confirm
 set nonumber
+set ruler
 set wildignore=*.o
 
 runtime ftplugin/man.vim
@@ -25,6 +26,9 @@ let MRU_Max_Entries=30
 
 autocmd BufEnter,FileType scheme :syntax sync minlines=50
 au BufNewFile,BufRead *.fr :setf forth
+
+" :h last-position-jump
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
 let mapleader = ','
 nmap <silent> <leader>m		:MRU<CR>
