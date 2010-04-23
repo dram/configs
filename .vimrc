@@ -26,6 +26,7 @@ let g:is_posix=1
 let MRU_Max_Entries=30
 
 autocmd BufEnter,FileType scheme :syntax sync minlines=50
+autocmd BufNewFile,BufRead *.{md,mkd} set filetype=markdown
 au BufNewFile,BufRead *.fr :setf forth
 
 " :h last-position-jump
