@@ -16,7 +16,7 @@ case "$-" in *i*)
 	PS1='[32m${PWD/#$HOME/~}[31m${?/#0/}[0m
 $ '
 
-	alias ls='ls -F'
+	alias ls='ls --color'
 
 	;;
 esac
