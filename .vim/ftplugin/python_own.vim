@@ -1,2 +1,2 @@
-set shiftwidth=4
-set expandtab
+setl shiftwidth=4
+setl expandtab
