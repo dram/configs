@@ -8,7 +8,7 @@ syntax on
 set nobackup
 set autoindent
 set bg=dark
-color ir_black
+color impact
 set vb t_vb=
 set ic smartcase
 set winminheight=0
@@ -38,4 +38,5 @@ nmap <silent> <leader>t		:GtagsCursor<CR>
 nmap <silent> <leader>n		:cn<CR>
 nmap <silent> <leader>p		:cp<CR>
 
+cmap %/ <C-R>=expand("%:p:h").'/'<CR>
 " vim: sw=4 ts=4 fdm=marker
