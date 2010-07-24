@@ -8,7 +8,7 @@ syntax on
 set nobackup
 set autoindent
 set bg=dark
-color impact
+color herald
 set vb t_vb=
 set ic smartcase
 set winminheight=0
@@ -25,9 +25,19 @@ let g:c_no_comment_fold=1
 let g:is_posix=1
 let MRU_Max_Entries=30
 
+set guioptions-=T
+set guifont=WenQuanYi\ Micro\ Hei\ Mono\ 10
+
+au guienter *		color herald
+au guienter *		set novisualbell
+au guienter *		set guifont=WenQuanYi\ Micro\ Hei\ Mono\ 10
+
 autocmd BufEnter,FileType scheme :syntax sync minlines=50
 autocmd BufNewFile,BufRead *.{md,mkd} set filetype=markdown
 au BufNewFile,BufRead *.fr :setf forth
+
+autocmd! InsertLeave *	set imdisable
+autocmd! InsertEnter *	set noimdisable
 
 " :h last-position-jump
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
