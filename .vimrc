@@ -8,7 +8,7 @@ syntax on
 set nobackup
 set autoindent
 set bg=dark
-color herald
+color desert
 set vb t_vb=
 set ic smartcase
 set winminheight=0
