@@ -3,6 +3,7 @@
 # .mkshrc
 
 export PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
+export MANPATH=$MANPATH:/usr/local/share/man
 
 case "$-" in *i*)
 	# interative mode settings
