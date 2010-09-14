@@ -4,6 +4,7 @@ filetype plugin on
 filetype indent on
 set backspace=indent,eol,start
 set fileencodings=utf-8,gbk,latin1
+set hlsearch
 syntax on
 set nobackup
 set autoindent
