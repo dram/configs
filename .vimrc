@@ -37,6 +37,7 @@ au guienter *		set guifont=WenQuanYi\ Micro\ Hei\ Mono\ 10
 autocmd BufEnter,FileType scheme :syntax sync minlines=50
 autocmd BufNewFile,BufRead *.{md,mkd} set filetype=markdown
 au BufNewFile,BufRead *.fr :setf forth
+au BufWritePost .c,*.h silent! !ctags -a -R &
 
 autocmd! InsertLeave *	set imdisable
 autocmd! InsertEnter *	set noimdisable
