@@ -1,6 +1,7 @@
 #!/bin/ksh
 
 export VISUAL=emacs
+export SVN_EDITOR=vi
 
 export LESS_TERMCAP_md='[36m'
 
