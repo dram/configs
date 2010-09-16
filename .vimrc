@@ -19,6 +19,7 @@ set confirm
 set nonumber
 set ruler
 set wildignore=*.o
+set shellpipe=2>&1\|\ tee
 
 runtime ftplugin/man.vim
 
