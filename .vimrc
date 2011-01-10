@@ -28,11 +28,11 @@ let g:is_posix=1
 let MRU_Max_Entries=30
 
 set guioptions-=T
-set guifont=WenQuanYi\ Micro\ Hei\ Mono\ 10
+set guifont=Liberation\ Mono\ 10
 
 au guienter *		color herald
 au guienter *		set novisualbell
-au guienter *		set guifont=WenQuanYi\ Micro\ Hei\ Mono\ 10
+au guienter *		set guifont=Liberation\ Mono\ 10
 
 autocmd BufEnter,FileType scheme :syntax sync minlines=50
 autocmd BufNewFile,BufRead *.{md,mkd} set filetype=markdown
