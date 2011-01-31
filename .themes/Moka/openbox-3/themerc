@@ -1,0 +1,111 @@
+# Moka by rent0n | ret0n86.deviantart.com
+# mod of mookid by bl1nks
+
+# Window geometry
+padding.width: 5
+padding.height: 3
+border.width: 1
+window.client.padding.width: 0
+window.client.padding.height: 0
+window.handle.width: 0
+
+#Menu geometry
+menu.border.width: 3
+menu.overlap.x: -5
+menu.overlap.y: 0
+
+# Border colors
+window.*.border.color: #303030
+menu.border.color: #303030
+window.active.client.color: #303030
+window.inactive.client.color: #303030
+
+# Text shadows
+window.active.label.text.font: shadow=n
+window.inactive.label.text.font: shadow=n
+menu.items.font: shadow=n
+menu.title.text.font: shadow=n
+
+# Window title justification
+window.label.text.justify: left
+
+# Window
+window.*.title.bg: flat
+window.*.title.bg.color: #303030
+
+window.*.label.bg: Parentrelative
+window.active.label.text.color: #ecedee
+window.inactive.label.text.color: #303030
+
+window.active.button.unpressed.bg: Flat
+window.active.button.unpressed.bg.color: #303030
+window.active.button.unpressed.image.color: #606060
+
+window.active.button.pressed.bg: Flat
+window.active.button.pressed.bg.color: #303030
+window.active.button.pressed.image.color: #ecedee
+
+window.active.button.disabled.bg: Flat
+window.active.button.disabled.bg.color: #303030
+window.active.button.disabled.image.color: #606060
+
+window.active.button.toggled.bg: Flat
+window.active.button.toggled.bg.color: #303030
+window.active.button.toggled.image.color: #606060
+
+window.active.button.hover.bg: Flat
+window.active.button.hover.bg.color: #303030
+window.active.button.hover.image.color: #ecedee
+
+window.inactive.button.unpressed.bg: Flat
+window.inactive.button.unpressed.bg.color: #303030
+window.inactive.button.unpressed.image.color: #303030
+
+window.inactive.button.pressed.bg: Flat
+window.inactive.button.pressed.bg.color: #303030
+window.inactive.button.pressed.image.color: #ecedee
+
+window.inactive.button.disabled.bg: Flat
+window.inactive.button.disabled.bg.color: #303030
+window.inactive.button.disabled.image.color: #303030
+
+window.inactive.button.toggled.bg: Flat
+window.inactive.button.toggled.bg.color: #303030
+window.inactive.button.toggled.image.color: #303030
+
+window.inactive.button.hover.bg: Flat
+window.inactive.button.hover.bg.color: #303030
+window.inactive.button.hover.image.color: #ecedee
+
+# Menus
+menu.title.bg: Flat
+menu.title.bg.color: #303030
+menu.title.text.color: #ecedee
+menu.title.text.justify: left
+
+menu.items.bg: Flat Solid
+menu.items.bg.color: #303030
+menu.items.text.color: #606060
+menu.items.disabled.text.color: #434343
+
+menu.items.active.bg: Flat
+menu.items.active.bg.color: #303030
+menu.items.active.text.color: #ecedee
+menu.items.active.disabled.text.color: #434343
+
+#osd
+osd.border.width: 2
+osd.border.color:  #303030
+
+osd.bg: flat solid
+osd.bg.color: #ecedee
+osd.bg.colorTo: #ecedee
+osd.bg.border.color: #ecedee
+osd.label.bg: parentrelative
+osd.label.text.color: #303030
+
+osd.hilight.bg: flat solid
+osd.hilight.bg.color: #303030
+
+osd.unhilight.bg: flat solid
+osd.unhilight.bg.color: #ecedee
