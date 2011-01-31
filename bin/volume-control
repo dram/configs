@@ -1,0 +1,29 @@
+#!/bin/sh
+
+#
+# Volume control script using amixer and libnotify.
+# Author: Xin Wang <dram.wang@gmail.com>
+#
+
+case "$1" in
+	raise)
+		cmd="amixer -c0 sset Master unmute 3+"
+		;;
+	lower)
+		cmd="amixer -c0 sset Master unmute 3-"
+		;;
+	mute)
+		cmd="amixer -c0 sset Master toggle"
+		;;
+	*)
+		echo "Usage: volume-control {raise,lower,mute}"
+		exit 1
+		;;
+esac
+
+volume=$(
+$cmd |
+awk -F'\\[|\\]' '/^ +Front Left/ { print($(NF-1) == "on" ? $2 : "mute") }'
+)
+
+notify-send -t 500 -i "info" "Volume" "Current: ${volume}"
