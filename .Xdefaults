@@ -1,3 +1,12 @@
+!! XFT settings
+Xft.dpi:	98
+Xft.antialias:	true
+Xft.rgba:	rgb
+Xft.hinting:	true
+Xft.autohint:	false
+Xft.hintstyle:	hintslight
+Xft.lcdfilter:	lcddefault
+
 !! Terminal colors
 ! Black
 URxvt.color0: #000000
@@ -25,9 +34,10 @@ URxvt.color7: #CCCCCC
 URxvt.color15: #FFFFFF
 
 !! rxvt-unicode settings
+URxvt.geometry: 80x33
 URxvt.font: xft:Liberation Mono:pixelsize=14
 URxvt.scrollBar: false
-URxvt.perl-ext-common:  default,tabbedex,clipboard
+URxvt.perl-ext-common: default,tabbedex,clipboard
 URxvt.tabbed.new-button: no
 URxvt.tabbed.tabbar-fg: 8
 URxvt.tabbed.tabbar-bg: 0
