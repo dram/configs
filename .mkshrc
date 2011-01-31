@@ -2,7 +2,7 @@
 
 # .mkshrc
 
-export PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
+export PATH=$HOME/bin:/sbin:/usr/sbin:$PATH
 export MANPATH=$MANPATH:/usr/local/share/man
 
 case "$-" in *i*)
