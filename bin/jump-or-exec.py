@@ -209,7 +209,7 @@ class Matcher:
 
 if __name__ == "__main__":
     jobs = [
-    ("Mod4 + t", Job(Matcher(wm_class="urxvt.URxvt"), "urxvt")),
+    ("Mod4 + t", Job(Matcher(wm_class="roxterm.Roxterm"), "roxterm")),
     ("Mod4 + f", Job(Matcher(wm_class="Navigator.Firefox"), "firefox")),
     ("Mod4 + v", Job(Matcher(wm_class="gvim.Gvim"), "gvim")),
     ("Mod4 + e", Job(Matcher(wm_name="emacs@.*"), "/home/kid/bin/emacs -f server-start")),
