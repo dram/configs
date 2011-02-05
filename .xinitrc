@@ -2,18 +2,14 @@
 
 xrdb --merge $HOME/.Xresources
 
-xrandr --dpi 98
+install -dm700 /dev/shm/firefox-cache
 
-xmodmap -e "keycode 135 = Super_R"
+xchainkeys >/dev/null 2>&1 &
 
-export QT_IM_MODULE=xim
-export GTK_IM_MODULE=xim
-export XMODIFIERS="@im=fcitx"
-export XIM=fcitx
-export XIM_PROGRAM=fcitx
+vim-gst-srv.py -d
 
-fcitx -d
+wm-assist.py -D
 
-nohup $HOME/bin/jump-or-exec.py >/dev/null 2>&1 &
+sleep 3 && eval $(cat $HOME/.fehbg) && tint2 &
 
 openbox-session
