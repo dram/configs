@@ -22,6 +22,10 @@ PIPE_FILE = "/tmp/wm-assist.pipe"
 PID_FILE = "/tmp/wm-assist.pid"
 LOG_FILE = "/home/dram/.wm-assist.log"
 
+_NET_WM_STATE_REMOVE = 0
+_NET_WM_STATE_ADD = 1
+_NET_WM_STATE_TOGGLE = 2
+
 def get_active_window(dpy, root):
     ids = root.get_full_property(
             dpy.intern_atom("_NET_ACTIVE_WINDOW"), Xlib.Xatom.WINDOW).value
@@ -45,6 +49,21 @@ def move_window(dpy, root, dx, dy):
                 window = win,
                 client_type = dpy.intern_atom("_NET_MOVERESIZE_WINDOW"),
                 data = (32, ([1<<8|1<<9, max(0,x+dx), max(0,y+dy), 0, 0]))),
+            Xlib.X.SubstructureRedirectMask | Xlib.X.SubstructureNotifyMask)
+    dpy.sync()
+
+def maximize_window(dpy, root):
+    win = get_active_window(dpy, root)
+
+    action = _NET_WM_STATE_TOGGLE
+    vert = dpy.intern_atom("_NET_WM_STATE_MAXIMIZED_VERT")
+    horz = dpy.intern_atom("_NET_WM_STATE_MAXIMIZED_HORZ")
+
+    root.send_event(
+            Xlib.protocol.event.ClientMessage(
+                window = win,
+                client_type = dpy.intern_atom("_NET_WM_STATE"),
+                data = (32, ([action, horz, vert, 0, 0]))),
             Xlib.X.SubstructureRedirectMask | Xlib.X.SubstructureNotifyMask)
     dpy.sync()
 
@@ -107,6 +126,8 @@ def main_loop():
         elif cmd == 'JOE':
             cls, cmd = args.split()
             jump_or_exec(dpy, root, cls, cmd)
+        elif cmd == 'MAXIMIZE':
+            maximize_window(dpy, root)
 
     dpy.close()
 
