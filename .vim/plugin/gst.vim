@@ -99,6 +99,7 @@ function! GSTEnter()
 			call add(s:jump_list, line('.'))
 			call GSTRefresh()
 		else
+			sleep 500m
 			call GSTExec(["CLEAR", 'ADD ' . s:cur_dir . getline('.')])
 		endif
 	endif
