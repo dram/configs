@@ -162,8 +162,8 @@ class GSTPlayDaemon():
                 self.player.set_state(gst.STATE_READY)
             elif cmd == 'PAUSE':
                 if state == gst.STATE_PLAYING:
-                    self.player.set_state(gst.STATE_PAUSE)
-                elif state == gst.STATE_PAUSE:
+                    self.player.set_state(gst.STATE_PAUSED)
+                elif state == gst.STATE_PAUSED:
                     self.player.set_state(gst.STATE_PLAYING)
             elif cmd == 'ADD':
                 self.playlist.add(arg)
