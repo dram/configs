@@ -10,6 +10,4 @@ vim-gst-srv.py -d
 
 wm-assist.py -D
 
-sleep 3 && eval $(cat $HOME/.fehbg) && tint2 &
-
 openbox-session
