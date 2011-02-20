@@ -42,7 +42,7 @@ class Playlist():
             if ' - ' in artist_and_album:
                 artist, album = artist_and_album.split(' - ')
             else:
-                artist, album = '', artist_and_album
+                artist, album = artist_and_album, ''
             fp.write("%s%s | %s\n" % (mark, artist, track))
         fp.close()
 
