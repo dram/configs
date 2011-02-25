@@ -174,6 +174,7 @@ function! GSTRefreshPlaylist()
 				call append(0, readfile('/tmp/vim-gst-playlist.txt'))
 			endif
 			normal gg
+			silent! /^-
 		endif
 		exec l:current . 'wincmd w'
 	endif
