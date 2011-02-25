@@ -67,6 +67,9 @@ nmap <silent> <leader>n		:cn<CR>
 nmap <silent> <leader>p		:cp<CR>
 nmap <silent> <leader>x		:call GSTToggle()<cr>
 
+nmap <silent> ( :call search('\n\\|。\\|！\\|？\\|\.\s\\|!\s\\|?\s', "bw")<cr>
+nmap <silent> ) :call search('\n\\|。\\|！\\|？\\|\.\s\\|!\s\\|?\s', "w")<cr>
+
 cmap %/ <C-R>=expand("%:p:h").'/'<CR>
 
 " vim: sw=4 ts=4 fdm=marker
