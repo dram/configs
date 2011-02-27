@@ -20,6 +20,8 @@
 (define toolbar-show-pref-button? #f)
 (define toolbar-show-switcher-button? #f)
 
+(define toolbar-icon-for-dark-background? #t)
+
 ;; switch on and off
 (define generic-on-key '("<Control> " "<Shift> "))
 (define generic-on-key? (make-key-predicate '("<Control> " "<Shift> ")))
@@ -31,8 +33,8 @@
 (define generic-begin-conv-key? (make-key-predicate '(" ")))
 (define generic-commit-key '("return" " "))
 (define generic-commit-key? (make-key-predicate '("return" " ")))
-(define generic-cancel-key '("escape"))
-(define generic-cancel-key? (make-key-predicate '("escape")))
+(define generic-cancel-key '("escape" "<IgnoreCase><Control>c"))
+(define generic-cancel-key? (make-key-predicate '("escape" "<IgnoreCase><Control>c")))
 (define generic-next-candidate-key '("down" "<IgnoreCase><Control>n"))
 (define generic-next-candidate-key? (make-key-predicate '("down" "<IgnoreCase><Control>n")))
 (define generic-prev-candidate-key '("up" "<IgnoreCase><Control>p"))
