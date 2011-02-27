@@ -28,6 +28,7 @@ runtime ftplugin/man.vim
 let g:c_no_comment_fold=1
 let g:is_posix=1
 let MRU_Max_Entries=30
+let g:leave_my_textwidth_alone=1
 
 set guioptions-=T
 set guifont=Liberation\ Mono\ 10
