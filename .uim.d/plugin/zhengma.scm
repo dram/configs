@@ -163,7 +163,9 @@
 	  (if (generic-context-multi-cand-input pc)
 	    (zhengma-proc-multi-cand-input-state pc key state)
 	    (zhengma-proc-input-state pc key state))
-	  (if (eq? (zhengma-get-vi-op) 'vi-op-turn-on-im)
+          ;; test (zhengma-get-vi-op) first to always consume that op character
+	  (if (and (eq? (zhengma-get-vi-op) 'vi-op-turn-on-im)
+                   (not (generic-cancel-key? key state)))
 	    (begin
 	      (generic-context-set-on! pc #t)
 	      (zhengma-proc-input-state pc key state)
