@@ -81,21 +81,6 @@ if __name__ == '__main__':
         if not re.search(r'\(\)', line):
             res.append(line)
 
-    # 从码表上去除自动上屏
-    final = []
-    for i in range(len(res)):
-        code1, char1 = res[i].split(None, 1)
-        if i == len(res) - 1:
-            code2 = 'z'
-        else:
-            code2, char2 = res[i+1].split(None, 1)
-        final.append(res[i])
-        if (code1.isalpha()
-                and code2.isalpha()
-                and len(code1) < 4
-                and not code2.startswith(code1)):
-            final.append(code1 + "v" * (4 - len(code1)) + ' ' + char1)
-            
     out = codecs.open(outfile, "w", "utf-8")
-    out.write(''.join(final))
+    out.write(''.join(res))
     out.close()
