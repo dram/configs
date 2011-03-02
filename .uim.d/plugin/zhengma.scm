@@ -102,7 +102,13 @@
 	       (generic-context-set-candidate-op-count! pc 0)
 	       (generic-context-set-cands! pc '())
 	       (im-deactivate-candidate-selector pc)))
-	 (generic-update-input-state-cands pc key state rkc seq res))))))
+         (let ((cs (rk-current-seq rkc)))
+           ;; single candidate
+           (if (and (not (rk-partial? rkc))
+                    cs
+                    (null? (cdr (cadr cs))))
+             (generic-context-set-cands! pc (cadr cs))
+             (generic-update-input-state-cands pc key state rkc seq res))))))))
 
 (define zhengma-proc-specific-multi-cand-input-state
   (lambda (pc key state rkc)
