@@ -2,8 +2,12 @@
 
 # .mkshrc
 
+export LANG=en_US.UTF-8
+
 export PATH=$HOME/bin:/sbin:/usr/sbin:$PATH
 export MANPATH=$MANPATH:/usr/local/share/man
+
+umask 027
 
 case "$-" in *i*)
 	# interative mode settings
