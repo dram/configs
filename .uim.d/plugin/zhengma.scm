@@ -97,7 +97,9 @@
 		(charcode->string key)))
          (if res
 	     (begin
-	       (im-commit pc (string-list-concat seq))
+               (if (= (length seq) 4)
+                 (im-commit pc (nth (generic-context-rk-nth pc) res))
+                 (im-commit pc (string-list-concat seq)))
 	       (generic-context-set-rk-nth! pc 0)
 	       (generic-context-set-candidate-op-count! pc 0)
 	       (generic-context-set-cands! pc '())
