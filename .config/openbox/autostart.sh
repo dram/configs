@@ -1,7 +1,7 @@
 # This shell script is run before Openbox launches.
 # Environment variables set here are passed to the Openbox session.
 
-eval $(cat $HOME/.fehbg)
+source $HOME/.fehbg
 
 tint2 &
 
