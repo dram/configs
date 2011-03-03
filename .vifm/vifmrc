@@ -9,7 +9,7 @@
 # If you would like to use another vi clone such as Vim, Elvis, or Vile
 # you will need to change this setting.
 
-VI_COMMAND=vim
+VI_COMMAND=gvim --servername GVIM --remote-tab
 # VI_COMMAND=vim
 # VI_COMMAND=elvis -G termcap
 # VI_COMMAND=vile
@@ -104,8 +104,8 @@ BOOKMARKS=z=/home/dram/.vifm=../
 # The other programs for the file type can be accessed with the :file command
 # The command macros %f, %F, %d, %F may be used in the commands.
 # The %a macro is ignored.  To use a % you must put %%.
-FILETYPE=PDF=pdf=mupdf
 
+FILETYPE=PDF=pdf=apvlv
 
 # For automated FUSE mounts, you must register an extension with FILETYPE=..
 # in the following format:
