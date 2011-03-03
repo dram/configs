@@ -26,6 +26,10 @@ _NET_WM_STATE_REMOVE = 0
 _NET_WM_STATE_ADD = 1
 _NET_WM_STATE_TOGGLE = 2
 
+is_tiling = False
+orig_geom = None
+
+
 def get_active_window(dpy, root):
     ids = root.get_full_property(
             dpy.intern_atom("_NET_ACTIVE_WINDOW"), Xlib.Xatom.WINDOW).value
@@ -52,6 +56,84 @@ def move_window(dpy, root, dx, dy):
             Xlib.X.SubstructureRedirectMask | Xlib.X.SubstructureNotifyMask)
     dpy.sync()
 
+def center_window(dpy, root):
+    scr = dpy.screen()
+    win = get_active_window(dpy, root)
+    geom = win.get_geometry()
+    x = max(0, (scr.width_in_pixels - geom.width) / 2)
+    y = max(0, (scr.height_in_pixels - geom.height) / 2)
+
+    root.send_event(
+            Xlib.protocol.event.ClientMessage(
+                window = win,
+                client_type = dpy.intern_atom("_NET_MOVERESIZE_WINDOW"),
+                data = (32, ([1<<8|1<<9, x, y, 0, 0]))),
+            Xlib.X.SubstructureRedirectMask | Xlib.X.SubstructureNotifyMask)
+    dpy.sync()
+
+def tiling(dpy, root):
+    def move_resize(win, x, y, w, h):
+        root.send_event(
+                Xlib.protocol.event.ClientMessage(
+                    window = win,
+                    client_type = dpy.intern_atom("_NET_MOVERESIZE_WINDOW"),
+                    data = (32, ([1<<8|1<<9|1<<10|1<<11, x, y, w, h]))),
+                Xlib.X.SubstructureRedirectMask | Xlib.X.SubstructureNotifyMask)
+
+    global is_tiling
+    global orig_geom
+
+    wins = {}
+
+    ids = root.get_full_property(
+            dpy.intern_atom("_NET_CLIENT_LIST"), Xlib.Xatom.WINDOW).value
+
+    for win_id in ids:
+        win = dpy.create_resource_object("window", win_id)
+        cls = win.get_wm_class()
+        if cls == ('gvim', 'Gvim'):
+            wins['editor'] = win
+        elif cls == ('roxterm', 'Roxterm'):
+            wins['terminal'] = win
+        elif cls == ('Navigator', 'Firefox'):
+            wins['browser'] = win
+
+    if not is_tiling:
+        scr = dpy.screen()
+        win = get_active_window(dpy, root)
+        geom = win.get_geometry()
+        x = max(0, (scr.width_in_pixels - geom.width) / 2)
+        y = max(0, (scr.height_in_pixels - geom.height) / 2)
+
+        orig_geom = {}
+        dest = {
+                'browser': [0, 0,
+                    scr.width_in_pixels, scr.height_in_pixels / 2],
+                'terminal': [0, scr.height_in_pixels / 2,
+                    scr.width_in_pixels / 2, scr.height_in_pixels / 2],
+                'editor': [
+                    scr.width_in_pixels / 2, scr.height_in_pixels / 2,
+                    scr.width_in_pixels / 2, scr.height_in_pixels / 2]
+                }
+        
+        for prog in ['browser', 'terminal', 'editor']:
+            if prog in wins:
+                g = wins[prog].get_geometry()
+                trans = wins[prog].translate_coords(root, g.x, g.y)
+                orig_geom[prog] = [-trans.x, -trans.y, g.width, g.height]
+                x, y, w, h = dest[prog]
+                move_resize(wins[prog], x, y, w, h)
+
+        dpy.sync()
+    else:
+        for prog in ['browser', 'terminal', 'editor']:
+            if prog in wins and prog in orig_geom:
+                x, y, w, h = orig_geom[prog]
+                move_resize(wins[prog], x, y, w, h)
+
+        dpy.sync()
+    is_tiling = not is_tiling
+
 def maximize_window(dpy, root):
     win = get_active_window(dpy, root)
 
@@ -64,6 +146,17 @@ def maximize_window(dpy, root):
                 window = win,
                 client_type = dpy.intern_atom("_NET_WM_STATE"),
                 data = (32, ([action, horz, vert, 0, 0]))),
+            Xlib.X.SubstructureRedirectMask | Xlib.X.SubstructureNotifyMask)
+    dpy.sync()
+
+def close_window(dpy, root):
+    win = get_active_window(dpy, root)
+
+    root.send_event(
+            Xlib.protocol.event.ClientMessage(
+                window = win,
+                client_type = dpy.intern_atom("_NET_CLOSE_WINDOW"),
+                data = (32, ([0, 0, 0, 0, 0]))),
             Xlib.X.SubstructureRedirectMask | Xlib.X.SubstructureNotifyMask)
     dpy.sync()
 
@@ -124,10 +217,16 @@ def main_loop():
             dw, dh = args.split()
             resize_window(dpy, root, int(dw), int(dh))
         elif cmd == 'JOE':
-            cls, cmd = args.split()
+            cls, cmd = args.split(None, 1)
             jump_or_exec(dpy, root, cls, cmd)
         elif cmd == 'MAXIMIZE':
             maximize_window(dpy, root)
+        elif cmd == 'CLOSE':
+            close_window(dpy, root)
+        elif cmd == 'CENTER':
+            center_window(dpy, root)
+        elif cmd == 'ALL':
+            tiling(dpy, root)
 
     dpy.close()
 
@@ -239,6 +338,7 @@ def main():
     main_loop()
 
 if __name__ == "__main__":
+    main()
     try:
         main()
     except Exception:
