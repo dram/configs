@@ -73,11 +73,14 @@ def center_window(dpy, root):
 
 def tiling(dpy, root):
     def move_resize(win, x, y, w, h):
+        # Using StaticGravity to calculate more acculately.
+        x, y = max(0, x), max(0, y)
         root.send_event(
                 Xlib.protocol.event.ClientMessage(
                     window = win,
                     client_type = dpy.intern_atom("_NET_MOVERESIZE_WINDOW"),
-                    data = (32, ([1<<8|1<<9|1<<10|1<<11, x, y, w, h]))),
+                    data = (32, ([Xlib.X.StaticGravity|1<<8|1<<9|1<<10|1<<11,
+                                        x, y, w, h]))),
                 Xlib.X.SubstructureRedirectMask | Xlib.X.SubstructureNotifyMask)
 
     global is_tiling
