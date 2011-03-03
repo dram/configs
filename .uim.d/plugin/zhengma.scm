@@ -104,7 +104,8 @@
 	       (im-deactivate-candidate-selector pc)))
          (let ((cs (rk-current-seq rkc)))
            ;; single candidate
-           (if (and (not (rk-partial? rkc))
+           (if (and (not (= (length (rk-context-seq rkc)) 4))
+                    (not (rk-partial? rkc))
                     cs
                     (null? (cdr (cadr cs))))
              (generic-context-set-cands! pc (cadr cs))
