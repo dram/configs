@@ -16,6 +16,8 @@ wm-assist.py -D
 
 sleep 5 && uim-toolbar-gtk-systray &
 
+autocutsel &
+autocutsel -selection PRIMARY &
 
 VBoxClient-all &
 
