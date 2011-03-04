@@ -122,7 +122,7 @@ def tiling(dpy, root):
         for prog in ['browser', 'terminal', 'editor']:
             if prog in wins:
                 g = wins[prog].get_geometry()
-                trans = wins[prog].translate_coords(root, g.x, g.y)
+                trans = wins[prog].translate_coords(root, 0, 0)
                 orig_geom[prog] = [-trans.x, -trans.y, g.width, g.height]
                 x, y, w, h = dest[prog]
                 move_resize(wins[prog], x, y, w, h)
