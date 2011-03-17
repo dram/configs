@@ -18,7 +18,9 @@ case "$-" in *i*)
 	export LESS_TERMCAP_md='[36m'
 	export PAGER='less -M +p'
 
-	PS1='[32m${PWD/#$HOME/~}[31m${?/#0/}[0m
+	_esc=$(print -n '\033')
+	_bel=$(print -n '\007')
+	PS1='${_esc}]0;gentoo${_bel} ${_esc}[32m${PWD/#$HOME/~}${_esc}[31m${?/#0/}${_esc}[0m
 $ '
 
 	alias ls='ls --color'

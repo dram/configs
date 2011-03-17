@@ -1,3 +1,0 @@
-#!/bin/sh
-
-roxterm --tab --tab-name $1 -e ssh $1
