@@ -98,7 +98,7 @@ def tiling(dpy, root):
             wins['editor'] = win
         elif cls == ('sakura', 'Sakura'):
             wins['terminal'] = win
-        elif cls == ('Navigator', 'Firefox'):
+        elif cls == ('midori', 'Midori'):
             wins['browser'] = win
 
     if not is_tiling:
