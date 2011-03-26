@@ -11,5 +11,5 @@ clean:
 	rm -f *.o $(OUTFILE)
 
 install: $(OUTFILE)
-	sudo cp ./zm-clean.table /usr/share/uim/tables/zhengma.table
+	sudo install -m 0644 ./zm-clean.table /usr/share/uim/tables/zhengma.table
 
