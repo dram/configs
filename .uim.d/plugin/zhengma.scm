@@ -9,6 +9,11 @@
 
 (require "generic.scm")
 
+(define real-im-deactivate-candidate-selector im-deactivate-candidate-selector)
+
+(define (im-deactivate-candidate-selector pc)
+  '())
+
 (require "fileio.scm")
 
 (define zhengma-open-vi-mode-file
@@ -46,12 +51,14 @@
      ((generic-off-key? key state)
       (zhengma-tell-vi-status #\F)
       (generic-context-set-on! pc #f)
+      (real-im-deactivate-candidate-selector pc)
       #f)
      ((generic-cancel-key? key state)
       (zhengma-tell-vi-status #\T)
       (generic-context-flush pc)
       (generic-context-set-on! pc #f)
       (generic-commit-raw pc)
+      (real-im-deactivate-candidate-selector pc)
       #f)
      (else (generic-proc-input-state-without-preedit pc key state rkc)))))
 
@@ -66,6 +73,7 @@
              (im-commit pc pending)
              (generic-context-flush pc)))
          (generic-context-set-on! pc #f)
+         (real-im-deactivate-candidate-selector pc)
          #f))
       ((and (ichar-printable? key)
             (= (ichar-downcase key) (char->integer #\;)))
@@ -131,7 +139,7 @@
            (if (not (string=? (rk-pending rkc) "")) ;; flush pending rk
              (generic-context-flush pc)))
          (generic-context-set-on! pc #f)
-         (im-deactivate-candidate-selector pc)
+         (real-im-deactivate-candidate-selector pc)
          #f))
       (else
         (generic-proc-specific-multi-cand-input-state pc key state rkc)))))
@@ -169,15 +177,18 @@
     (if (ichar-control? key)
 	(im-commit-raw pc)
 	(if (generic-context-on pc)
-	  (if (generic-context-multi-cand-input pc)
-	    (zhengma-proc-multi-cand-input-state pc key state)
-	    (zhengma-proc-input-state pc key state))
+	  (begin
+	    (im-activate-candidate-selector pc 0 generic-nr-candidate-max)
+	    (if (generic-context-multi-cand-input pc)
+	      (zhengma-proc-multi-cand-input-state pc key state)
+	      (zhengma-proc-input-state pc key state)))
           ;; test (zhengma-get-vi-op) first to always consume that op character
 	  (if (and (eq? (zhengma-get-vi-op) 'vi-op-turn-on-im)
                    (not (generic-cancel-key? key state)))
 	    (begin
 	      (generic-context-set-on! pc #t)
 	      (zhengma-proc-input-state pc key state)
+	      (im-activate-candidate-selector pc 0 generic-nr-candidate-max)
 	      (generic-update-preedit pc))
 	    (generic-proc-off-mode pc key state))))
     (generic-update-preedit pc)

@@ -28,6 +28,7 @@ replaces = {
         '\'':    u'("\'" "’")',
         'mzs':  u'("么" "私")',
         'mazy': u'("每" "缷")',
+
         }
 
 def get_traditional_chars_list():
@@ -65,7 +66,9 @@ if __name__ == '__main__':
         code, _ = line.split(None, 1)
 
         if code in replaces:
-            res.append("%s %s\n" % (code, replaces[code]))
+            new = "%s %s\n" % (code, replaces[code])
+            if not re.search(r'\(\)', new):
+                res.append(new)
             continue
 
         # 删除繁体字符和词组后，还会遗留中间没有内容的一对空引号，需要删除它们。

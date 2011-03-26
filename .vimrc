@@ -21,14 +21,16 @@ set ruler
 set wildignore=*.o
 set shellpipe=2>&1\|\ tee
 set colorcolumn=81
-hi ColorColumn ctermbg=darkgrey
+hi ColorColumn ctermbg=darkgray guibg=DarkGray
 
 runtime ftplugin/man.vim
 
 let g:c_no_comment_fold=1
 let g:is_posix=1
-let MRU_Max_Entries=30
 let g:leave_my_textwidth_alone=1
+
+let g:xml_namespace_transparent=1
+let g:xml_syntax_folding = 1
 
 set guioptions-=T
 set guifont=Liberation\ Mono\ 10
@@ -49,6 +51,7 @@ if filereadable('/tmp/uim-vi-mode')
 
 		if len(l:text) >= 1 && l:text[0] == ' T'
 			call writefile(['tT'], '/tmp/uim-vi-mode')
+			call system('fake-key')
 		endif
 	endfunction
 
@@ -62,6 +65,7 @@ map! <S-Insert> <MiddleMouse>
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
 let mapleader = ','
+let maplocalleader = ','
 nmap <silent> <leader>m		:MRU<CR>
 nmap <silent> <leader>t		:GtagsCursor<CR>
 nmap <silent> <leader>n		:cn<CR>
@@ -72,5 +76,8 @@ nmap <silent> ( :call search('\n\\|。\\|！\\|？\\|\.\s\\|!\s\\|?\s', "bw")<cr
 nmap <silent> ) :call search('\n\\|。\\|！\\|？\\|\.\s\\|!\s\\|?\s', "w")<cr>
 
 cmap %/ <C-R>=expand("%:p:h").'/'<CR>
+
+" Hightlight matched lines
+command -nargs=1 Hi :syn clear Search | syn match Search ".*<args>.*"
 
 " vim: sw=4 ts=4 fdm=marker
