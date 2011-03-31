@@ -1,0 +1,54 @@
+#!/bin/sh
+
+#
+# Volume control script using amixer and libnotify.
+# Author: Xin Wang <dram.wang@gmail.com>
+#
+
+vol_file=$HOME/.oss-volume
+
+get_vol()
+{
+	ossmix vol | awk -F' |:' '{ print $NF }'
+}
+
+set_vol()
+{
+	ossmix -- vol $1
+}
+
+case "$1" in
+	raise)
+		set_vol +3
+		rm -f $vol_file
+		;;
+	lower)
+		set_vol -3
+		rm -f $vol_file
+		;;
+	mute)
+		if [ -f $vol_file ]; then
+			if [ $(get_vol) -eq 0 ]; then
+				set_vol $(cat $vol_file)
+			fi
+
+			rm -f $vol_file
+		else
+			get_vol >$vol_file
+			set_vol 0
+		fi
+		;;
+	*)
+		echo "Usage: volume-control {raise,lower,mute}"
+		exit 1
+		;;
+esac
+
+volume=$(get_vol)
+
+if [ "$volume" -eq 0 ]
+then
+	volume=mute
+fi
+
+notify-send -t 500 -i "info" "Volume" "Current: ${volume}"
