@@ -27,11 +27,8 @@ case "$1" in
 		rm -f $vol_file
 		;;
 	mute)
-		if [ -f $vol_file ]; then
-			if [ $(get_vol) -eq 0 ]; then
-				set_vol $(cat $vol_file)
-			fi
-
+		if [ -f $vol_file ] && [ $(get_vol) -eq 0 ]; then
+			set_vol $(cat $vol_file)
 			rm -f $vol_file
 		else
 			get_vol >$vol_file
