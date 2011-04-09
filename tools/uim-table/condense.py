@@ -28,6 +28,7 @@ replaces = {
         '\'':    u'("\'" "’")',
         'mzs':  u'("么" "私")',
         'mazy': u'("每" "缷")',
+        'jivv': u'("虽")',
 
         }
 
@@ -44,7 +45,7 @@ def get_traditional_chars_list():
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print "Usage: convert.py out-file"
+        print "Usage: condense.py out-file"
         sys.exit(1)
 
     outfile = sys.argv[1]
