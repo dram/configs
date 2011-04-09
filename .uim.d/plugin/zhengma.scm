@@ -1,206 +1,206 @@
 ;;;
-;;; ZhengMa for uim with vi mode auto switching support, based on generic.scm.
+;;; ZhengMa for uim, based on generic.scm.
 ;;;
 ;;; Author: Xin Wang <dram.wang@gmail.com>
 ;;;
 ;;; Install:
-;;;   uim-module-manager --register zhengma --path /home/dram/.uim.d/plugin
+;;;   uim-module-manager --register zhengma --path $HOME/.uim.d/plugin
 ;;;
 
 (require "generic.scm")
+(require "zhengma-rule.scm")
 
-(define real-im-deactivate-candidate-selector im-deactivate-candidate-selector)
+(define zhengma-candidate-max 5)
+(define zhengma-commit-key? (make-key-predicate '(" ")))
+(define zhengma-commit-seq-key? (make-key-predicate '("return")))
+(define zhengma-commit-second-key? (make-key-predicate '(";")))
+(define zhengma-off-key? (make-key-predicate '("<Control> ")))
+(define zhengma-on-key? (make-key-predicate '("<Control> ")))
 
-(define (im-deactivate-candidate-selector pc)
-  '())
+(define zhengma-is-temporary-off #f)
+(define zhengma-temporary-off-key?
+  (make-key-predicate '("escape" "<Control>c")))
+(define zhengma-resume-key?
+  (make-key-predicate '("<Control>home" "<Control><Shift>home")))
 
-(require "fileio.scm")
+;;
+;; Activate candidate selector. In this IM, the candidate selector is always
+;; showed when IM is on.
+;;
+;; NOTE:
+;; This is an error if we activate candidate selector with zero length cands.
+;; So here we set len to at least 1 when call `im-activate-candidate-selector'.
+;; And at `zhengma-get-candidate-handler' we just return a blank string if no
+;; cands exists.
+;;
+(define zhengma-activate-candidate
+  (lambda (pc)
+    (let ((len (length (generic-context-cands pc))))
+      (im-activate-candidate-selector
+        pc
+        (if (<= len 0) 1 len)
+        zhengma-candidate-max))))
 
-(define zhengma-open-vi-mode-file
-  (lambda ()
-    (file-open "/tmp/uim-vi-mode"
-	       (file-open-flags-number '($O_RDWR $O_CREAT))
-	       (file-open-mode-number '($S_IRUSR $S_IWUSR)))))
+;;
+;; Get candidate handler used by candidate-selector. Return a blank string if
+;; index is out of bound.
+;;
+(define zhengma-get-candidate-handler
+  (lambda (pc idx accel-enum-hint)
+    (let* ((cands (generic-context-cands pc)))
+      (if (>= idx (length cands))
+        (list " " " " "")
+        (list (nth idx cands) (digit->string (+ idx 1)) "")))))
 
-(define zhengma-vi-mode-fd (zhengma-open-vi-mode-file))
+(define zhengma-context-flush!
+  (lambda (pc)
+    (generic-context-flush pc)
+    (zhengma-activate-candidate pc)))
 
-(define zhengma-get-vi-op
-  (lambda ()
-    (let ((fd zhengma-vi-mode-fd))
-      (file-position-set! fd 0 (assq-cdr '$SEEK_SET
-					 file-position-whence-alist))
-      (let ((content (file-read fd 1)))
-	(file-position-set! fd 0 (assq-cdr '$SEEK_SET
-					   file-position-whence-alist))
-	(file-write fd (list #\space))
-	(cond
-	  ((eof-object? content) 'vi-op-mode-unknown)
-	  ((char=? (car content) #\t) 'vi-op-turn-on-im)
-	  (else 'vi-op-mode-unknown))))))
-
-(define zhengma-tell-vi-status
-  (lambda (stat)
-    (let ((fd zhengma-vi-mode-fd))
-      (file-position-set! fd 1 (assq-cdr '$SEEK_SET
-					 file-position-whence-alist))
-      (file-write fd (list stat)))))
-
-(define zhengma-proc-input-state-without-preedit
-  (lambda (pc key state rkc)
+(define zhengma-proc-off-mode
+  (lambda (pc key state)
     (cond
-     ((generic-off-key? key state)
-      (zhengma-tell-vi-status #\F)
-      (generic-context-set-on! pc #f)
-      (real-im-deactivate-candidate-selector pc)
-      #f)
-     ((generic-cancel-key? key state)
-      (zhengma-tell-vi-status #\T)
-      (generic-context-flush pc)
-      (generic-context-set-on! pc #f)
-      (generic-commit-raw pc)
-      (real-im-deactivate-candidate-selector pc)
-      #f)
-     (else (generic-proc-input-state-without-preedit pc key state rkc)))))
+      ((zhengma-on-key? key state)
+       (generic-context-set-on! pc #t)
+       (zhengma-activate-candidate pc))
+      ((zhengma-resume-key? key state)
+       (if zhengma-is-temporary-off
+         (begin
+           (generic-context-set-on! pc #t)
+           (zhengma-activate-candidate pc))))
+      (else (generic-commit-raw pc)))))
 
-(define zhengma-proc-input-state-with-preedit
-  (lambda (pc key state rkc)
+(define zhengma-update-cands!
+  (lambda (pc)
+    (let* ((rkc (generic-context-rk-context pc))
+           (cs (rk-current-seq rkc))
+           (cands (if cs (cadr cs) '())))
+      (generic-context-set-cands! pc cands)
+      (zhengma-activate-candidate pc))))
+
+;;
+;; Process key shortcuts in input state. Return #t if key is processed.
+;;
+(define zhengma-proc-input-state-key-shortcuts
+  (lambda (pc key state)
     (cond
-      ((generic-off-key? key state)
-       (zhengma-tell-vi-status #\F)
-       (let ((pending (rk-pending rkc)))
-         (if (not (string=? pending ""))
-           (begin
-             (im-commit pc pending)
-             (generic-context-flush pc)))
-         (generic-context-set-on! pc #f)
-         (real-im-deactivate-candidate-selector pc)
-         #f))
-      ((and (ichar-printable? key)
-            (= (ichar-downcase key) (char->integer #\;)))
+      ((zhengma-off-key? key state)
+       (set! zhengma-is-temporary-off #f)
+       (zhengma-context-flush! pc)
+       (generic-context-set-on! pc #f)
+       (im-deactivate-candidate-selector pc)
+       #t)
+      ((zhengma-temporary-off-key? key state)
+       (set! zhengma-is-temporary-off #t)
+       (zhengma-context-flush! pc)
+       (generic-context-set-on! pc #f)
+       (im-deactivate-candidate-selector pc)
+       (im-commit-raw pc)
+       #t)
+      ((generic-backspace-key? key state)
+       (if (rk-backspace (generic-context-rk-context pc))
+         (zhengma-update-cands! pc)
+         (im-commit-raw pc))
+       #t)
+      ((zhengma-commit-key? key state)
+       (let ((cands (generic-context-cands pc))
+             (seq (rk-context-seq (generic-context-rk-context pc))))
+         (if (not (null? seq))
+           (if (not (null? cands))
+             (begin
+               (im-commit pc (nth 0 cands))
+               (zhengma-context-flush! pc)))
+           (im-commit-raw pc)))
+       #t)
+      ((zhengma-commit-seq-key? key state)
+       (let ((seq (rk-context-seq (generic-context-rk-context pc))))
+         (if (not (null? seq))
+           (im-commit pc (string-list-concat seq))
+           (im-commit-raw pc))
+         (zhengma-context-flush! pc))
+       #t)
+      ((zhengma-commit-second-key? key state)
        (let ((cands (generic-context-cands pc)))
          (if (>= (length cands) 2)
            (begin
-             (if (pair? (car cands))
-               (im-commit pc (car (cadr cands)))
-               (im-commit pc (cadr cands)))
-             (im-deactivate-candidate-selector pc)
-             (generic-context-flush pc)
-             (generic-context-set-multi-cand-input! pc #f))))
-       #f)
-      (else (generic-proc-input-state-with-preedit pc key state rkc)))))
+             (im-commit pc (cadr cands))
+             (zhengma-context-flush! pc))))
+       #t)
+      ((ichar-numeric? key)
+       (let ((cands (generic-context-cands pc))
+             (n (numeric-ichar->integer key)))
+         (if (and (>= n 1)
+                  (<= n (length cands)))
+           (begin
+             (im-commit pc (nth (- n 1) cands))
+             (zhengma-context-flush! pc))
+           (im-commit-raw pc)))
+       #t)
+      ((symbol? key)
+       (im-commit-raw pc)
+       #t)
+      ((and (modifier-key-mask state)
+            (not (shift-key-mask state)))
+       (im-commit-raw pc)
+       #t)
+      (else #f))))
 
+(define zhengma-append-seq!
+  (lambda (pc key)
+    (let* ((rkc (generic-context-rk-context pc))
+           (seq (rk-context-seq rkc)))
+      (rk-context-set-seq! rkc (cons (charcode->string key) seq)))))
+
+(define zhengma-proc-input-state-normal-keys
+  (lambda (pc key state)
+    (let ((rkc (generic-context-rk-context pc)))
+      (zhengma-append-seq! pc key)
+
+      (zhengma-update-cands! pc)
+
+      (if (and (= (length (rk-context-seq rkc)) 4)
+               (= (length (generic-context-cands pc)) 1))
+        (begin
+          (im-commit pc (nth 0 (generic-context-cands pc)))
+          (zhengma-context-flush! pc))))))
+
+;;
+;; Process keys in input state.
+;;
 (define zhengma-proc-input-state
   (lambda (pc key state)
-    (let* ((rkc (generic-context-rk-context pc))
-    	   (seq (rk-context-seq rkc))
-	   (res #f))
-      (and
-       (if (string=? (rk-pending rkc) "")
-	   (zhengma-proc-input-state-without-preedit pc key state rkc)
-	   (zhengma-proc-input-state-with-preedit pc key state rkc))
-       (begin
-	 (set! res
-	       (rk-push-key!
-		rkc
-		(charcode->string key)))
-         (if res
-	     (begin
-               (if (= (length seq) 4)
-                 (im-commit pc (nth (generic-context-rk-nth pc) res))
-                 (im-commit pc (string-list-concat seq)))
-	       (generic-context-set-rk-nth! pc 0)
-	       (generic-context-set-candidate-op-count! pc 0)
-	       (generic-context-set-cands! pc '())
-	       (im-deactivate-candidate-selector pc)))
-         (let ((cs (rk-current-seq rkc)))
-           ;; single candidate
-           (if (and (not (= (length (rk-context-seq rkc)) 4))
-                    (not (rk-partial? rkc))
-                    cs
-                    (null? (cdr (cadr cs))))
-             (generic-context-set-cands! pc (cadr cs))
-             (generic-update-input-state-cands pc key state rkc seq res))))))))
+    (if (not (zhengma-proc-input-state-key-shortcuts pc key state))
+      (zhengma-proc-input-state-normal-keys pc key state))))
 
-(define zhengma-proc-specific-multi-cand-input-state
-  (lambda (pc key state rkc)
-    (cond
-      ((generic-off-key? key state)
-       (zhengma-tell-vi-status #\F)
-       (let ((cands (generic-context-cands pc))
-             (n (generic-context-rk-nth pc)))
-         (if (and
-               (not (null? cands))
-               (> n -1))
-           (begin
-             (if (pair? (car cands))
-               (im-commit pc (car (nth n cands)))
-               (im-commit pc (nth n cands)))
-             (generic-context-flush pc))
-           (if (not (string=? (rk-pending rkc) "")) ;; flush pending rk
-             (generic-context-flush pc)))
-         (generic-context-set-on! pc #f)
-         (real-im-deactivate-candidate-selector pc)
-         #f))
-      (else
-        (generic-proc-specific-multi-cand-input-state pc key state rkc)))))
-
-(define zhengma-proc-multi-cand-input-state
-  (lambda (pc key state)
-    (let* ((rkc (generic-context-rk-context pc))
-           (seq (rk-context-seq rkc))
-           (cands (generic-context-cands pc))
-           (res #f))
-      (and
-       (zhengma-proc-specific-multi-cand-input-state pc key state rkc)
-       (begin
-	 (set! res
-	       (rk-push-key!
-		rkc
-		(charcode->string key)))
-         (if res
-	     ;; commit matched word and continue new rk
-	     (begin
-               (if (< (generic-context-rk-nth pc) (length res))
-                 (im-commit pc (nth (generic-context-rk-nth pc) res))
-	         ;(im-commit pc (car (nth (generic-context-rk-nth pc) cands)))
-	         ;(im-commit pc (nth 0 res))
-                 ) ;; XXX: what is the expected behavior here?
-	       (generic-context-set-rk-nth! pc 0)
-	       (generic-context-set-candidate-op-count! pc 0)
-	       (im-deactivate-candidate-selector pc)
-               (generic-context-set-multi-cand-input! pc #f)
-               (generic-update-input-state-cands pc key state rkc seq res))
-             (generic-update-multi-cand-state-cands pc key state rkc)))))))
+;;
+;; Show first candidate or full key sequence.
+;; 
+(define zhengma-update-preedit
+  (lambda (pc)
+    (let ((rkc (generic-context-rk-context pc))
+          (cands (generic-context-cands pc))
+          (n (generic-context-rk-nth pc)))
+      (im-clear-preedit pc)
+      (im-pushback-preedit
+        pc preedit-reverse
+        (if (not (null? cands))
+          (car cands)
+          (rk-pending rkc)))
+      (im-update-preedit pc))))
 
 (define zhengma-key-press-handler
   (lambda (pc key state)
     (if (ichar-control? key)
-	(im-commit-raw pc)
-	(if (generic-context-on pc)
-	  (begin
-	    (im-activate-candidate-selector pc 0 generic-nr-candidate-max)
-	    (if (generic-context-multi-cand-input pc)
-	      (zhengma-proc-multi-cand-input-state pc key state)
-	      (zhengma-proc-input-state pc key state)))
-          ;; test (zhengma-get-vi-op) first to always consume that op character
-	  (if (and (eq? (zhengma-get-vi-op) 'vi-op-turn-on-im)
-                   (not (generic-cancel-key? key state)))
-	    (begin
-	      (generic-context-set-on! pc #t)
-	      (zhengma-proc-input-state pc key state)
-	      (im-activate-candidate-selector pc 0 generic-nr-candidate-max)
-	      (generic-update-preedit pc))
-	    (generic-proc-off-mode pc key state))))
-    (generic-update-preedit pc)
+      (im-commit-raw pc)
+      (if (generic-context-on pc)
+        (zhengma-proc-input-state pc key state)
+        (zhengma-proc-off-mode pc key state)))
+    (zhengma-update-preedit pc)
     ()))
 
 (define zhengma-init-handler
   (lambda (id im arg)
-    (generic-context-new id im "zhengma.table" #f)))
-
-(define generic-init-handler
-  (lambda (id im init-handler)
-    (init-handler id im #f)))
+    (generic-context-new id im zhengma-rule #f)))
 
 (register-im
   'zhengma
@@ -216,7 +216,7 @@
   zhengma-key-press-handler
   generic-key-release-handler
   generic-reset-handler
-  generic-get-candidate-handler
+  zhengma-get-candidate-handler
   generic-set-candidate-index-handler
   context-prop-activate-handler
   #f
