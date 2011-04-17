@@ -8,6 +8,7 @@
 
 import os
 import sys
+import time
 import logging
 import optparse
 import subprocess
@@ -98,7 +99,7 @@ def tiling(dpy, root):
             wins['editor'] = win
         elif cls == ('sakura', 'Sakura'):
             wins['terminal'] = win
-        elif cls == ('midori', 'Midori'):
+        elif cls == ("Navigator", "Firefox"):
             wins['browser'] = win
 
     if not is_tiling:
@@ -208,6 +209,8 @@ def main_loop():
     while True:
         line = fp.readline()
 
+        logger().info("cmd: %s", line.strip())
+
         try:
             cmd, args = line.strip().split(' ', 1)
         except ValueError:
@@ -230,6 +233,8 @@ def main_loop():
             center_window(dpy, root)
         elif cmd == 'ALL':
             tiling(dpy, root)
+        else:
+            time.sleep(1)
 
     dpy.close()
 
@@ -297,6 +302,8 @@ def kill_daemon():
     try:
         pid = int(open(PID_FILE).read())
     except:
+        if os.path.exists(PID_FILE):
+            os.remove(PID_FILE)
         return
 
     try:
@@ -322,13 +329,6 @@ def main():
 
     (options, args) = parser.parse_args()
 
-    logger().setLevel(logging.DEBUG)
-    handle = logging.handlers.RotatingFileHandler(
-            LOG_FILE, maxBytes=10*1024*1024, backupCount=3)
-    handle.setFormatter(logging.Formatter(
-        "%(asctime)s %(levelname)s %(message)s", "%m-%d %H:%M:%S"))
-    logger().addHandler(handle)
-
     if options.kill:
         kill_daemon()
         sys.exit(0)
@@ -338,11 +338,21 @@ def main():
     elif options.restart_daemon:
         restart_daemon()
 
-    main_loop()
+    logger().setLevel(logging.DEBUG)
+    handle = logging.handlers.RotatingFileHandler(
+            LOG_FILE, maxBytes=10*1024*1024, backupCount=3)
+    handle.setFormatter(logging.Formatter(
+        "%(asctime)s %(levelname)s %(message)s", "%m-%d %H:%M:%S"))
+    logger().addHandler(handle)
+
+    logger().info("wm-assist.py started")
+
+    while True:
+        try:
+            main_loop()
+        except Exception:
+            logger().exception("Crash from main_loop()")
+            continue
 
 if __name__ == "__main__":
     main()
-    try:
-        main()
-    except Exception:
-        logger().exception("Crash from main()")
