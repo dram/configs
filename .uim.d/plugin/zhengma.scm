@@ -13,6 +13,7 @@
 (define zhengma-candidate-max 5)
 (define zhengma-commit-key? (make-key-predicate '(" ")))
 (define zhengma-commit-seq-key? (make-key-predicate '("return")))
+(define zhengma-commit-seq-and-off-key? (make-key-predicate '("<Shift>return")))
 (define zhengma-commit-second-key? (make-key-predicate '(";")))
 (define zhengma-off-key? (make-key-predicate '("<Control> ")))
 (define zhengma-on-key? (make-key-predicate '("<Control> ")))
@@ -21,7 +22,7 @@
 (define zhengma-temporary-off-key?
   (make-key-predicate '("escape" "<Control>c")))
 (define zhengma-resume-key?
-  (make-key-predicate '("<Control>home" "<Control><Shift>home")))
+  (make-key-predicate '("<Control>scroll-lock" "<Control><Shift>scroll-lock")))
 
 ;;
 ;; Activate candidate selector. In this IM, the candidate selector is always
@@ -78,6 +79,12 @@
       (generic-context-set-cands! pc cands)
       (zhengma-activate-candidate pc))))
 
+(define zhengma-turn-off
+  (lambda (pc)
+    (zhengma-context-flush! pc)
+    (generic-context-set-on! pc #f)
+    (im-deactivate-candidate-selector pc)))
+
 ;;
 ;; Process key shortcuts in input state. Return #t if key is processed.
 ;;
@@ -86,15 +93,11 @@
     (cond
       ((zhengma-off-key? key state)
        (set! zhengma-is-temporary-off #f)
-       (zhengma-context-flush! pc)
-       (generic-context-set-on! pc #f)
-       (im-deactivate-candidate-selector pc)
+       (zhengma-turn-off pc)
        #t)
       ((zhengma-temporary-off-key? key state)
        (set! zhengma-is-temporary-off #t)
-       (zhengma-context-flush! pc)
-       (generic-context-set-on! pc #f)
-       (im-deactivate-candidate-selector pc)
+       (zhengma-turn-off pc)
        (im-commit-raw pc)
        #t)
       ((generic-backspace-key? key state)
@@ -118,6 +121,14 @@
            (im-commit pc (string-list-concat seq))
            (im-commit-raw pc))
          (zhengma-context-flush! pc))
+       #t)
+      ((zhengma-commit-seq-and-off-key? key state)
+       (let ((seq (rk-context-seq (generic-context-rk-context pc))))
+         (if (not (null? seq))
+           (im-commit pc (string-list-concat seq))
+           (im-commit-raw pc))
+         (zhengma-context-flush! pc)
+         (zhengma-turn-off pc))
        #t)
       ((zhengma-commit-second-key? key state)
        (let ((cands (generic-context-cands pc)))
