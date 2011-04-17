@@ -23,8 +23,8 @@ border_color = #FFFFFF 68
 
 # Panel
 panel_monitor = all
-panel_position = top center horizontal
-panel_size = 80% 30
+panel_position = center left vertical
+panel_size = 60% 36
 panel_margin = 0 0
 panel_padding = 7 0 7
 panel_dock = 0
@@ -47,10 +47,10 @@ taskbar_active_background_id = 0
 
 # Tasks
 urgent_nb_of_blink = 8
-task_icon = 0
-task_text = 1
+task_icon = 1
+task_text = 0
 task_centered = 1
-task_maximum_size = 140 35
+task_maximum_size = 140 30
 task_padding = 6 2
 task_background_id = 3
 task_active_background_id = 2
@@ -73,19 +73,19 @@ font_shadow = 0
 
 # System Tray
 systray = 1
-systray_padding = 0 4 5
+systray_padding = 0 4 0
 systray_sort = ascending
 systray_background_id = 0
-systray_icon_size = 16
+systray_icon_size = 30
 systray_icon_asb = 70 0 0
 
 # Clock
 time1_format = %H:%M
-time1_font = sans 8
-time2_format = %A %d %B
-time2_font = sans 6
+time1_font = sans 9
+time2_format = %m/%d
+time2_font = sans 7
 clock_font_color = #FFFFFF 74
-clock_padding = 1 0
+clock_padding = 1 1
 clock_background_id = 0
 clock_rclick_command = orage
 
