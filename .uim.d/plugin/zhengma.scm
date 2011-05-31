@@ -135,8 +135,9 @@
          (if (>= (length cands) 2)
            (begin
              (im-commit pc (cadr cands))
-             (zhengma-context-flush! pc))))
-       #t)
+             (zhengma-context-flush! pc)
+             #t)
+           #f)))
       ((ichar-numeric? key)
        (let ((cands (generic-context-cands pc))
              (n (numeric-ichar->integer key)))
