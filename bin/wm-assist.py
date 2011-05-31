@@ -97,7 +97,7 @@ def tiling(dpy, root):
         cls = win.get_wm_class()
         if cls == ('gvim', 'Gvim'):
             wins['editor'] = win
-        elif cls == ('sakura', 'Sakura'):
+        elif cls == ('evilvte', 'Evilvte'):
             wins['terminal'] = win
         elif cls == ("Navigator", "Firefox"):
             wins['browser'] = win
