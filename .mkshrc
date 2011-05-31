@@ -2,7 +2,7 @@
 
 # .mkshrc
 
-export LANG=en_US.UTF-8
+export LANG=en_US.utf8
 
 export PATH=$HOME/bin:/sbin:/usr/sbin:$PATH
 export MANPATH=$MANPATH:/usr/local/share/man
@@ -12,18 +12,23 @@ umask 027
 case "$-" in *i*)
 	# interative mode settings
 
+	# switch console to utf8 mode
+	echo -ne '\033%G'
+
 	HISTFILE=$HOME/.mksh_history
 
 	export EDITOR=vi
 	export LESS_TERMCAP_md='[36m'
+	export LESSCHARSET=utf-8
 	export PAGER='less -M +p'
 
 	_esc=$(print -n '\033')
 	_bel=$(print -n '\007')
-	PS1='${_esc}]0;gentoo${_bel} ${_esc}[32m${PWD/#$HOME/~}${_esc}[31m${?/#0/}${_esc}[0m
+	PS1='${_esc}]0;crux${_bel} ${_esc}[32m${PWD/#$HOME/~}${_esc}[31m${?/#0/}${_esc}[0m
 $ '
 
 	alias ls='ls --color'
+	alias t='tmux attach || tmux'
 
 	;;
 esac
