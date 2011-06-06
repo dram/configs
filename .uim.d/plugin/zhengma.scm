@@ -18,6 +18,21 @@
 (define zhengma-off-key? (make-key-predicate '("<Control> ")))
 (define zhengma-on-key? (make-key-predicate '("<Control> ")))
 
+(define zhengma-full-shape #t)
+(define zhengma-punctuations?
+  (make-key-predicate
+    '("," "<Shift><" "<Shift>>" "." ";" "<Shift>:" "'" "<Shift>\""
+      "`" "<Shift>~"
+      
+      "<Shift>!" "<Shift>@" "<Shift>#" "<Shift>$" "<Shift>%" "<Shift>^" "<Shift>&" "<Shift>*" "<Shift>(" "<Shift>)"
+
+      "-" "<Shift>_" "=" "<Shift>+"
+
+      "[" "]" "\\" "<Shift>{" "<Shift>}" "<Shift>|"
+      "/" "<Shift>?")))
+
+(define zhengma-shape-switch-key? (make-key-predicate '("<Control>.")))
+
 (define zhengma-is-temporary-off #f)
 (define zhengma-temporary-off-key?
   (make-key-predicate '("escape" "<Control>c")))
@@ -130,6 +145,10 @@
          (zhengma-context-flush! pc)
          (zhengma-turn-off pc))
        #t)
+      ((and (not zhengma-full-shape)
+            (zhengma-punctuations? key state))
+       (im-commit-raw pc)
+       #t)
       ((zhengma-commit-second-key? key state)
        (let ((cands (generic-context-cands pc)))
          (if (>= (length cands) 2)
@@ -138,6 +157,9 @@
              (zhengma-context-flush! pc)
              #t)
            #f)))
+      ((zhengma-shape-switch-key? key state)
+       (set! zhengma-full-shape (not zhengma-full-shape))
+       #t)
       ((ichar-numeric? key)
        (let ((cands (generic-context-cands pc))
              (n (numeric-ichar->integer key)))
