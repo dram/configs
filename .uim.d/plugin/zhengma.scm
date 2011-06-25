@@ -192,8 +192,12 @@
 
       (zhengma-update-cands! pc)
 
-      (if (and (= (length (rk-context-seq rkc)) 4)
-               (= (length (generic-context-cands pc)) 1))
+      (if (or
+            (and (zhengma-punctuations? key state)
+                 (= (length (rk-context-seq rkc)) 1)
+                 (= (length (generic-context-cands pc)) 1))
+            (and (= (length (rk-context-seq rkc)) 4)
+                 (= (length (generic-context-cands pc)) 1)))
         (begin
           (im-commit pc (nth 0 (generic-context-cands pc)))
           (zhengma-context-flush! pc))))))
