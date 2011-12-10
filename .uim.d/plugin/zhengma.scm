@@ -101,7 +101,11 @@
        #t)
       ((generic-backspace-key? key state)
        (if (rk-backspace (generic-context-rk-context pc))
-         (zhengma-update-cands! pc)
+	   (begin
+	     (zhengma-update-cands! pc)
+	     (if (= (length (rk-context-seq (generic-context-rk-context pc)))
+		    0)
+		 (im-deactivate-candidate-selector pc)))
          (im-commit-raw pc))
        #t)
       ((zhengma-commit-key? key state)
