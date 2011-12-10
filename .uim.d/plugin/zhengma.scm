@@ -52,10 +52,8 @@
 (define zhengma-activate-candidate
   (lambda (pc)
     (let ((len (length (generic-context-cands pc))))
-      (im-activate-candidate-selector
-        pc
-        (if (<= len 0) 1 len)
-        zhengma-candidate-max))))
+      (if (> len 0)
+	  (im-activate-candidate-selector pc len zhengma-candidate-max)))))
 
 ;;
 ;; Get candidate handler used by candidate-selector. Return a blank string if
@@ -71,7 +69,7 @@
 (define zhengma-context-flush!
   (lambda (pc)
     (generic-context-flush pc)
-    (zhengma-activate-candidate pc)))
+    (im-deactivate-candidate-selector pc)))
 
 (define zhengma-proc-off-mode
   (lambda (pc key state)
@@ -89,8 +87,10 @@
 (define zhengma-update-cands!
   (lambda (pc)
     (let* ((rkc (generic-context-rk-context pc))
-           (cs (rk-current-seq rkc))
-           (cands (if cs (cadr cs) '())))
+	   (cs (rk-current-seq rkc))
+	   (cands (if (rk-partial? rkc)
+		      (map caar (rk-cands-with-minimal-partial rkc))
+		      (if cs (cadr cs) '()))))
       (generic-context-set-cands! pc cands)
       (zhengma-activate-candidate pc))))
 
