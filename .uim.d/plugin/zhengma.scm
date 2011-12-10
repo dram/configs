@@ -40,22 +40,6 @@
   (make-key-predicate '("<Control>scroll-lock" "<Control><Shift>scroll-lock")))
 
 ;;
-;; Activate candidate selector. In this IM, the candidate selector is always
-;; showed when IM is on.
-;;
-;; NOTE:
-;; This is an error if we activate candidate selector with zero length cands.
-;; So here we set len to at least 1 when call `im-activate-candidate-selector'.
-;; And at `zhengma-get-candidate-handler' we just return a blank string if no
-;; cands exists.
-;;
-(define zhengma-activate-candidate
-  (lambda (pc)
-    (let ((len (length (generic-context-cands pc))))
-      (if (> len 0)
-	  (im-activate-candidate-selector pc len zhengma-candidate-max)))))
-
-;;
 ;; Get candidate handler used by candidate-selector. Return a blank string if
 ;; index is out of bound.
 ;;
@@ -75,13 +59,11 @@
   (lambda (pc key state)
     (cond
       ((zhengma-on-key? key state)
-       (generic-context-set-on! pc #t)
-       (zhengma-activate-candidate pc))
+       (generic-context-set-on! pc #t))
       ((zhengma-resume-key? key state)
        (if zhengma-is-temporary-off
          (begin
-           (generic-context-set-on! pc #t)
-           (zhengma-activate-candidate pc))))
+           (generic-context-set-on! pc #t))))
       (else (generic-commit-raw pc)))))
 
 (define zhengma-update-cands!
@@ -90,9 +72,11 @@
 	   (cs (rk-current-seq rkc))
 	   (cands (if (rk-partial? rkc)
 		      (map caar (rk-cands-with-minimal-partial rkc))
-		      (if cs (cadr cs) '()))))
+		      (if cs (cadr cs) '())))
+	   (len (length cands)))
       (generic-context-set-cands! pc cands)
-      (zhengma-activate-candidate pc))))
+      (if (> len 0)
+	  (im-activate-candidate-selector pc len zhengma-candidate-max)))))
 
 (define zhengma-turn-off
   (lambda (pc)
