@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo -ne '\033%G'
+
+vim-mpg123.py -d
+
+wm-assist.py -D >>$HOME/.wm-assist.log 2>&1
+
+xchainkeys -d >$HOME/.xchainkeys.log 2>&1 &
+
+( source $HOME/.fehbg )
+
+tint2 &
+
+xinput set-int-prop "ImExPS/2 Generic Explorer Mouse" "Evdev Middle Button Emulation" 8 1
