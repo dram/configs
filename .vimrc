@@ -59,7 +59,7 @@ nmap <silent> <leader>m		:MRU<CR>
 nmap <silent> <leader>t		:GtagsCursor<CR>
 nmap <silent> <leader>n		:cn<CR>
 nmap <silent> <leader>p		:cp<CR>
-nmap <silent> <leader>x		:call GSTToggle()<cr>
+nmap <silent> <leader>x		:call MPG123Toggle()<cr>
 
 nmap <silent> ( :call search('\n\\|。\\|！\\|？\\|\.\s\\|!\s\\|?\s', "bw")<cr>
 nmap <silent> ) :call search('\n\\|。\\|！\\|？\\|\.\s\\|!\s\\|?\s', "w")<cr>
