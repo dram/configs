@@ -45,18 +45,7 @@ autocmd BufNewFile,BufRead *.{md,mkd} set filetype=markdown
 au BufNewFile,BufRead *.fr :setf forth
 au BufWritePost .c,*.h silent! !ctags -R &
 
-if filereadable('/tmp/uim-vi-mode')
-	function TurnOnUIMIfNecessary()
-		let l:text = readfile('/tmp/uim-vi-mode', 'b')
-
-		if len(l:text) >= 1 && l:text[0] == ' T'
-			call writefile(['tT'], '/tmp/uim-vi-mode')
-			call system('fake-key')
-		endif
-	endfunction
-
-	au! InsertEnter * call TurnOnUIMIfNecessary()
-endif
+au! InsertEnter * call system('fake-key 37 78')
 
 map! <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
