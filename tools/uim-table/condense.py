@@ -75,9 +75,6 @@ if __name__ == '__main__':
         # 删除繁体字符和词组后，还会遗留中间没有内容的一对空引号，需要删除它们。
         line = re.sub(r'\s*""', '', line)
 
-        # 删除词组
-        line = re.sub(r'\s*"[^\s]{2,}?"', '', line)
-
         # 清理空格
         line = re.sub(r'\(\s', '(', line)
 
