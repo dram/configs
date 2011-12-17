@@ -21,7 +21,6 @@ import Xlib.protocol.event
 
 PIPE_FILE = "/tmp/wm-assist.pipe"
 PID_FILE = "/tmp/wm-assist.pid"
-LOG_FILE = "/home/dram/.wm-assist.log"
 
 _NET_WM_STATE_REMOVE = 0
 _NET_WM_STATE_ADD = 1
@@ -30,6 +29,12 @@ _NET_WM_STATE_TOGGLE = 2
 is_tiling = False
 orig_geom = None
 
+def setup_logging():
+    log = logging.getLogger('')
+    log.setLevel(logging.DEBUG)
+    handle = logging.handlers.SysLogHandler(address='/dev/log')
+    handle.setFormatter(logging.Formatter("%(levelname)s %(message)s"))
+    log.addHandler(handle)
 
 def get_active_window(dpy, root):
     ids = root.get_full_property(
@@ -209,7 +214,7 @@ def main_loop():
     while True:
         line = fp.readline()
 
-        logger().info("cmd: %s", line.strip())
+        logging.info("cmd: %s", line.strip())
 
         try:
             cmd, args = line.strip().split(' ', 1)
@@ -237,9 +242,6 @@ def main_loop():
             time.sleep(1)
 
     dpy.close()
-
-def logger():
-    return logging.getLogger("WMAssist")
 
 def daemon():
     import os
@@ -338,20 +340,14 @@ def main():
     elif options.restart_daemon:
         restart_daemon()
 
-    logger().setLevel(logging.DEBUG)
-    handle = logging.handlers.RotatingFileHandler(
-            LOG_FILE, maxBytes=10*1024*1024, backupCount=3)
-    handle.setFormatter(logging.Formatter(
-        "%(asctime)s %(levelname)s %(message)s", "%m-%d %H:%M:%S"))
-    logger().addHandler(handle)
-
-    logger().info("wm-assist.py started")
+    setup_logging()
+    logging.info("wm-assist.py started")
 
     while True:
         try:
             main_loop()
         except Exception:
-            logger().exception("Crash from main_loop()")
+            logging.exception("Crash from main_loop()")
             continue
 
 if __name__ == "__main__":
