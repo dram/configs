@@ -14,7 +14,7 @@
 (define enable-im-switch? #f)
 
 ;; disable candidate window
-(define generic-nr-candidate-max 3)
+(define generic-nr-candidate-max 8)
 
 ;; disable pref and switcher button in toolbar
 (define toolbar-show-pref-button? #f)
