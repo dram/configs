@@ -271,6 +271,8 @@
 
 ;; nxml
 
+(setq nxml-slash-auto-complete-flag t)
+
 (defun surround-region-with-tag (tag-name beg end)
   (interactive "sTag name: \nr")
   (save-excursion
@@ -279,13 +281,22 @@
     (goto-char (+ end 2 (length tag-name)))
     (insert "</" tag-name ">")))
 
+(defun nxml-insert-tag-with-cursor-word ()
+  (interactive)
+  (backward-kill-word 1)
+  (let ((tag-name (current-kill 0)))
+    (insert "<" tag-name ">" "</" tag-name ">")
+    (left-char (+ 3 (length tag-name)))))
+
 (add-hook 'nxml-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "\C-c\C-r") 'surround-region-with-tag)
 	    (define-key evil-normal-state-local-map "zo" 'nxml-show-direct-text-content)
 	    (define-key evil-normal-state-local-map "zc" 'nxml-hide-direct-text-content)
 	    (define-key evil-normal-state-local-map "zm" 'nxml-hide-all-text-content)
-	    (define-key evil-normal-state-local-map "zr" 'nxml-show-all)))
+	    (define-key evil-normal-state-local-map "zr" 'nxml-show-all)
+
+	    (define-key evil-insert-state-local-map ";;" 'nxml-insert-tag-with-cursor-word)))
 
 
 ;; input method
