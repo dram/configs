@@ -37,6 +37,11 @@
   (insert quail-current-key)
   (quail-abort-translation))
 
+(defun quail-insert-key-and-quit ()
+  (interactive)
+  (quail-insert-key)
+  (toggle-input-method))
+
 (defun quail-insert-period ()
   (interactive)
   (let ((prev (preceding-char)))
@@ -63,7 +68,8 @@
 		("." . quail-insert-period)
 		("\"" . quail-insert-double-quote)
 		("'" . quail-insert-single-quote)
-		(,(kbd "RET") . quail-insert-key))
+		(,(kbd "RET") . quail-insert-key)
+		(,(kbd "S-<return>") . quail-insert-key-and-quit))
  t
  )
 
