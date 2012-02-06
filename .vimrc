@@ -20,8 +20,6 @@ set nonumber
 set ruler
 set wildignore=*.o
 set shellpipe=2>&1\|\ tee
-set colorcolumn=81
-hi ColorColumn ctermbg=darkgray guibg=DarkGray
 
 runtime ftplugin/man.vim
 
