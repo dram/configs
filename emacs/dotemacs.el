@@ -27,7 +27,7 @@
       kept-old-versions 2
       version-control t)
 
-(setq scroll-step 1)
+(setq scroll-conservatively 100)
 
 (require 'linum)
 
