@@ -1,14 +1,15 @@
 #!/bin/sh
 #| -*- mode: lisp -*-
-export LD_LIBRARY_PATH=$HOME/lib/
 tmux new-session -d -s volume-control || exit 1
-tmux send-keys -t volume-control "ccl -l $0" C-m
+tmux send-keys -t volume-control "LD_LIBRARY_PATH=$HOME/lib/ ccl -l $0" C-m
 exit
 |#
 
-(open-shared-library "libasound.so")
-
-(open-shared-library "libalsavolume.so")
+#-alsa-mixer
+(progn
+  (pushnew :alsa-mixer *features*)
+  (open-shared-library "libasound.so")
+  (open-shared-library "libalsavolume.so"))
 
 (defun get-control-volume (control)
   (with-cstrs ((selem control))
