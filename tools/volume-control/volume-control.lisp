@@ -1,7 +1,7 @@
 #!/bin/sh
 #| -*- mode: lisp -*-
 tmux new-session -d -s volume-control || exit 1
-tmux send-keys -t volume-control "LD_LIBRARY_PATH=$HOME/lib/ ccl -l $0" C-m
+tmux send-keys -t volume-control "ccl -l $0" C-m
 exit
 |#
 
