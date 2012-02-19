@@ -8,6 +8,12 @@ xchainkeys -d >$HOME/.xchainkeys.log 2>&1 &
 
 ( source $HOME/.fehbg )
 
+xbindkeys
+
 tint2 &
 
-xinput set-int-prop "ImExPS/2 Generic Explorer Mouse" "Evdev Middle Button Emulation" 8 1
+yong &
+
+tomighty &
+
+volume-control.lisp

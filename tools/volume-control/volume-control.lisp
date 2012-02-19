@@ -1,8 +1,6 @@
 #!/bin/sh
 #| -*- mode: lisp -*-
-tmux new-session -d -s volume-control || exit 1
-tmux send-keys -t volume-control "ccl -l $0" C-m
-exit
+exec tmux new-session -d -s volume-control "ccl -l $0"
 |#
 
 #-alsa-mixer

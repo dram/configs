@@ -33,7 +33,7 @@ panel_layer = top
 panel_background_id = 1
 
 # Panel Autohide
-autohide = 0
+autohide = 1
 autohide_show_timeout = 0.3
 autohide_hide_timeout = 2
 autohide_height = 2

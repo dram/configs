@@ -1,7 +1,8 @@
 #!/bin/sh
 
-export GTK_IM_MODULE=uim
-export XMODIFIERS=@im=uim
-export QT_IM_MODULE=uim
+export XMODIFIERS=@im=yong
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
 
 openbox-session
+#sugar-session

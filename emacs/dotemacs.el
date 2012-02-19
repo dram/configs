@@ -52,6 +52,8 @@
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+(setq recenter-positions '(top middle bottom))
+
 (setq ring-bell-function 'ignore)
 
 ;; appearance
@@ -313,13 +315,15 @@
 
 ;; slime
 
-(setq inferior-lisp-program "sbcl")
+(setq inferior-lisp-program "ccl")
 (add-to-list 'load-path "~/emacs/slime")
 (require 'slime)
 (slime-setup '(slime-fancy))
 (setq slime-net-coding-system 'utf-8-unix)
+(setq common-lisp-hyperspec-root "/usr/share/doc/HyperSpec/")
 
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
+(add-hook 'lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
 (add-hook 'slime-mode-hook
 	  (lambda ()

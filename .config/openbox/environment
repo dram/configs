@@ -1,9 +1,5 @@
 #!/bin/sh
 
-LANG=en_US.utf8
-
-PATH=$HOME/bin:/sbin:/usr/sbin:$PATH
-
-GTK_IM_MODULE=uim
-XMODIFIERS=@im=uim
-QT_IM_MODULE=uim
+XMODIFIERS=@im=yong
+GTK_IM_MODULE=xim
+QT_IM_MODULE=xim
