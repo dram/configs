@@ -1,5 +1,6 @@
 #!/bin/sh
 #| -*- mode: lisp -*-
+tmux kill-session -t volume-control
 exec tmux new-session -d -s volume-control "LD_LIBRARY_PATH=$HOME/lib ccl -l $0"
 |#
 
