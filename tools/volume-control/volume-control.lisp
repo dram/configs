@@ -9,6 +9,13 @@ exec tmux new-session -d -s volume-control "ccl -l $0"
   (open-shared-library "libasound.so")
   (open-shared-library "libalsavolume.so"))
 
+#-libnotify
+(progn
+  (pushnew :libnotify *features*)
+  (open-shared-library "libnotify.so")
+  (with-cstrs ((progname "volume-control"))
+    (external-call "notify_init" :address progname :int)))
+
 (defun get-control-volume (control)
   (with-cstrs ((selem control))
     (external-call "alsa_mixer_get_volume" :address selem :int)))
@@ -37,10 +44,20 @@ exec tmux new-session -d -s volume-control "ccl -l $0"
   (set-pcm-volume (if (= (get-pcm-volume) 0) 100 0)))
 
 (defun send-notify ()
-  (let ((msg (format nil "Current: ~[mute~:;~a%~]"
-		     (get-pcm-volume) (get-master-volume))))
-    (run-program "notify-send" (list "-t" "500" "-i" "info" "Volume" msg))))
-
+  (let ((handle (with-cstrs
+                    ((summary "Volume")
+                     (body (format nil "Current: ~[mute~:;~a%~]"
+                                   (get-pcm-volume) (get-master-volume)))
+                     (icon "info"))
+                  (external-call "notify_notification_new"
+                                 :address summary
+                                 :address body
+                                 :address icon
+                                 :address))))
+    (external-call "notify_notification_set_timeout"
+                   :address handle :int 500 :void)
+    (external-call "notify_notification_show"
+                   :address handle :address (%null-ptr) :int)))
 
 
 (defun raise () (raise-volume) (send-notify))
