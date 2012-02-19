@@ -1,6 +1,6 @@
 #!/bin/sh
 #| -*- mode: lisp -*-
-exec tmux new-session -d -s volume-control "ccl -l $0"
+exec tmux new-session -d -s volume-control "LD_LIBRARY_PATH=$HOME/lib ccl -l $0"
 |#
 
 #-alsa-mixer
