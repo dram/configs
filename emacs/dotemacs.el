@@ -56,6 +56,11 @@
 
 (setq ring-bell-function 'ignore)
 
+(require 'package)
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
 ;; appearance
 
 (setq inhibit-startup-message t)
