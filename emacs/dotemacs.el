@@ -229,6 +229,19 @@
 (global-set-key [(control next)] 'tabbar-forward)
 (global-set-key [(control prior)] 'tabbar-backward)
 
+(let ((bg "#282a23") (selected "#b5bd68") (unselected "#969896"))
+  (set-face-attribute 'tabbar-default nil :background bg)
+  (set-face-attribute 'tabbar-selected nil
+		      :background bg
+		      :foreground selected
+		      :weight 'bold
+		      :box `(:line-width 3 :color ,bg))
+  (set-face-attribute 'tabbar-unselected nil
+		      :background bg
+		      :foreground unselected
+		      :weight 'bold
+		      :box `(:line-width 3 :color ,bg)))
+
 ;; evil
 
 (require 'undo-tree)
