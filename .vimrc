@@ -8,8 +8,8 @@ set hlsearch
 syntax on
 set nobackup
 set autoindent
-set bg=dark
-color desert
+set bg=light
+color default
 set vb t_vb=
 set ic smartcase
 set winminheight=0
@@ -22,6 +22,7 @@ set wildignore=*.o
 set shellpipe=2>&1\|\ tee
 
 runtime ftplugin/man.vim
+set rtp+=$HOME/go/misc/vim
 
 let g:c_no_comment_fold=1
 let g:is_posix=1
@@ -41,6 +42,7 @@ au guienter *		set lines=30
 autocmd BufEnter,FileType scheme :syntax sync minlines=50
 autocmd BufNewFile,BufRead *.{md,mkd} set filetype=markdown
 au BufNewFile,BufRead *.fr :setf forth
+au BufNewFile,BufRead *.go :setf go
 au BufWritePost .c,*.h silent! !ctags -R &
 
 au! InsertEnter * call system('fake-key 37 78')
@@ -54,7 +56,7 @@ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'
 let mapleader = ','
 let maplocalleader = ','
 nmap <silent> <leader>m		:MRU<CR>
-nmap <silent> <leader>t		:GtagsCursor<CR>
+nmap <silent> <C-]>			:GtagsCursor<CR>
 nmap <silent> <leader>n		:cn<CR>
 nmap <silent> <leader>p		:cp<CR>
 nmap <silent> <leader>x		:call MPG123Toggle()<cr>
