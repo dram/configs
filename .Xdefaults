@@ -53,6 +53,7 @@ URxvt.background: #000000
 !xterm*faceName: Meslo LG M
 xterm*faceName: Inconsolata:pixelsize=16
 xterm*faceNameDoublesize: WenQuanYi Micro Hei Mono:pixelsize=15
+xterm*scrollBar: off
 
 !-- Tomorrow Color Scheme
 !-- https://github.com/ChrisKempson/Tomorrow-Theme
