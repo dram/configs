@@ -8,8 +8,7 @@ set hlsearch
 syntax on
 set nobackup
 set autoindent
-set bg=light
-color default
+color dark
 set vb t_vb=
 set ic smartcase
 set winminheight=0
