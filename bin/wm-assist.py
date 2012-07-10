@@ -7,20 +7,18 @@
 #
 
 import os
-import sys
-import time
+import dbus
 import logging
-import optparse
+import gobject
 import subprocess
+import dbus.service
 import logging.handlers
+import dbus.mainloop.glib
 
 import Xlib.X
 import Xlib.Xatom
 import Xlib.display
 import Xlib.protocol.event
-
-PIPE_FILE = "/tmp/wm-assist.pipe"
-PID_FILE = "/tmp/wm-assist.pid"
 
 _NET_WM_STATE_REMOVE = 0
 _NET_WM_STATE_ADD = 1
@@ -196,159 +194,78 @@ def jump_or_exec(dpy, root, cls, cmd):
         subprocess.Popen(cmd, shell=True, cwd=os.getenv('HOME'))
     dpy.sync()
 
-def main_loop():
-    try:
-        os.mkfifo(PIPE_FILE)
-    except OSError:
-        pass
+class DBusService(dbus.service.Object):
+    def __init__(self, dpy):
+        name = dbus.service.BusName('me.wm', bus=dbus.SessionBus())
+        dbus.service.Object.__init__(self, name, '/')
 
-    # Open and hold for a writer end of pipe, so reader end will not enounter
-    # EOF.
-    hold_pipe = open(PIPE_FILE, "w+")
+        self.dpy = dpy
+        self.root = dpy.screen().root
 
-    dpy = Xlib.display.Display()
-    root = dpy.screen().root
+    @dbus.service.method('me.wm')
+    def move_left(self):
+        move_window(self.dpy, self.root, -20, 0)
 
-    fp = open(PIPE_FILE)
+    @dbus.service.method('me.wm')
+    def move_right(self):
+        move_window(self.dpy, self.root, 20, 0)
 
-    while True:
-        line = fp.readline()
+    @dbus.service.method('me.wm')
+    def move_up(self):
+        move_window(self.dpy, self.root, 0, -20)
 
-        logging.info("cmd: %s", line.strip())
+    @dbus.service.method('me.wm')
+    def move_down(self):
+        move_window(self.dpy, self.root, 0, 20)
 
-        try:
-            cmd, args = line.strip().split(' ', 1)
-        except ValueError:
-            cmd = line.strip()
+    @dbus.service.method('me.wm')
+    def joe(self, args):
+        cls, cmd = args.split(None, 1)
+        jump_or_exec(self.dpy, self.root, cls, cmd)
 
-        if cmd == 'MOVE':
-            dx, dy = args.split()
-            move_window(dpy, root, int(dx), int(dy))
-        elif cmd == 'RESIZE':
-            dw, dh = args.split()
-            resize_window(dpy, root, int(dw), int(dh))
-        elif cmd == 'JOE':
-            cls, cmd = args.split(None, 1)
-            jump_or_exec(dpy, root, cls, cmd)
-        elif cmd == 'MAXIMIZE':
-            maximize_window(dpy, root)
-        elif cmd == 'CLOSE':
-            close_window(dpy, root)
-        elif cmd == 'CENTER':
-            center_window(dpy, root)
-        elif cmd == 'ALL':
-            tiling(dpy, root)
-        else:
-            time.sleep(1)
+    @dbus.service.method('me.wm')
+    def maximize(self):
+        maximize_window(self.dpy, self.root)
 
-    dpy.close()
+    @dbus.service.method('me.wm')
+    def close(self):
+        close_window(self.dpy, self.root)
 
-def daemon():
-    import os
-    import resource
+    @dbus.service.method('me.wm')
+    def center(self):
+        center_window(self.dpy, self.root)
 
-    pid = os.fork()
-    if pid != 0:
-        os._exit(0) # parent exits.
+    @dbus.service.method('me.wm')
+    def all(self):
+        tiling(self.dpy, self.root)
 
-    os.setsid()
+    @dbus.service.method('me.wm')
+    def enlarge_width(self):
+        resize_window(self.dpy, self.root, 20, 0)
 
-    pid = os.fork()
-    if pid != 0:
-        os._exit(0) # origin child exits.
+    @dbus.service.method('me.wm')
+    def reduce_width(self):
+        resize_window(self.dpy, self.root, -20, 0)
 
-    os.umask(0)
-    os.chdir("/")
+    @dbus.service.method('me.wm')
+    def enlarge_height(self):
+        resize_window(self.dpy, self.root, 0, 20)
 
-    maxfd = resource.getrlimit(resource.RLIMIT_NOFILE)[1]
-    if (maxfd == resource.RLIM_INFINITY):
-        maxfd = 1024
-    
-    for fd in range(0, maxfd):
-        try:
-            os.close(fd)
-        except OSError:
-            pass
-
-    os.open(os.devnull, os.O_RDWR)
-    os.dup2(0, 1)
-    os.dup2(0, 2)
-
-def start_daemon():
-    import os
-    import sys
-    import atexit
-    import os.path
-    if os.path.exists(PID_FILE):
-        print >>sys.stderr, "[start] process already exists"
-        sys.exit(1)
-
-    def delete_pid_file():
-        os.remove(PID_FILE)
-
-    daemon()
-
-    fp = open(PID_FILE, "w")
-    fp.write(str(os.getpid()) + "\n")
-    fp.close()
-
-    atexit.register(delete_pid_file)
-
-    print >>sys.stderr, "[start] start (pid=%d)" % os.getpid()
-
-def kill_daemon():
-    import sys
-    import time
-    import signal
-
-    try:
-        pid = int(open(PID_FILE).read())
-    except:
-        if os.path.exists(PID_FILE):
-            os.remove(PID_FILE)
-        return
-
-    try:
-        while True:
-            os.kill(pid, signal.SIGTERM)
-            time.sleep(1)
-    except OSError:
-        print >>sys.stderr, "Kill previous process (pid=%d)." % pid
-        os.remove(PID_FILE)
-
-def restart_daemon():
-    kill_daemon()
-    start_daemon()
+    @dbus.service.method('me.wm')
+    def reduce_height(self):
+        resize_window(self.dpy, self.root, 0, -20)
 
 def main():
-    parser = optparse.OptionParser()
-    parser.add_option("-d", dest="daemon",
-            action="store_true", default=False, help="daemonize process")
-    parser.add_option("-D", dest="restart_daemon",
-            action="store_true", default=False, help="restart daemon process")
-    parser.add_option("-k", dest="kill",
-            action="store_true", default=False, help="kill process if exist")
-
-    (options, args) = parser.parse_args()
-
-    if options.kill:
-        kill_daemon()
-        sys.exit(0)
-
-    if options.daemon:
-        start_daemon()
-    elif options.restart_daemon:
-        restart_daemon()
-
     setup_logging()
     logging.info("wm-assist.py started")
 
-    while True:
-        try:
-            main_loop()
-        except Exception:
-            logging.exception("Crash from main_loop()")
-            continue
+    dpy = Xlib.display.Display()
+
+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+    bus = DBusService(dpy)
+    gobject.MainLoop().run()
+
+    dpy.close()
 
 if __name__ == "__main__":
     main()
