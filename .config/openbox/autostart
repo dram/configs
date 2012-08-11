@@ -2,11 +2,12 @@
 
 echo -ne '\033%G'
 
-wm-assist.py -D >>$HOME/.wm-assist.log 2>&1
+dbus-send --type=method_call --dest=me.wm / me.wm.none
 
 xchainkeys -d >$HOME/.xchainkeys.log 2>&1 &
 
-( source $HOME/.fehbg )
+display -window root ~/pictures/Wallpaper-idea-swirl.png
+# ( source $HOME/.fehbg )
 
 xbindkeys
 
