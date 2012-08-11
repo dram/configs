@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=me.wm
+Exec=/home/dram/bin/wm-assist.py
