@@ -112,7 +112,11 @@
 
 (let ((set
        (create-fontset-from-fontset-spec
-	"-b&h-Lucida Console-normal-normal-*-*-14-*-*-*-m-0-fontset-orgmode"))
+	(case system-type
+	  (windows-nt
+	   "-b&h-Lucida Console-normal-normal-*-*-14-*-*-*-m-0-fontset-orgmode")
+	  (gnu/linux
+	   "-*-Inconsolata-normal-normal-*-*-16-*-*-*-m-0-fontset-orgmode"))))
       (font (case system-type
 	      (windows-nt "华文仿宋")
 	      (gnu/linux "WenQuanYi Micro Hei"))))
