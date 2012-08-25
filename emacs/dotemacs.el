@@ -83,7 +83,11 @@
 (setq frame-title-format '("" "[%b] - Emacs"))
 
 ;(set-default-font "Consolas-11")
-(set-default-font "Lucida Console-10.5")
+(case system-type
+  (gnu/linux
+    (set-default-font "Inconsolata-13"))
+  (windows-nt
+    (set-default-font "Lucida Console-10.5")))
 ;(set-default-font "Lucida Sans Typewriter-10")
 (setq-default line-spacing 3)
 
