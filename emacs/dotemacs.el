@@ -77,9 +77,8 @@
 
 (setq tooltip-use-echo-area t)
 
-(add-to-list 'custom-theme-load-path "~/emacs/theme")
-
-(load-theme 'tomorrow t)
+(require 'color-theme-sanityinc-tomorrow)
+(color-theme-sanityinc-tomorrow-day)
 
 (setq frame-title-format '("" "[%b] - Emacs"))
 
