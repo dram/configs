@@ -372,7 +372,6 @@
 ;; python
 
 (require 'python-mode)
-(add-hook 'python-mode-hook 'hs-minor-mode)
 
 ;; javascript
 
