@@ -372,6 +372,9 @@
 ;; python
 
 (require 'python-mode)
+(add-hook 'python-mode-hook (lambda ()
+			      (setq outline-regexp
+				    "^\\s-*class\\_>\\|^\\s-*def\\_>")))
 
 ;; javascript
 
