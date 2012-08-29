@@ -89,11 +89,11 @@
   (windows-nt
     (set-default-font "Lucida Console-10.5")))
 ;(set-default-font "Lucida Sans Typewriter-10")
-(setq-default line-spacing 3)
+(setq-default line-spacing 1)
 
 (let ((font (case system-type
 	      (windows-nt "Microsoft YaHei")
-	      (gnu/linux "WenQuanYi Micro Hei"))))
+	      (gnu/linux (font-spec :family "WenQuanYi Micro Hei" :size 15)))))
   (set-fontset-font (frame-parameter nil 'font) 'han font)
   (set-fontset-font (frame-parameter nil 'font) 'cjk-misc font)
   (set-fontset-font (frame-parameter nil 'font) 'symbol font))
