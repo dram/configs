@@ -328,9 +328,17 @@
 
 ;; input method
 
-(load-file "~/emacs/misc/zhengma.el")
+(add-to-list 'load-path "~/emacs/emacs-eim/")
 
-(set-input-method 'chinese-zhengma)
+(autoload 'eim-use-package "eim" "Another emacs input method")
+
+(setq eim-use-tooltip nil)
+
+(register-input-method
+ "eim-py" "euc-cn" 'eim-use-package
+ "拼音" "汉字拼音输入法" "py.txt")
+
+(set-input-method 'eim-py)
 
 (case system-type
   (gnu/linux
