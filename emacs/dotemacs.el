@@ -185,6 +185,18 @@
   (setq org-export-docbook-xsl-fo-proc-command
 	"d:/docbook/fop/fop -c d:/docbook/fop.xconf %i %o"))
 
+;; running-life
+
+(add-to-list 'load-path "~/emacs/running-life")
+
+(require 'running-life)
+
+(setq running-life-dialog-program 'kdialog)
+(setq running-life-start-sound (expand-file-name "~/emacs/misc/crank.wav"))
+(setq running-life-finish-sound (expand-file-name "~/emacs/misc/deskbell.wav"))
+(setq running-life-auto-insert-text
+      "%Y/%m/%d %H:%M\n----------------\n\n.. rubric:: \n\n")
+
 ;; tabbar
 
 (require 'tabbar)
