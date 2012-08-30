@@ -77,7 +77,8 @@
 
 (setq tooltip-use-echo-area t)
 
-(require 'color-theme-sanityinc-tomorrow)
+(when (not (require 'color-theme-sanityinc-tomorrow nil t))
+  (package-install 'color-theme-sanityinc-tomorrow))
 (color-theme-sanityinc-tomorrow-day)
 
 (setq frame-title-format '("" "[%b] - Emacs"))
@@ -199,7 +200,8 @@
 
 ;; tabbar
 
-(require 'tabbar)
+(when (not (require 'tabbar nil t))
+  (package-install 'tabbar))
 (tabbar-mode 1)
 
 (setq tabbar-help-on-tab-function nil
@@ -268,7 +270,8 @@
 
 ;; evil
 
-(require 'undo-tree)
+(when (not (require 'undo-tree nil t))
+  (package-install 'undo-tree))
 (add-to-list 'load-path "~/emacs/evil")
 (require 'evil)
 (evil-set-initial-state 'mingus-help-mode 'emacs)
@@ -375,7 +378,8 @@
 	    (set-variable lisp-indent-function 'common-lisp-indent-function t)
 	    (local-set-key [tab] 'slime-indent-and-complete-symbol)))
 
-(require 'autopair)
+(when (not (require 'autopair nil t))
+  (package-install 'autopair))
 
 (add-hook 'emacs-lisp-mode-hook 'autopair-mode)
 (add-hook 'slime-mode-hook 'autopair-mode)
@@ -398,7 +402,8 @@
 
 ;; python
 
-(require 'python-mode)
+(when (not (require 'python-mode nil t))
+  (package-install 'python-mode))
 (add-hook 'python-mode-hook (lambda ()
 			      (setq outline-regexp
 				    "^\\s-*class\\_>\\|^\\s-*def\\_>")))
@@ -450,7 +455,8 @@
 
 ;; diminish
 
-(require 'diminish)
+(when (not (require 'diminish nil t))
+  (package-install 'diminish))
 
 (diminish 'undo-tree-mode)
 (eval-after-load "face-remap" '(diminish 'buffer-face-mode))
