@@ -11,7 +11,7 @@ case "$-" in *i*)
 	export PS1='\e[32m\w\e[31m${?/#0}\e[m\n% '
 
 	alias ls='ls --color'
-	alias t='tmux attach || tmux'
+	alias t='screen -DR'
 
 	;;
 esac
