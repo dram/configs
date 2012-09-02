@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH=/sbin:/usr/sbin:$PATH
+export PATH=$HOME/bin:/sbin:/usr/sbin:$PATH
 
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd'
 
