@@ -1,0 +1,8 @@
+[user]
+	email = dram.wang@gmail.com
+	name = Xin Wang
+
+[alias]
+	co = checkout
+	ci = commit
+	st = status
