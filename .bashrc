@@ -2,6 +2,8 @@
 
 export PATH=/sbin:/usr/sbin:$PATH
 
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd'
+
 case "$-" in *i*)
 
 	export PYTHONSTARTUP=/etc/pythonstart
