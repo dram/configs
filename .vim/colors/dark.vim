@@ -11,7 +11,7 @@ let colors_name = "dark"
 set background=dark
 
 " Standard
-hi Comment	ctermfg=4
+hi Comment	ctermfg=8
 hi Constant	ctermfg=1
 hi Define	ctermfg=5
 hi Function	ctermfg=6
@@ -24,6 +24,7 @@ hi Statement	ctermfg=5
 hi String	ctermfg=2
 hi Type		ctermfg=6
 hi Visual	cterm=reverse
+hi FoldColumn	ctermbg=none
 
 " Python
 hi pythonConditional	ctermfg=5
