@@ -22,9 +22,10 @@ background_color = #FFFFFF 0
 border_color = #FFFFFF 68
 
 # Panel
+panel_items = LTSC
 panel_monitor = all
-panel_position = center left vertical
-panel_size = 60% 36
+panel_position = bottom center horizontal
+panel_size = 80% 32
 panel_margin = 0 0
 panel_padding = 7 0 7
 panel_dock = 0
@@ -33,11 +34,21 @@ panel_layer = top
 panel_background_id = 1
 
 # Panel Autohide
-autohide = 1
+autohide = 0
 autohide_show_timeout = 0.3
 autohide_hide_timeout = 2
 autohide_height = 2
 strut_policy = follow_size
+
+# Launchers
+launcher_icon_theme = nuoveXT2
+launcher_padding = 5 0 10
+launcher_background_id = 9
+launcher_icon_size = 24
+launcher_item_app = /usr/share/applications/gnome-terminal.desktop
+launcher_item_app = /usr/share/applications/gedit.desktop
+launcher_item_app = /usr/share/applications/rhythmbox.desktop
+launcher_item_app = /usr/share/applications/firefox.desktop
 
 # Taskbar
 taskbar_mode = single_desktop
@@ -48,8 +59,8 @@ taskbar_active_background_id = 0
 # Tasks
 urgent_nb_of_blink = 8
 task_icon = 1
-task_text = 0
-task_centered = 1
+task_text = 1
+task_centered = 0
 task_maximum_size = 140 30
 task_padding = 6 2
 task_background_id = 3
@@ -64,7 +75,7 @@ task_urgent_icon_asb = 100 0 0
 task_iconified_icon_asb = 70 0 0
 
 # Fonts
-task_font = sans 8
+task_font = sans 9
 task_font_color = #FFFFFF 68
 task_active_font_color = #FFFFFF 83
 task_urgent_font_color = #FFFFFF 83
@@ -76,14 +87,12 @@ systray = 1
 systray_padding = 0 4 0
 systray_sort = ascending
 systray_background_id = 0
-systray_icon_size = 30
+systray_icon_size = 24
 systray_icon_asb = 70 0 0
 
 # Clock
-time1_format = %H:%M
+time1_format = %m/%d %H:%M 
 time1_font = sans 9
-time2_format = %m/%d
-time2_font = sans 7
 clock_font_color = #FFFFFF 74
 clock_padding = 1 1
 clock_background_id = 0
