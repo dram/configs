@@ -268,4 +268,7 @@ def main():
     dpy.close()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        logger().exception("Crash from main()")
