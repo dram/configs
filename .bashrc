@@ -8,7 +8,15 @@ case "$-" in *i*)
 
 	export PYTHONSTARTUP=/etc/pythonstart
 
-	export PS1='\e[32m\w\e[31m${?/#0}\e[m\n% '
+	case "$TERM" in
+	screen)
+		trap 'echo -ne "\ek${BASH_COMMAND:0:10}\e\\"' DEBUG
+		export PS1='\e[32m\w\e[31m${?/#0}\e[m\n\ekbash\e\\% '
+	;;
+	*)
+		export PS1='\e[32m\w\e[31m${?/#0}\e[m\n% '
+	;;
+	esac
 
 	alias ls='ls --color'
 	alias t='screen -DR'
