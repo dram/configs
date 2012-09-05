@@ -86,7 +86,7 @@
 ;(set-default-font "Consolas-11")
 (case system-type
   (gnu/linux
-    (set-default-font "Inconsolata-13"))
+    (set-default-font "Inconsolata-12"))
   (windows-nt
     (set-default-font "Lucida Console-10.5")))
 ;(set-default-font "Lucida Sans Typewriter-10")
@@ -117,7 +117,7 @@
 	  (windows-nt
 	   "-b&h-Lucida Console-normal-normal-*-*-14-*-*-*-m-0-fontset-orgmode")
 	  (gnu/linux
-	   "-*-Inconsolata-normal-normal-*-*-16-*-*-*-m-0-fontset-orgmode"))))
+	   "-*-Inconsolata-normal-normal-*-*-15-*-*-*-m-0-fontset-orgmode"))))
       (font (case system-type
 	      (windows-nt "华文仿宋")
 	      (gnu/linux "WenQuanYi Micro Hei"))))
