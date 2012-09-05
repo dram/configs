@@ -294,6 +294,9 @@
 	    (if (eolp)
 		(delete-horizontal-space t))))
 
+(define-key evil-normal-state-map "," nil)
+(define-key evil-normal-state-map ",m" 'ido-switch-buffer)
+
 ;; mingus
 
 (add-to-list 'load-path "~/emacs/mingus")
