@@ -1,4 +1,4 @@
-caption always "%{= dd} %-Lw%n[%t]%+Lw %="
+caption always "%{= dd} %-Lw%n*%f %t%+Lw %="
 sorendition +b kG
 
 escape "^Jj"
