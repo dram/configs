@@ -15,4 +15,4 @@ attrcolor b ".I"
 # erase background with current bg color
 defbce "on"
 
-shelltitle "% |:"
+shelltitle "% |"
