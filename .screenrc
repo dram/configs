@@ -1,4 +1,4 @@
-caption always "%{= dd} %-Lw%n*%f %t%+Lw %="
+caption always "%{= Gk} %-Lw%{= kW}%n*%f %t%{= Gk}%+Lw %="
 sorendition +b kG
 
 escape "^Jj"
