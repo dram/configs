@@ -11,7 +11,7 @@ case "$-" in *i*)
 	case "$TERM" in
 	screen)
 		trap 'echo -ne "\ek${BASH_COMMAND:0:10}\e\\"' DEBUG
-		export PS1='\e[32m\w\e[31m${?/#0}\e[m\n\ekbash\e\\% '
+		export PS1='\ekbash\e\\\e[32m\w\e[31m${?/#0}\e[m\n% '
 	;;
 	*)
 		export PS1='\e[32m\w\e[31m${?/#0}\e[m\n% '
