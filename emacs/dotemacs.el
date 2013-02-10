@@ -274,9 +274,6 @@
   (package-install 'undo-tree))
 (add-to-list 'load-path "~/emacs/evil")
 (require 'evil)
-(evil-set-initial-state 'mingus-help-mode 'emacs)
-(evil-set-initial-state 'mingus-browse-mode 'emacs)
-(evil-set-initial-state 'mingus-playlist-mode 'emacs)
 (evil-mode 1)
 
 (setq evil-want-fine-undo t)
@@ -300,7 +297,7 @@
 ;; mingus
 
 (add-to-list 'load-path "~/emacs/mingus")
-(require 'mingus)
+(when (require 'mingus nil t)
 
 (setq mingus-playlist-separator " ● ")
 
@@ -313,6 +310,12 @@
   (let ((orig header-line-format))
     ad-do-it
     (setq header-line-format orig)))
+
+(evil-set-initial-state 'mingus-help-mode 'emacs)
+(evil-set-initial-state 'mingus-browse-mode 'emacs)
+(evil-set-initial-state 'mingus-playlist-mode 'emacs)
+
+)
 
 ;; nxml
 
@@ -368,7 +371,7 @@
 
 (setq inferior-lisp-program "ccl")
 (add-to-list 'load-path "~/emacs/slime")
-(require 'slime)
+(when (require 'slime nil t)
 (slime-setup '(slime-fancy))
 (setq slime-net-coding-system 'utf-8-unix)
 (setq common-lisp-hyperspec-root "/usr/share/doc/HyperSpec/")
@@ -402,6 +405,7 @@
 (evil-define-key 'insert slime-repl-mode-map "[" 'autopair-insert-paren)
 (evil-define-key 'insert slime-mode-map "]" 'autopair-close-paren)
 (evil-define-key 'insert slime-repl-mode-map "]" 'autopair-close-paren)
+)
 
 ;; python
 
