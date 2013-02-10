@@ -357,7 +357,12 @@
 
 (register-input-method
  "eim-py" "euc-cn" 'eim-use-package
- "拼音" "汉字拼音输入法" "py.txt")
+ "拼音" "汉字拼音输入法" "py.txt"
+ (lambda ()
+   (add-hook 'eim-active-hook
+	     (lambda ()
+	       (define-key eim-mode-map "-" 'eim-previous-page)
+	       (define-key eim-mode-map "=" 'eim-next-page)))))
 
 (set-input-method 'eim-py)
 
