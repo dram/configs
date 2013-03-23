@@ -61,6 +61,9 @@
 	     '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
 ;; appearance
 
 (setq inhibit-startup-message t)
@@ -81,12 +84,20 @@
   (package-install 'color-theme-sanityinc-tomorrow))
 (color-theme-sanityinc-tomorrow-day)
 
+(add-hook 'rst-mode-hook
+	  (lambda ()
+	    (custom-set-faces
+	     '(rst-level-1-face ((t nil)) t)
+	     '(rst-level-2-face ((t nil)) t)
+	     '(rst-level-3-face ((t nil)) t)
+	     '(rst-level-4-face ((t nil)) t))))
+
 (setq frame-title-format '("" "[%b] - Emacs"))
 
 ;(set-default-font "Consolas-11")
 (case system-type
   (gnu/linux
-    (set-default-font "Inconsolata-12"))
+    (set-default-font "Inconsolata-11"))
   (windows-nt
     (set-default-font "Lucida Console-10.5")))
 ;(set-default-font "Lucida Sans Typewriter-10")
@@ -94,20 +105,72 @@
 
 (let ((font (case system-type
 	      (windows-nt "Microsoft YaHei")
-	      (gnu/linux (font-spec :family "WenQuanYi Micro Hei" :size 15)))))
+	      (gnu/linux (font-spec :family "WenQuanYi Micro Hei" :size 16)))))
   (set-fontset-font (frame-parameter nil 'font) 'han font)
   (set-fontset-font (frame-parameter nil 'font) 'cjk-misc font)
   (set-fontset-font (frame-parameter nil 'font) 'symbol font))
 
-;; ido
+;; evil
+
+(when (not (require 'undo-tree nil t))
+  (package-install 'undo-tree))
+
+(when (not (require 'evil nil t))
+  (package-install 'evil))
+
+(evil-mode 1)
+
+(setq evil-want-fine-undo t)
+
+(setq evil-search-module 'evil-search)
+
+(defadvice outline-minor-mode (after bind-key-for-outline-minor-mode activate)
+  (define-key evil-normal-state-local-map "zo" 'show-entry)
+  (define-key evil-normal-state-local-map "zc" 'hide-entry)
+  (define-key evil-normal-state-local-map "zm" 'hide-body)
+  (define-key evil-normal-state-local-map "zr" 'show-all))
+
+(add-hook 'evil-insert-state-exit-hook
+	  (lambda ()
+	    (if (eolp)
+		(delete-horizontal-space t))))
+
+(define-key evil-normal-state-map "," nil)
+
+;; recentf, ido, iswitchb
 
 (require 'recentf)
 (setq recentf-max-saved-items 100)
+(setq recentf-show-file-shortcuts-flag nil)
 (recentf-mode t)
 
+(evil-set-initial-state 'recentf-dialog-mode 'normal)
+
+(define-key evil-normal-state-map ",m" (lambda ()
+					 (interactive)
+					 (split-window nil nil 'above)
+					 (recentf-open-files)))
+
+(evil-define-key 'normal recentf-mode-map "q"
+  (lambda ()
+    (interactive)
+    (recentf-cancel-dialog)
+    (delete-window)))
+
+(evil-define-key 'normal recentf-mode-map (kbd "RET")
+  (lambda ()
+    (interactive)
+    (delete-window (previous-window))
+    (evil-ret)))
+
 (require 'ido)
-(ido-mode 'both)
-(setq ido-use-virtual-buffers t)
+(ido-mode 'files)
+
+(iswitchb-mode 1)
+
+(define-key evil-normal-state-map ",b" 'iswitchb-buffer)
+(define-key evil-normal-state-map ",f" 'ido-find-file)
+(define-key evil-normal-state-map ",k" 'kill-this-buffer)
 
 ;; org
 
@@ -195,104 +258,9 @@
 (setq running-life-dialog-program 'kdialog)
 (setq running-life-start-sound (expand-file-name "~/emacs/misc/crank.wav"))
 (setq running-life-finish-sound (expand-file-name "~/emacs/misc/deskbell.wav"))
+(setq running-life-text-directory "~/RunningLife")
 (setq running-life-auto-insert-text
-      "%Y/%m/%d %H:%M\n----------------\n\n.. rubric:: \n\n")
-
-;; tabbar
-
-(when (not (require 'tabbar nil t))
-  (package-install 'tabbar))
-(tabbar-mode 1)
-
-(setq tabbar-help-on-tab-function nil
-      tabbar-buffer-home-button '(("") "")
-      tabbar-scroll-left-button '(("") "")
-      tabbar-scroll-right-button '(("") ""))
-
-(setq tabbar-separator '(0.3))
-
-(setq tabbar-buffer-groups-function
-      (lambda ()
-	(cond
-	 ((eq major-mode 'eshell-mode)
-	  '("Shell"))
-	 ((eq major-mode 'js-mode)
-	  '("Js"))
-	 ((eq major-mode 'emacs-lisp-mode)
-	  '("Elisp"))
-	 ((eq major-mode 'org-agenda-mode)
-	  '("Agenda"))
-	 ((memq major-mode
-		'(mingus-playlist-mode mingus-browse-mode mingus-help-mode))
-	  '("Mingus"))
-	 ((member (buffer-name)
-		  '("*slime-events*" "*inferior-lisp*" "*slime-repl sbcl*"
-		    "*slime-compilation*"))
-	  '("Slime"))
-	 (t (tabbar-buffer-groups)))))
-
-(setq tabbar-buffer-list-function
-      (lambda ()
-	(remove-if
-	 (lambda (b)
-	   (or (member (buffer-name b)
-		       '("*scratch*" "*Messages*"
-			 "*Quail Completions*" "*Completions*"
-			 "*Help*" "*Buffer List*" "*Calendar*"
-			 ))))
-	 (tabbar-buffer-list))))
-
-(setq tabbar-select-tab-function
-      (lambda (event tab)
-	(let ((orig tabbar--buffer-show-groups)
-	      (res (tabbar-buffer-select-tab event tab)))
-	  (tabbar-buffer-show-groups orig)
-	  res)))
-
-(tabbar-buffer-show-groups t)
-
-(global-set-key [(control home)] 'tabbar-press-home)
-(global-set-key [(control next)] 'tabbar-forward)
-(global-set-key [(control prior)] 'tabbar-backward)
-
-(let ((bg "#282a23") (selected "#b5bd68") (unselected "#969896"))
-  (set-face-attribute 'tabbar-default nil :background bg)
-  (set-face-attribute 'tabbar-selected nil
-		      :background bg
-		      :foreground selected
-		      :weight 'bold
-		      :box `(:line-width 3 :color ,bg))
-  (set-face-attribute 'tabbar-unselected nil
-		      :background bg
-		      :foreground unselected
-		      :weight 'bold
-		      :box `(:line-width 3 :color ,bg)))
-
-;; evil
-
-(when (not (require 'undo-tree nil t))
-  (package-install 'undo-tree))
-(add-to-list 'load-path "~/emacs/evil")
-(require 'evil)
-(evil-mode 1)
-
-(setq evil-want-fine-undo t)
-
-(setq evil-search-module 'evil-search)
-
-(defadvice outline-minor-mode (after bind-key-for-outline-minor-mode activate)
-  (define-key evil-normal-state-local-map "zo" 'show-entry)
-  (define-key evil-normal-state-local-map "zc" 'hide-entry)
-  (define-key evil-normal-state-local-map "zm" 'hide-body)
-  (define-key evil-normal-state-local-map "zr" 'show-all))
-
-(add-hook 'evil-insert-state-exit-hook
-	  (lambda ()
-	    (if (eolp)
-		(delete-horizontal-space t))))
-
-(define-key evil-normal-state-map "," nil)
-(define-key evil-normal-state-map ",m" 'ido-switch-buffer)
+      "\n%Y/%m/%d %H:%M\n----------------\n\n.. rubric:: \n")
 
 ;; mingus
 
@@ -345,7 +313,6 @@
 	    (define-key evil-normal-state-local-map "zr" 'nxml-show-all)
 
 	    (define-key evil-insert-state-local-map ";;" 'nxml-insert-tag-with-cursor-word)))
-
 
 ;; input method
 
@@ -414,11 +381,7 @@
 
 ;; python
 
-(when (not (require 'python-mode nil t))
-  (package-install 'python-mode))
-(add-hook 'python-mode-hook (lambda ()
-			      (setq outline-regexp
-				    "^\\s-*class\\_>\\|^\\s-*def\\_>")))
+(setq python-shell-virtualenv-path "~/venv/")
 
 ;; javascript
 
