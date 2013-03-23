@@ -7,13 +7,7 @@
 #
 
 import os
-import dbus
-import logging
-import gobject
 import subprocess
-import dbus.service
-import logging.handlers
-import dbus.mainloop.glib
 
 import Xlib.X
 import Xlib.Xatom
@@ -26,13 +20,6 @@ _NET_WM_STATE_TOGGLE = 2
 
 is_tiling = False
 orig_geom = None
-
-def setup_logging():
-    log = logging.getLogger('')
-    log.setLevel(logging.DEBUG)
-    handle = logging.handlers.SysLogHandler(address='/dev/log')
-    handle.setFormatter(logging.Formatter("%(levelname)s %(message)s"))
-    log.addHandler(handle)
 
 def get_active_window(dpy, root):
     ids = root.get_full_property(
@@ -194,81 +181,57 @@ def jump_or_exec(dpy, root, cls, cmd):
         subprocess.Popen(cmd, shell=True, cwd=os.getenv('HOME'))
     dpy.sync()
 
-class DBusService(dbus.service.Object):
+class Assist(object):
     def __init__(self, dpy):
-        name = dbus.service.BusName('me.wm', bus=dbus.SessionBus())
-        dbus.service.Object.__init__(self, name, '/')
-
         self.dpy = dpy
         self.root = dpy.screen().root
 
-    @dbus.service.method('me.wm')
     def move_left(self):
         move_window(self.dpy, self.root, -20, 0)
 
-    @dbus.service.method('me.wm')
     def move_right(self):
         move_window(self.dpy, self.root, 20, 0)
 
-    @dbus.service.method('me.wm')
     def move_up(self):
         move_window(self.dpy, self.root, 0, -20)
 
-    @dbus.service.method('me.wm')
     def move_down(self):
         move_window(self.dpy, self.root, 0, 20)
 
-    @dbus.service.method('me.wm')
-    def joe(self, args):
-        cls, cmd = args.split(None, 1)
+    def joe(self, cls, cmd):
         jump_or_exec(self.dpy, self.root, cls, cmd)
 
-    @dbus.service.method('me.wm')
     def maximize(self):
         maximize_window(self.dpy, self.root)
 
-    @dbus.service.method('me.wm')
     def close(self):
         close_window(self.dpy, self.root)
 
-    @dbus.service.method('me.wm')
     def center(self):
         center_window(self.dpy, self.root)
 
-    @dbus.service.method('me.wm')
     def all(self):
         tiling(self.dpy, self.root)
 
-    @dbus.service.method('me.wm')
     def enlarge_width(self):
         resize_window(self.dpy, self.root, 20, 0)
 
-    @dbus.service.method('me.wm')
     def reduce_width(self):
         resize_window(self.dpy, self.root, -20, 0)
 
-    @dbus.service.method('me.wm')
     def enlarge_height(self):
         resize_window(self.dpy, self.root, 0, 20)
 
-    @dbus.service.method('me.wm')
     def reduce_height(self):
         resize_window(self.dpy, self.root, 0, -20)
 
-def main():
-    setup_logging()
-    logging.info("wm-assist.py started")
-
-    dpy = Xlib.display.Display()
-
-    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-    bus = DBusService(dpy)
-    gobject.MainLoop().run()
-
-    dpy.close()
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception:
-        logger().exception("Crash from main()")
+    if os.getenv('PYTHONINSPECT'):
+        dpy = Xlib.display.Display()
+
+        a = Assist(dpy)
+    else:
+        subprocess.call(['tmux', 'kill-session', '-t', 'wm-assist'])
+        subprocess.call(['tmux', 'new-session','-d', '-s', 'wm-assist',
+                         'PYTHONINSPECT=y python %s' % __file__])
