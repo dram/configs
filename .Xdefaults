@@ -54,7 +54,7 @@ URxvt.background: #000000
 
 !xterm*faceName: Meslo LG M
 xterm*faceName: Inconsolata:pixelsize=16
-xterm*faceNameDoublesize: WenQuanYi Micro Hei Mono:pixelsize=15
+xterm*faceNameDoublesize: Droid Sans Fallback:pixelsize=15
 xterm*scrollBar: off
 
 !-- Tomorrow Color Scheme
@@ -70,7 +70,7 @@ xterm*scrollBar: off
 xterm*foreground: #4d4d4c
 xterm*background: #ffffff
 ! CursorColor (Selection)
-xterm*cursorColor: #d6d6d6
+xterm*cursorColor: #a0a0a0
 
 ! Black + Grey (Comment)
 xterm*color0: #000000
