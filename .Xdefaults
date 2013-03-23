@@ -1,5 +1,5 @@
 !! XFT settings
-Xft.dpi:	96
+Xft.dpi:	98
 Xft.antialias:	true
 Xft.rgba:	rgb
 Xft.hinting:	true
@@ -57,6 +57,7 @@ xterm*faceName: Inconsolata:pixelsize=16
 xterm*faceNameDoublesize: Droid Sans Fallback:pixelsize=15
 xterm*scrollBar: off
 xterm*selectToClipboard: true
+xterm*iconHint: filled-xterm
 
 !-- Tomorrow Color Scheme
 !-- https://github.com/ChrisKempson/Tomorrow-Theme
