@@ -56,6 +56,7 @@ URxvt.background: #000000
 xterm*faceName: Inconsolata:pixelsize=16
 xterm*faceNameDoublesize: Droid Sans Fallback:pixelsize=15
 xterm*scrollBar: off
+xterm*selectToClipboard: true
 
 !-- Tomorrow Color Scheme
 !-- https://github.com/ChrisKempson/Tomorrow-Theme
