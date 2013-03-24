@@ -31,8 +31,6 @@
 
 (require 'linum)
 
-(server-start)
-
 (autoload 'php-mode "php-mode.el"
   "Major mode for editing PHP files" t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
@@ -94,21 +92,23 @@
 
 (setq frame-title-format '("" "[%b] - Emacs"))
 
-;(set-default-font "Consolas-11")
-(case system-type
-  (gnu/linux
-    (set-default-font "Inconsolata-12"))
-  (windows-nt
-    (set-default-font "Lucida Console-10.5")))
-;(set-default-font "Lucida Sans Typewriter-10")
-(setq-default line-spacing 1)
+(add-hook 'after-make-frame-functions
+	  (lambda (frame)
+	    (case system-type
+	      (gnu/linux
+	       (set-frame-font "Inconsolata-12" nil (list frame)))
+	      (windows-nt
+	       (set-frame-font "Lucida Console-10.5" nil (list frame))))
 
-(let ((font (case system-type
-	      (windows-nt "Microsoft YaHei")
-	      (gnu/linux (font-spec :family "WenQuanYi Micro Hei" :size 16)))))
-  (set-fontset-font (frame-parameter nil 'font) 'han font)
-  (set-fontset-font (frame-parameter nil 'font) 'cjk-misc font)
-  (set-fontset-font (frame-parameter nil 'font) 'symbol font))
+	    (setq-default line-spacing 1)
+
+	    (let ((font (case system-type
+			  (windows-nt "Microsoft YaHei")
+			  (gnu/linux (font-spec :family"WenQuanYi Micro Hei"
+						:size 16)))))
+	      (set-fontset-font (frame-parameter frame 'font) 'han font)
+	      (set-fontset-font (frame-parameter frame 'font) 'cjk-misc font)
+	      (set-fontset-font (frame-parameter frame 'font) 'symbol font))))
 
 ;; evil
 
@@ -174,22 +174,25 @@
 
 ;; org
 
-(let ((set
-       (create-fontset-from-fontset-spec
-	(case system-type
-	  (windows-nt
-	   "-b&h-Lucida Console-normal-normal-*-*-14-*-*-*-m-0-fontset-orgmode")
-	  (gnu/linux
-	   "-*-Inconsolata-normal-normal-*-*-15-*-*-*-m-0-fontset-orgmode"))))
-      (font (case system-type
-	      (windows-nt "华文仿宋")
-	      (gnu/linux "WenQuanYi Micro Hei"))))
-  (set-fontset-font set 'han (font-spec :family font :size 16))
-  (set-fontset-font set 'cjk-misc (font-spec :family font :size 16))
-  (set-fontset-font set 'symbol (font-spec :family font :size 16)))
+(add-hook 'after-make-frame-functions
+	  (lambda (frame)
+	    (let ((set
+		   (create-fontset-from-fontset-spec
+		    (case system-type
+		      (windows-nt
+		       "-b&h-Lucida Console-normal-normal-*-*-14-*-*-*-m-0-fontset-orgmode")
+		      (gnu/linux
+		       "-*-Inconsolata-normal-normal-*-*-15-*-*-*-m-0-fontset-orgmode"))))
+		  (font (case system-type
+			  (windows-nt "华文仿宋")
+			  (gnu/linux "WenQuanYi Micro Hei"))))
+	      (set-fontset-font set 'han (font-spec :family font :size 16))
+	      (set-fontset-font set 'cjk-misc (font-spec :family font :size 16))
+	      (set-fontset-font set 'symbol (font-spec :family font :size 16)))
 
-(defface org-default-buffer-face '((t :font "fontset-orgmode")) "")
-(set-face-attribute 'org-default-buffer-face nil :fontset "fontset-orgmode")
+	    (defface org-default-buffer-face '((t :font "fontset-orgmode")) "")
+	    (set-face-attribute 'org-default-buffer-face frame
+				:fontset "fontset-orgmode")))
 
 (add-hook 'org-mode-hook
 	  (lambda ()
