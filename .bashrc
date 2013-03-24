@@ -17,6 +17,7 @@ case "$-" in *i*)
 	esac
 
 	export EDITOR=vim
+	export LESSCHARSET=utf-8
 
 	export HISTSIZE=3000
 	bind '"\e[A": history-search-backward'
