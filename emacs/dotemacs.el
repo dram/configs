@@ -165,6 +165,7 @@
 
 (require 'ido)
 (ido-mode 'files)
+(add-to-list 'ido-ignore-files "__pycache__")
 
 (iswitchb-mode 1)
 
