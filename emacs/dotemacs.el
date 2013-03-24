@@ -97,7 +97,7 @@
 ;(set-default-font "Consolas-11")
 (case system-type
   (gnu/linux
-    (set-default-font "Inconsolata-11"))
+    (set-default-font "Inconsolata-12"))
   (windows-nt
     (set-default-font "Lucida Console-10.5")))
 ;(set-default-font "Lucida Sans Typewriter-10")
@@ -151,13 +151,13 @@
 					 (split-window nil nil 'above)
 					 (recentf-open-files)))
 
-(evil-define-key 'normal recentf-mode-map "q"
+(evil-define-key 'normal recentf-dialog-mode-map "q"
   (lambda ()
     (interactive)
     (recentf-cancel-dialog)
     (delete-window)))
 
-(evil-define-key 'normal recentf-mode-map (kbd "RET")
+(evil-define-key 'normal recentf-dialog-mode-map (kbd "RET")
   (lambda ()
     (interactive)
     (delete-window (previous-window))
@@ -261,6 +261,16 @@
 (setq running-life-text-directory "~/RunningLife")
 (setq running-life-auto-insert-text
       "\n%Y/%m/%d %H:%M\n----------------\n\n.. rubric:: \n")
+
+;; mpg123
+
+(setq mpg123-default-dir "~/music")
+(setq mpg123-startup-volume nil)
+
+(require 'mpg123)
+
+(evil-define-key 'normal mpg123-mode-map (kbd "RET") 'mpg123-play)
+(evil-define-key 'normal mpg123-mode-map " " 'mpg123-play-stop)
 
 ;; mingus
 
