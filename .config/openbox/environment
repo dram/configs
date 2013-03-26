@@ -1,5 +1,10 @@
 #!/bin/sh
 
-XMODIFIERS=@im=yong
-GTK_IM_MODULE=xim
-QT_IM_MODULE=xim
+export LC_ALL=en_US.UTF-8
+
+X_MOUSE_CURSOR=simpleandsoft
+
+XMODIFIERS=@im=SCIM
+GTK_IM_MODULE=scim
+QT_IM_MODULE=scim
+

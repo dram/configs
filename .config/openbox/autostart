@@ -2,19 +2,20 @@
 
 echo -ne '\033%G'
 
-dbus-send --type=method_call --dest=me.wm / me.wm.none
+xset r rate 250 20
+
+wm-assist.py
 
 xchainkeys -d >$HOME/.xchainkeys.log 2>&1 &
 
-display -window root ~/pictures/Wallpaper-idea-swirl.png
-# ( source $HOME/.fehbg )
+( source $HOME/.fehbg )
 
 xbindkeys
 
 tint2 &
 
-yong &
+dropbox.py start
 
-tomighty &
+scim -d
 
-volume-control.lisp
+volume-control-alsa
