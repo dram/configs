@@ -231,6 +231,8 @@ if __name__ == "__main__":
         dpy = Xlib.display.Display()
 
         a = Assist(dpy)
+
+        del os.environ['TMUX']
     else:
         subprocess.call(['tmux', 'kill-session', '-t', 'wm-assist'])
         subprocess.call(['tmux', 'new-session','-d', '-s', 'wm-assist',
