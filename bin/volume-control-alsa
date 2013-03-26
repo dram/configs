@@ -5,25 +5,44 @@
 # Author: Xin Wang <dram.wang@gmail.com>
 #
 
-case "$1" in
-	raise)
-		cmd="amixer -c0 sset Master unmute 3+"
-		;;
-	lower)
-		cmd="amixer -c0 sset Master unmute 3-"
-		;;
-	mute)
-		cmd="amixer -c0 sset Master toggle"
-		;;
-	*)
-		echo "Usage: volume-control {raise,lower,mute}"
-		exit 1
-		;;
-esac
+OSD_PIPE=/tmp/volume-control-osd.pipe
 
-volume=$(
-$cmd |
-awk -F'\\[|\\]' '/^ +Mono/ { print($(NF-1) == "on" ? $2 : "mute") }'
-)
+function run_cmd() {
+    echo >&3 "VOL" $($1 |
+	awk -F'\\[|\\]' '/^ +Mono/ { print($(NF-1) == "on" ? $2 : "mute") }')
+}
 
-notify-send -t 500 -i "info" "Volume" "Current: ${volume}"
+function raise() {
+    run_cmd "amixer -c0 sset Master unmute 3+"
+}
+
+function lower() {
+    run_cmd "amixer -c0 sset Master unmute 3-"
+}
+
+function mute() {
+    run_cmd "amixer -c0 sset Master toggle"
+}
+
+if [ -z "$ENV" ]; then
+    tmux new-session -d -s volume-control "ENV=$0 sh -i"
+else
+    rm -f $OSD_PIPE
+    mkfifo $OSD_PIPE
+
+    aosd_cat \
+	--position 8 \
+	--x-offset -30 \
+	--y-offset -10 \
+	--fade-in 0 \
+	--fade-out 0 \
+	--fade-full 500 \
+	--fore-color white \
+	--fore-opacity 180 \
+	--shadow-opacity 0 \
+	--font 'sans 10' \
+	--age 300 \
+	--input $OSD_PIPE &
+
+    exec 3>$OSD_PIPE
+fi
