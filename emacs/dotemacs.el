@@ -171,7 +171,9 @@
 
 (define-key evil-normal-state-map ",b" 'iswitchb-buffer)
 (define-key evil-normal-state-map ",f" 'ido-find-file)
-(define-key evil-normal-state-map ",k" 'kill-this-buffer)
+(define-key evil-normal-state-map ",k" (lambda ()
+					 (interactive)
+					 (kill-buffer (current-buffer))))
 
 ;; org
 
@@ -259,7 +261,6 @@
 
 (require 'running-life)
 
-(setq running-life-dialog-program 'kdialog)
 (setq running-life-start-sound (expand-file-name "~/emacs/misc/crank.wav"))
 (setq running-life-finish-sound (expand-file-name "~/emacs/misc/deskbell.wav"))
 (setq running-life-text-directory "~/RunningLife")
