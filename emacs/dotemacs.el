@@ -137,6 +137,8 @@
 
 (define-key evil-normal-state-map "," nil)
 
+(define-key evil-normal-state-map ",o" #'browse-url-at-point)
+
 ;; recentf, ido, iswitchb
 
 (require 'recentf)
