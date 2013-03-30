@@ -2,7 +2,7 @@
 
 echo -ne '\033%G'
 
-xset r rate 250 20
+xset r rate 250 25
 
 wm-assist.py
 
