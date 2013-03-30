@@ -5,11 +5,21 @@
 # Author: Xin Wang <dram.wang@gmail.com>
 #
 
-OSD_PIPE=/tmp/volume-control-osd.pipe
-
 function run_cmd() {
-    echo >&3 "VOL" $($1 |
+    _vol=$($1 |
 	awk -F'\\[|\\]' '/^ +Mono/ { print($(NF-1) == "on" ? $2 : "mute") }')
+
+    osd_cat \
+	-b percentage \
+	-p bottom \
+	-A center \
+	-o 5 \
+	-P $_vol \
+	-f 10x20 \
+	-d 1 \
+	-c white \
+	-s 1 \
+	-S grey &
 }
 
 function raise() {
@@ -27,22 +37,5 @@ function mute() {
 if [ -z "$ENV" ]; then
     tmux new-session -d -s volume-control "ENV=$0 sh -i"
 else
-    rm -f $OSD_PIPE
-    mkfifo $OSD_PIPE
-
-    aosd_cat \
-	--position 8 \
-	--x-offset -30 \
-	--y-offset -10 \
-	--fade-in 0 \
-	--fade-out 0 \
-	--fade-full 500 \
-	--fore-color white \
-	--fore-opacity 180 \
-	--shadow-opacity 0 \
-	--font 'sans 10' \
-	--age 300 \
-	--input $OSD_PIPE &
-
-    exec 3>$OSD_PIPE
+    :
 fi
