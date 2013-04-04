@@ -42,7 +42,6 @@ autocmd BufEnter,FileType scheme :syntax sync minlines=50
 autocmd BufNewFile,BufRead *.{md,mkd} set filetype=markdown
 au BufNewFile,BufRead *.fr :setf forth
 au BufNewFile,BufRead *.go :setf go
-au BufWritePost .c,*.h silent! !ctags -R &
 
 au! InsertEnter * call system('fake-key 37 78')
 
