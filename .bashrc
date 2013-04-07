@@ -16,6 +16,8 @@ case "$-" in *i*)
 	;;
 	esac
 
+	echo -ne '\033%G'
+
 	export EDITOR=vim
 	export LESSCHARSET=utf-8
 
