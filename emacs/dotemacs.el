@@ -62,6 +62,10 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
+(defun server-stop ()
+  (interactive)
+  (save-buffers-kill-emacs))
+
 ;; appearance
 
 (setq inhibit-startup-message t)
@@ -74,13 +78,13 @@
 
 (setq default-indicate-buffer-boundaries 'right)
 
-(setq resize-mini-windows t)
+(setq resize-mini-windows nil)
 
 (setq tooltip-use-echo-area t)
 
-(when (not (require 'color-theme-sanityinc-tomorrow nil t))
-  (package-install 'color-theme-sanityinc-tomorrow))
-(color-theme-sanityinc-tomorrow-day)
+(when (not (require 'color-theme-sanityinc-solarized nil t))
+  (package-install 'color-theme-sanityinc-solarized))
+(color-theme-sanityinc-solarized-light)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
@@ -138,6 +142,11 @@
 (define-key evil-normal-state-map "," nil)
 
 (define-key evil-normal-state-map ",o" #'browse-url-at-point)
+
+(define-key evil-normal-state-map ",vv" #'vc-next-action)
+(define-key evil-normal-state-map ",v=" #'vc-diff)
+
+(add-hook 'minibuffer-exit-hook #'deactivate-input-method)
 
 ;; recentf, ido, iswitchb
 
@@ -333,22 +342,9 @@
 
 ;; input method
 
-(add-to-list 'load-path "~/emacs/emacs-eim/")
+(require 'sunpinyin)
 
-(autoload 'eim-use-package "eim" "Another emacs input method")
-
-(setq eim-use-tooltip nil)
-
-(register-input-method
- "eim-py" "euc-cn" 'eim-use-package
- "拼音" "汉字拼音输入法" "py.txt"
- (lambda ()
-   (add-hook 'eim-active-hook
-	     (lambda ()
-	       (define-key eim-mode-map "-" 'eim-previous-page)
-	       (define-key eim-mode-map "=" 'eim-next-page)))))
-
-(set-input-method 'eim-py)
+(set-input-method 'sunpinyin)
 
 (case system-type
   (gnu/linux
