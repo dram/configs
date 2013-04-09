@@ -1,0 +1,17 @@
+#!/bin/sh
+
+path=/sys/class/backlight/acpi_video0
+
+percent=$(($(cat $path/actual_brightness) * 100 / $(cat $path/max_brightness)))
+
+osd_cat \
+	-b percentage \
+	-p bottom \
+	-A center \
+	-o 5 \
+	-P $percent \
+	-f 10x20 \
+	-d 1 \
+	-c white \
+	-s 1 \
+	-S grey &
