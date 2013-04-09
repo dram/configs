@@ -1,10 +1,12 @@
 #!/bin/sh
 
-export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+export CHARSET=UTF-8
 
 X_MOUSE_CURSOR=simpleandsoft
 
-XMODIFIERS=@im=SCIM
-GTK_IM_MODULE=scim
-QT_IM_MODULE=scim
+export XMODIFIERS=@im=SCIM
+export GTK_IM_MODULE=scim
+export QT_IM_MODULE=scim
 
