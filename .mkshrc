@@ -17,18 +17,15 @@ case "$-" in *i*)
 
 	HISTFILE=$HOME/.mksh_history
 
-	export EDITOR=vi
+	export EDITOR=vim
 	export LESS_TERMCAP_md='[36m'
 	export LESSCHARSET=utf-8
 	export PAGER='less -M +p'
 
-	_esc=$(print -n '\033')
-	_bel=$(print -n '\007')
-	PS1='${_esc}]0;crux${_bel} ${_esc}[32m${PWD/#$HOME/~}${_esc}[31m${?/#0/}${_esc}[0m
-$ '
+	PS1=$'\e[32m${PWD/#$HOME/~}\e[31m${?/#0/}\e[0m\n$ '
 
 	alias ls='ls --color'
-	alias t='tmux attach || tmux'
+	alias t='tmux attach -t - || tmux new -s -'
 
 	;;
 esac
