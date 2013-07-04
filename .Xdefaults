@@ -53,12 +53,13 @@ URxvt.foreground: #BBBBBB
 URxvt.background: #000000
 
 !xterm*faceName: Meslo LG M
-xterm*geometry: 80x33
-xterm*faceName: Inconsolata:pixelsize=16
-xterm*faceNameDoublesize: Droid Sans Fallback:pixelsize=15
+xterm*geometry: 80x30
+xterm*faceName: Source Code Pro:pixelsize=15
+xterm*faceNameDoublesize: WenQuanYi Zen Hei Mono:pixelsize=15
 xterm*scrollBar: off
 xterm*selectToClipboard: true
 xterm*iconHint: filled-xterm
+xterm*charClass: 35:48,37-38:48,45-47:48,58:48,61:48,63:48
 
 !-- Tomorrow Color Scheme
 !-- https://github.com/ChrisKempson/Tomorrow-Theme
