@@ -182,9 +182,12 @@ def jump_or_exec(dpy, root, cls, cmd):
     dpy.sync()
 
 class Assist(object):
-    def __init__(self, dpy):
-        self.dpy = dpy
-        self.root = dpy.screen().root
+    def __init__(self):
+        self.connect()
+
+    def connect(self):
+        self.dpy = Xlib.display.Display()
+        self.root = self.dpy.screen().root
 
     def move_left(self):
         move_window(self.dpy, self.root, -20, 0)
@@ -228,12 +231,14 @@ class Assist(object):
 
 if __name__ == "__main__":
     if os.getenv('PYTHONINSPECT'):
-        dpy = Xlib.display.Display()
-
-        a = Assist(dpy)
+        a = Assist()
 
         del os.environ['TMUX']
     else:
-        subprocess.call(['tmux', 'kill-session', '-t', 'wm-assist'])
-        subprocess.call(['tmux', 'new-session','-d', '-s', 'wm-assist',
-                         'PYTHONINSPECT=y python %s' % __file__])
+        try:
+            subprocess.check_call(['tmux',
+                                   'new-session','-d', '-s', 'wm-assist',
+                                   'PYTHONINSPECT=y python %s' % __file__])
+        except subprocess.CalledProcessError:
+            subprocess.call(['tmux', 'send-keys', '-t', 'wm-assist',
+                             'a.connect()', 'C-m'])
