@@ -97,6 +97,8 @@
 
 (add-hook 'after-make-frame-functions
 	  (lambda (frame)
+	    (set-frame-size frame 80 30)
+
 	    (case system-type
 	      (gnu/linux
 	       (set-frame-font "Source Code Pro-11" nil (list frame)))
