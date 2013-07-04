@@ -82,9 +82,8 @@
 
 (setq tooltip-use-echo-area t)
 
-(when (not (require 'color-theme-sanityinc-solarized nil t))
-  (package-install 'color-theme-sanityinc-solarized))
-(color-theme-sanityinc-solarized-light)
+(add-to-list 'custom-theme-load-path "~/emacs/theme")
+(load-theme 'bubbleberry t)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
@@ -100,11 +99,11 @@
 	  (lambda (frame)
 	    (case system-type
 	      (gnu/linux
-	       (set-frame-font "Inconsolata-12" nil (list frame)))
+	       (set-frame-font "Source Code Pro-11" nil (list frame)))
 	      (windows-nt
 	       (set-frame-font "Lucida Console-10.5" nil (list frame))))
 
-	    (setq-default line-spacing 1)
+	    (setq-default line-spacing 0)
 
 	    (let ((font (case system-type
 			  (windows-nt "Microsoft YaHei")
@@ -369,28 +368,48 @@
 	    (set-variable lisp-indent-function 'common-lisp-indent-function t)
 	    (local-set-key [tab] 'slime-indent-and-complete-symbol)))
 
-(when (not (require 'autopair nil t))
-  (package-install 'autopair))
+(when (not (require 'paredit nil t))
+  (package-install 'paredit))
 
-(add-hook 'emacs-lisp-mode-hook 'autopair-mode)
-(add-hook 'slime-mode-hook 'autopair-mode)
-(add-hook 'slime-repl-mode-hook 'autopair-mode)
-
-(defun autopair-insert-paren ()
-    (interactive)
-    (setq last-command-event ?\()
-    (autopair-insert-opening))
-
-(defun autopair-close-paren ()
-    (interactive)
-    (setq last-command-event ?\))
-    (autopair-skip-close-maybe))
-
-(evil-define-key 'insert slime-mode-map "[" 'autopair-insert-paren)
-(evil-define-key 'insert slime-repl-mode-map "[" 'autopair-insert-paren)
-(evil-define-key 'insert slime-mode-map "]" 'autopair-close-paren)
-(evil-define-key 'insert slime-repl-mode-map "]" 'autopair-close-paren)
+(add-hook 'lisp-mode-hook #'enable-paredit-mode)
+(add-hook 'slime-repl-mode-hook #'enable-paredit-mode)
 )
+
+;; arc
+
+(require 'arc)
+
+(put 'tag 'arc-indent-function 1)
+
+(add-to-list 'auto-mode-alist '("\\.arc$" . arc-mode))
+
+(add-hook 'arc-mode-hook
+	  (lambda ()
+	      (setq indent-tabs-mode nil)))
+
+;; scheme
+
+(mapc (lambda (sym) (put sym 'scheme-indent-function 1))
+      '(when unless))
+
+(put 'let-optionals 'scheme-indent-function 2)
+(put 'parameterize 'scheme-indent-function 2)
+(put 'define-library 'scheme-indent-function 'defun)
+
+(font-lock-add-keywords
+ 'scheme-mode
+ (mapcar (lambda (x) (cons x 'font-lock-keyword-face))
+	 '("define-library" "import" "let-optionals" "parameterize"
+	   "when" "unless")))
+
+(setq scheme-program-name "chibi")
+
+(add-hook 'scheme-mode-hook #'enable-paredit-mode)
+(add-hook 'inferior-scheme-mode-hook #'enable-paredit-mode)
+
+(add-hook 'scheme-mode-hook
+	  (lambda ()
+	    (setq indent-tabs-mode nil)))
 
 ;; python
 
