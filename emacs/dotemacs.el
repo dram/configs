@@ -70,9 +70,10 @@
 
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
-(tool-bar-mode -1)
+(when (display-graphic-p)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
 (menu-bar-mode -99)
-(scroll-bar-mode -1)
 (show-paren-mode t)
 (blink-cursor-mode -1)
 
@@ -97,23 +98,24 @@
 
 (add-hook 'after-make-frame-functions
 	  (lambda (frame)
-	    (set-frame-size frame 80 30)
+	    (when (display-graphic-p)
+	      (set-frame-size frame 80 30)
 
-	    (case system-type
-	      (gnu/linux
-	       (set-frame-font "Source Code Pro-11" nil (list frame)))
-	      (windows-nt
-	       (set-frame-font "Lucida Console-10.5" nil (list frame))))
+	      (case system-type
+		(gnu/linux
+		 (set-frame-font "Source Code Pro-11" nil (list frame)))
+		(windows-nt
+		 (set-frame-font "Lucida Console-10.5" nil (list frame))))
 
-	    (setq-default line-spacing 0)
+	      (setq-default line-spacing 0)
 
-	    (let ((font (case system-type
-			  (windows-nt "Microsoft YaHei")
-			  (gnu/linux (font-spec :family"WenQuanYi Micro Hei"
-						:size 16)))))
-	      (set-fontset-font (frame-parameter frame 'font) 'han font)
-	      (set-fontset-font (frame-parameter frame 'font) 'cjk-misc font)
-	      (set-fontset-font (frame-parameter frame 'font) 'symbol font))))
+	      (let ((font (case system-type
+			    (windows-nt "Microsoft YaHei")
+			    (gnu/linux (font-spec :family"WenQuanYi Micro Hei"
+						  :size 16)))))
+		(set-fontset-font (frame-parameter frame 'font) 'han font)
+		(set-fontset-font (frame-parameter frame 'font) 'cjk-misc font)
+		(set-fontset-font (frame-parameter frame 'font) 'symbol font)))))
 
 ;; evil
 
@@ -191,23 +193,24 @@
 
 (add-hook 'after-make-frame-functions
 	  (lambda (frame)
-	    (let ((set
-		   (create-fontset-from-fontset-spec
-		    (case system-type
-		      (windows-nt
-		       "-b&h-Lucida Console-normal-normal-*-*-14-*-*-*-m-0-fontset-orgmode")
-		      (gnu/linux
-		       "-*-Inconsolata-normal-normal-*-*-15-*-*-*-m-0-fontset-orgmode"))))
-		  (font (case system-type
-			  (windows-nt "华文仿宋")
-			  (gnu/linux "WenQuanYi Micro Hei"))))
-	      (set-fontset-font set 'han (font-spec :family font :size 16))
-	      (set-fontset-font set 'cjk-misc (font-spec :family font :size 16))
-	      (set-fontset-font set 'symbol (font-spec :family font :size 16)))
+	    (when (display-graphic-p)
+	      (let ((set
+		     (create-fontset-from-fontset-spec
+		      (case system-type
+			(windows-nt
+			 "-b&h-Lucida Console-normal-normal-*-*-14-*-*-*-m-0-fontset-orgmode")
+			(gnu/linux
+			 "-*-Inconsolata-normal-normal-*-*-15-*-*-*-m-0-fontset-orgmode"))))
+		    (font (case system-type
+			    (windows-nt "华文仿宋")
+			    (gnu/linux "WenQuanYi Micro Hei"))))
+		(set-fontset-font set 'han (font-spec :family font :size 16))
+		(set-fontset-font set 'cjk-misc (font-spec :family font :size 16))
+		(set-fontset-font set 'symbol (font-spec :family font :size 16)))
 
-	    (defface org-default-buffer-face '((t :font "fontset-orgmode")) "")
-	    (set-face-attribute 'org-default-buffer-face frame
-				:fontset "fontset-orgmode")))
+	      (defface org-default-buffer-face '((t :font "fontset-orgmode")) "")
+	      (set-face-attribute 'org-default-buffer-face frame
+				  :fontset "fontset-orgmode"))))
 
 (add-hook 'org-mode-hook
 	  (lambda ()
