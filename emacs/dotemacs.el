@@ -127,6 +127,8 @@
 
 (evil-mode 1)
 
+(evil-set-toggle-key "C-S-z")
+
 (setq evil-want-fine-undo t)
 
 (setq evil-search-module 'evil-search)
