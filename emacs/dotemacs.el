@@ -66,6 +66,8 @@
   (interactive)
   (save-buffers-kill-emacs))
 
+(which-function-mode 1)
+
 ;; appearance
 
 (setq inhibit-startup-message t)
