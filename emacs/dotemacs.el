@@ -39,10 +39,6 @@
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
-(autoload 'yaml-mode "yaml-mode.el"
-  "Major mode for editing YAML files" t)
-(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
-
 ;(setq hs-hide-comments-when-hiding-all nil)
 
 (setq comment-multi-line t)
