@@ -346,7 +346,9 @@
 
 (case system-type
   (gnu/linux
-   (define-key evil-insert-state-map (kbd "C-SPC") 'toggle-input-method))
+   (define-key evil-insert-state-map (kbd "C-SPC") 'toggle-input-method)
+   (unless (display-graphic-p)
+     (define-key evil-insert-state-map (kbd "C-@") 'toggle-input-method)))
   (windows-nt
    (define-key evil-insert-state-map [apps] 'toggle-input-method)))
 
