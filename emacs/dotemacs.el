@@ -284,13 +284,7 @@
 
 ;; mpg123
 
-(setq mpg123-default-dir "~/music")
-(setq mpg123-startup-volume nil)
-
 (require 'mpg123)
-
-(evil-define-key 'normal mpg123-mode-map (kbd "RET") 'mpg123-play)
-(evil-define-key 'normal mpg123-mode-map " " 'mpg123-play-stop)
 
 ;; mingus
 
