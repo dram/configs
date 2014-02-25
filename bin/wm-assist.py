@@ -234,6 +234,7 @@ if __name__ == "__main__":
         a = Assist()
 
         del os.environ['TMUX']
+        del os.environ['PYTHONINSPECT']
     else:
         try:
             subprocess.check_call(['tmux',
