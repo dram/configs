@@ -62,6 +62,8 @@
   (interactive)
   (save-buffers-kill-emacs))
 
+(column-number-mode 1)
+
 ;; appearance
 
 (setq inhibit-startup-message t)
