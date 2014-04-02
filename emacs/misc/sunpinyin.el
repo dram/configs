@@ -108,6 +108,6 @@
   (setq describe-current-input-method-function 'sunpinyin-help))
 
 (register-input-method
- "sunpinyin" "euc-cn" 'sunpinyin-use-package "SP" "SunPinyin")
+ "sunpinyin" "euc-cn" 'sunpinyin-use-package "【中】" "SunPinyin")
 
 (provide 'sunpinyin)
