@@ -284,7 +284,7 @@
 
 ;; mpg123
 
-(require 'mpg123)
+(require 'mpg123 nil t)
 
 ;; mingus
 
