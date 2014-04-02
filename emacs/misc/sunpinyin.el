@@ -53,7 +53,7 @@
 
   ;; Only trigger input method for specific keys.
   (if (and (or (< key ?a) (> key ?z))
-	   (not (member key (string-to-list ",.\\\"':;!?"))))
+	   (not (member key (string-to-list ",.\\\"':;!?<>"))))
       (list key)
 
     (do* (keyseq
