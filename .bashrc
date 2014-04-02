@@ -12,7 +12,7 @@ case "$-" in *i*)
 		export PS1='\ekbash\e\\\e[32m\w\e[31m${?/#0}\e[m\n% '
 	;;
 	*)
-		export PS1='\e[32m\w\e[31m${?/#0}\e[m\n% '
+		export PS1='\e]0;\u@\h\a\e[32m\w\e[31m${?/#0}\e[m\n% '
 	;;
 	esac
 
