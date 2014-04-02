@@ -82,7 +82,7 @@
 (setq tooltip-use-echo-area t)
 
 (add-to-list 'custom-theme-load-path "~/emacs/theme")
-(load-theme 'bubbleberry t)
+(load-theme 'impact t)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
