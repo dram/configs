@@ -340,9 +340,9 @@
 
 ;; input method
 
-(require 'sunpinyin)
+(require 'im-agent)
 
-(set-input-method 'sunpinyin)
+(set-input-method 'im-agent)
 
 (case system-type
   (gnu/linux
