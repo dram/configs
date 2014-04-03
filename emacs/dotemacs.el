@@ -359,7 +359,7 @@
 (when (require 'slime nil t)
 (slime-setup '(slime-fancy))
 (setq slime-net-coding-system 'utf-8-unix)
-(setq common-lisp-hyperspec-root "/usr/share/doc/HyperSpec/")
+(setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
 
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 (add-hook 'lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
