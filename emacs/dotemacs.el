@@ -378,7 +378,7 @@
 
 ;; arc
 
-(require 'arc)
+(when (require 'arc nil t)
 
 (put 'tag 'arc-indent-function 1)
 
@@ -387,6 +387,7 @@
 (add-hook 'arc-mode-hook
 	  (lambda ()
 	      (setq indent-tabs-mode nil)))
+)
 
 ;; scheme
 
