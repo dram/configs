@@ -26,6 +26,7 @@ case "$-" in *i*)
 	bind '"\e[B": history-search-forward'
 
 	alias ls='ls --color'
+	alias e='emacsclient -nw -a "" "$@"'
 	alias t='tmux attach -t - || tmux new -s -'
 
 	;;
