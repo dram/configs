@@ -274,13 +274,14 @@
 
 (add-to-list 'load-path "~/emacs/running-life")
 
-(require 'running-life)
+(when (require 'running-life nil t)
 
 (setq running-life-start-sound (expand-file-name "~/emacs/misc/crank.wav"))
 (setq running-life-finish-sound (expand-file-name "~/emacs/misc/deskbell.wav"))
 (setq running-life-text-directory "~/RunningLife")
 (setq running-life-auto-insert-text
       "\n%Y/%m/%d %H:%M\n----------------\n\n.. rubric:: \n")
+)
 
 ;; mpg123
 
