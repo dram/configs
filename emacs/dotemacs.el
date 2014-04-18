@@ -401,9 +401,23 @@
 
 (font-lock-add-keywords
  'scheme-mode
- (mapcar (lambda (x) (cons x 'font-lock-keyword-face))
-	 '("define-library" "import" "let-optionals" "parameterize"
-	   "when" "unless")))
+ (mapcar (lambda (x)
+	   (cons (concat "\\<" x "\\>") 'font-lock-keyword-face))
+	 '("call-with-port"
+	   "call-with-values"
+	   "case-lambda"
+	   "cond-expand"
+	   "define-library"
+	   "export"
+	   "for"
+	   "import"
+	   "match"
+	   "parameterize"
+	   "syntax-case"
+	   "unless"
+	   "values"
+	   "when"
+	   "with-syntax")))
 
 (setq scheme-program-name "chibi")
 
