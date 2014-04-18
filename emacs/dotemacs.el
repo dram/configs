@@ -393,10 +393,11 @@
 ;; scheme
 
 (mapc (lambda (sym) (put sym 'scheme-indent-function 1))
-      '(when unless))
+      '(call-with-input-process
+	call-with-port
+	eval-when for match parameterize unless when))
 
 (put 'let-optionals 'scheme-indent-function 2)
-(put 'parameterize 'scheme-indent-function 2)
 (put 'define-library 'scheme-indent-function 'defun)
 
 (font-lock-add-keywords
