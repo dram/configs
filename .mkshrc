@@ -22,6 +22,7 @@ case "$-" in *i*)
 
 	PS1=$'\e[32m${PWD/#$HOME/~}\e[31m${?/#0/}\e[0m\n$ '
 
+	alias e='emacsclient -nw -a ""'
 	alias ls='ls --color'
 	alias t='tmux attach -t - || tmux new -s -'
 
