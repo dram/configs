@@ -214,7 +214,8 @@
 
 (add-hook 'org-mode-hook
 	  (lambda ()
-	    (setq evil-auto-indent nil)))
+	    (setq evil-auto-indent nil)
+	    (define-key evil-normal-state-local-map (kbd "TAB") 'org-cycle)))
 
 (mapc (lambda (hook)
 	(add-hook hook 
