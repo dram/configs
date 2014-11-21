@@ -7,6 +7,7 @@ set fileencodings=utf-8,gbk,latin1
 set hlsearch
 syntax on
 set nobackup
+set noundofile
 set autoindent
 color light
 set vb t_vb=
