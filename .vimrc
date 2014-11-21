@@ -40,6 +40,7 @@ au guienter *		set lines=30
 
 autocmd BufEnter,FileType scheme :syntax sync minlines=50
 autocmd BufNewFile,BufRead *.{md,mkd} set filetype=markdown
+autocmd BufNewFile,BufRead Pkgfile set filetype=sh
 au BufNewFile,BufRead *.fr :setf forth
 au BufNewFile,BufRead *.go :setf go
 
