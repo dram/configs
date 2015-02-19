@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export LANG=en_US.UTF-8
+
 export PATH=$HOME/bin:/sbin:/usr/sbin:$PATH
 
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd'
@@ -25,7 +27,8 @@ case "$-" in *i*)
 	bind '"\e[A": history-search-backward'
 	bind '"\e[B": history-search-forward'
 
-	alias ls='ls --color'
+	alias ls='ls -F'
+	alias ll='ls -Fhl'
 	alias e='emacsclient -nw -a ""'
 	alias t='tmux attach -t - || tmux new -s -'
 
