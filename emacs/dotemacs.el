@@ -356,6 +356,11 @@
 
 ;; slime
 
+(when (not (require 'paredit nil t))
+  (package-install 'paredit))
+
+(require 'paredit)
+
 (setq inferior-lisp-program "sbcl")
 (add-to-list 'load-path "~/emacs/slime")
 (when (require 'slime nil t)
@@ -370,9 +375,6 @@
 	  (lambda ()
 	    (set-variable lisp-indent-function 'common-lisp-indent-function t)
 	    (local-set-key [tab] 'slime-indent-and-complete-symbol)))
-
-(when (not (require 'paredit nil t))
-  (package-install 'paredit))
 
 (add-hook 'lisp-mode-hook #'enable-paredit-mode)
 (add-hook 'slime-repl-mode-hook #'enable-paredit-mode)
