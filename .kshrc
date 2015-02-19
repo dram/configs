@@ -7,7 +7,7 @@ export LESS_TERMCAP_md='[36m'
 
 export PAGER='less -M +p'
 
-export PATH=$PATH:/usr/local/Gambit-C/bin
+export PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/$(uname -r)/packages/$(uname -p)/
 
 my_prompt () {
 	status=$?
@@ -17,5 +17,9 @@ my_prompt () {
 
 PS1='$(my_prompt)'
 
+ulimit -c 0
+
 alias ls='ls -F'
+alias e='emacsclient -nw -a ""'
+alias t='tmux attach -t - || tmux new -s -'
 
