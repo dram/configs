@@ -400,7 +400,7 @@
 (mapc (lambda (sym) (put sym 'scheme-indent-function 1))
       '(call-with-input-process
 	call-with-port
-	eval-when for match parameterize unless when))
+	eval-when for match module parameterize unless when))
 
 (put 'let-optionals 'scheme-indent-function 2)
 (put 'define-library 'scheme-indent-function 'defun)
@@ -413,11 +413,14 @@
 	   "call-with-values"
 	   "case-lambda"
 	   "cond-expand"
+	   "define-constant"
 	   "define-library"
+	   "define-record-type"
 	   "export"
 	   "for"
 	   "import"
 	   "match"
+	   "module"
 	   "parameterize"
 	   "syntax-case"
 	   "unless"
