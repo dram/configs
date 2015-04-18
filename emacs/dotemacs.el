@@ -376,6 +376,8 @@
 (setq slime-net-coding-system 'utf-8-unix)
 (setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
 
+(add-to-list 'auto-mode-alist '("\\.lisp-expr$" . lisp-mode))
+
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 (add-hook 'lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
