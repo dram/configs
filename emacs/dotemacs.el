@@ -370,7 +370,7 @@
 (require 'paredit)
 
 (setq inferior-lisp-program "sbcl")
-(add-to-list 'load-path "~/emacs/slime")
+
 (when (require 'slime nil t)
 (slime-setup '(slime-fancy))
 (setq slime-net-coding-system 'utf-8-unix)
