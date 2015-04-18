@@ -66,6 +66,12 @@
 
 (column-number-mode 1)
 
+(setq browse-url-browser-function
+      (lambda (url &rest ignore)
+	(interactive)
+	(shell-command (concat "lynx -dump -nolist -width=78 " url))
+	(pop-to-buffer "*Shell Command Output*")))
+
 ;; appearance
 
 (setq inhibit-startup-message t)
