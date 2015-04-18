@@ -54,7 +54,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+	     '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (package-initialize)
 
 (require 'uniquify)
