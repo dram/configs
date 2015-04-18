@@ -408,7 +408,7 @@
 (mapc (lambda (sym) (put sym 'scheme-indent-function 1))
       '(call-with-input-process
 	call-with-port
-	eval-when for match module parameterize unless when))
+	eval-when for guard match module parameterize unless when))
 
 (put 'let-optionals 'scheme-indent-function 2)
 (put 'define-library 'scheme-indent-function 'defun)
