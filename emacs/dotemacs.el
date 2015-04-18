@@ -403,6 +403,8 @@
 
 ;; scheme
 
+(add-to-list 'auto-mode-alist '("\\.sld$" . scheme-mode))
+
 (mapc (lambda (sym) (put sym 'scheme-indent-function 1))
       '(call-with-input-process
 	call-with-port
