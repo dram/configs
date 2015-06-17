@@ -3,6 +3,9 @@
 export LANG=en_US.UTF-8
 
 export VISUAL=emacs
+
+export GIT_EDITOR=vi
+
 export SVN_EDITOR=vi
 
 export LESS_TERMCAP_md='[36m'
