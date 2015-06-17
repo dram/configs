@@ -28,7 +28,7 @@ case "$-" in *i*)
 	bind '"\e[B": history-search-forward'
 
 	alias ls='ls -F'
-	alias ll='ls -Fhl'
+	alias ll='ls -Fl'
 	alias e='emacsclient -nw -a ""'
 	alias t='tmux attach -t - || tmux new -s -'
 
