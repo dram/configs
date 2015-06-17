@@ -12,7 +12,7 @@ export LESS_TERMCAP_md='[36m'
 
 export PAGER='less -M +p'
 
-export PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/$(uname -r)/packages/$(uname -p)/
+export PKG_PATH=ftp://ftp.netbsd.org/pub/pkgsrc/packages/NetBSD/$(uname -m)/$(uname -r)/All/
 
 my_prompt () {
 	status=$?
