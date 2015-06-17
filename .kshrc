@@ -1,5 +1,7 @@
 #!/bin/ksh
 
+export LANG=en_US.UTF-8
+
 export VISUAL=emacs
 export SVN_EDITOR=vi
 
