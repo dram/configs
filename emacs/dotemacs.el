@@ -141,6 +141,8 @@
 
 (setq evil-search-module 'evil-search)
 
+(setq-default evil-symbol-word-search t)
+
 (defadvice outline-minor-mode (after bind-key-for-outline-minor-mode activate)
   (define-key evil-normal-state-local-map "zo" 'show-entry)
   (define-key evil-normal-state-local-map "zc" 'hide-entry)
