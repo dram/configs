@@ -8,4 +8,6 @@ altscreen on
 maptimeout 70
 defscrollback 100000
 
+term screen-256color
+
 shelltitle "% |"
