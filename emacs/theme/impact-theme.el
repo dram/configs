@@ -11,22 +11,22 @@
  '(region ((t (:background "white" :foreground "black"))))
 
  ;; font-lock
- '(font-lock-comment-face ((t (:foreground "brightblack"))))
+ '(font-lock-comment-face ((t (:foreground "lightblack"))))
  '(font-lock-constant-face ((t (:foreground "cyan"))))
  '(font-lock-doc-string-face ((t (:foreground "cyan"))))
- '(font-lock-function-name-face ((t (:foreground "brightcyan"))))
- '(font-lock-keyword-face ((t (:foreground "brightblue"))))
+ '(font-lock-function-name-face ((t (:foreground "lightcyan"))))
+ '(font-lock-keyword-face ((t (:foreground "lightblue"))))
  '(font-lock-string-face ((t (:foreground "cyan"))))
  '(font-lock-type-face ((t (:foreground "green"))))
  '(font-lock-variable-name-face ((t (:foreground "cyan"))))
  '(font-lock-warning-face ((t (:foreground "yellow"))))
- '(font-lock-preprocessor-face ((t (:foreground "brightwhite"))))
+ '(font-lock-preprocessor-face ((t (:foreground "lightwhite"))))
 
  ;; diff
  '(diff-header ((t (:background "black" :foreground "green"))))
  '(diff-file-header ((t (:background "black" :foreground "green"))))
- '(diff-added ((t (:background "black" :foreground "brightcyan"))))
- '(diff-removed ((t (:background "black" :foreground "brightblue"))))
+ '(diff-added ((t (:background "black" :foreground "lightcyan"))))
+ '(diff-removed ((t (:background "black" :foreground "lightblue"))))
 
  ;; eshell
  '(eshell-prompt ((t (:foreground "green"))))
