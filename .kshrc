@@ -26,5 +26,4 @@ ulimit -c 0
 
 alias ls='ls -F'
 alias e='emacsclient -nw -a ""'
-alias t='tmux attach -t - || tmux new -s -'
-
+alias t='screen -DR'
