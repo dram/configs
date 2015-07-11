@@ -451,6 +451,19 @@
 	  (lambda ()
 	    (setq indent-tabs-mode nil)))
 
+;; erlang
+
+(add-to-list 'interpreter-mode-alist '("escript" . erlang-mode))
+(add-to-list 'auto-mode-alist '("\\.erl$" . erlang-mode))
+(add-to-list 'auto-mode-alist '("\\.hrl$" . erlang-mode))
+
+(setq erlang-indent-level 2)
+
+(add-hook 'erlang-mode-hook (lambda ()
+                              (setq indent-tabs-mode nil)
+                              (add-to-list 'write-file-functions
+                                           #'delete-trailing-whitespace)))
+
 ;; python
 
 (setq python-shell-virtualenv-path "~/venv/")
