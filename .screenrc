@@ -8,9 +8,4 @@ altscreen on
 maptimeout 70
 defscrollback 100000
 
-# allow bold colors
-attrcolor b ".I"
-# erase background with current bg color
-defbce "on"
-
 shelltitle "% |"
