@@ -127,10 +127,10 @@
 
 ;; evil
 
-(when (not (require 'undo-tree nil t))
+(unless (require 'undo-tree nil t)
   (package-install 'undo-tree))
 
-(when (not (require 'evil nil t))
+(unless (require 'evil nil t)
   (package-install 'evil))
 
 (evil-mode 1)
@@ -367,7 +367,7 @@
 
 ;; slime
 
-(when (not (require 'paredit nil t))
+(unless (require 'paredit nil t)
   (package-install 'paredit))
 
 (require 'paredit)
@@ -514,7 +514,7 @@
 
 ;; diminish
 
-(when (not (require 'diminish nil t))
+(unless (require 'diminish nil t)
   (package-install 'diminish))
 
 (diminish 'undo-tree-mode)
