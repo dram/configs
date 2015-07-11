@@ -1,13 +1,10 @@
 caption always "%{= Gk} %-Lw%{= kW}%n*%f %t%{= Gk}%+Lw %="
 sorendition +b kG
 
-escape "^Jj"
 startup_message off
 vbell off
 altscreen on
 
-bind , eval 'title ""' title
-bind l other
 maptimeout 70
 defscrollback 5000
 
