@@ -52,6 +52,8 @@
 
 (setq ring-bell-function 'ignore)
 
+(setq-default tags-case-fold-search nil)
+
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "https://marmalade-repo.org/packages/"))
