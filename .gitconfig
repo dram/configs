@@ -1,3 +1,5 @@
+[core]
+	pager = less -+F
 [user]
 	email = dram.wang@gmail.com
 	name = Xin Wang
