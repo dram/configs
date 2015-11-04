@@ -14,6 +14,10 @@ export PAGER='less -M +p'
 
 export PKG_PATH=ftp://ftp.netbsd.org/pub/pkgsrc/packages/NetBSD/$(uname -m)/$(uname -r)/All/
 
+# Support 256 colors for putty & emacs & screen.
+# http://stackoverflow.com/a/22088744
+export TERMCAP=
+
 my_prompt () {
 	status=$?
 	path=${PWD##$HOME*}
