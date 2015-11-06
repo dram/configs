@@ -90,7 +90,7 @@
 (setq tooltip-use-echo-area t)
 
 (add-to-list 'custom-theme-load-path "~/emacs/theme")
-(load-theme 'impact t)
+(load-theme 'atelier t)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
