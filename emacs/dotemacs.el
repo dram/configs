@@ -470,6 +470,13 @@
                               (add-to-list 'write-file-functions
                                            #'delete-trailing-whitespace)))
 
+;; haskell
+
+(unless (require 'haskell-mode nil t)
+  (package-install 'haskell-mode))
+
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
 ;; python
 
 (setq python-shell-virtualenv-path "~/venv/")
