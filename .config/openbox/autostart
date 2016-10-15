@@ -2,6 +2,8 @@
 
 echo -ne '\033%G'
 
+xset b off
+
 xset r rate 250 25
 
 wm-assist.py
@@ -16,6 +18,6 @@ tint2 &
 
 dropbox.py start
 
-scim -d
+fcitx -d
 
 volume-control-alsa
