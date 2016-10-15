@@ -30,7 +30,7 @@ case "$-" in *i*)
 	alias ls='ls -F'
 	alias ll='ls -Fl'
 	alias e='emacsclient -nw -a ""'
-	alias t='tmux attach -t - || tmux new -s -'
+	alias t='screen -DR'
 
 	;;
 esac
