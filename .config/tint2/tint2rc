@@ -24,13 +24,13 @@ border_color = #FFFFFF 68
 # Panel
 panel_items = LTSC
 panel_monitor = all
-panel_position = bottom center horizontal
-panel_size = 80% 32
+panel_position = top center horizontal
+panel_size = 100% 32
 panel_margin = 0 0
 panel_padding = 7 0 7
 panel_dock = 0
 wm_menu = 0
-panel_layer = top
+panel_layer = bottom
 panel_background_id = 1
 
 # Panel Autohide
@@ -41,18 +41,19 @@ autohide_height = 2
 strut_policy = follow_size
 
 # Launchers
-launcher_icon_theme = nuoveXT2
-launcher_padding = 5 0 10
+launcher_icon_theme = Faenza
+launcher_padding = 0 0 6
 launcher_background_id = 9
 launcher_icon_size = 24
-launcher_item_app = /usr/share/applications/gnome-terminal.desktop
-launcher_item_app = /usr/share/applications/gedit.desktop
-launcher_item_app = /usr/share/applications/rhythmbox.desktop
-launcher_item_app = /usr/share/applications/firefox.desktop
+launcher_item_app = /usr/share/applications/leafpad.desktop
+launcher_item_app = /usr/share/applications/qupzilla.desktop
+launcher_item_app = /usr/share/applications/smplayer.desktop
+launcher_item_app = /usr/share/applications/nomacs.desktop
+launcher_item_app = /usr/share/applications/qpdfview.desktop
 
 # Taskbar
 taskbar_mode = single_desktop
-taskbar_padding = 2 3 2
+taskbar_padding = 2 2 2
 taskbar_background_id = 0
 taskbar_active_background_id = 0
 
