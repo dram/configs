@@ -472,6 +472,19 @@
                               (add-to-list 'write-file-functions
                                            #'delete-trailing-whitespace)))
 
+;; modula-2
+
+(add-to-list 'auto-mode-alist '("\\.def$" . modula-2-mode))
+(add-to-list 'auto-mode-alist '("\\.mod$" . modula-2-mode))
+
+(setq-default m2-indent 2)
+
+;; sml
+
+(add-to-list 'auto-mode-alist '("\\.fun$" . sml-mode))
+(add-to-list 'auto-mode-alist '("\\.mlb$" . sml-mode))
+(add-hook 'sml-mode-hook (lambda () (setq indent-tabs-mode nil)))
+
 ;; haskell
 
 (unless (require 'haskell-mode nil t)
