@@ -471,6 +471,10 @@
                               (add-to-list 'write-file-functions
                                            #'delete-trailing-whitespace)))
 
+;; c++
+
+(add-hook 'c++-mode-hook (lambda () (setq indent-tabs-mode nil)))
+
 ;; modula-2
 
 (add-to-list 'auto-mode-alist '("\\.def$" . modula-2-mode))
