@@ -39,7 +39,6 @@
 
 (setq comment-multi-line t)
 (setq c-default-style '((c-mode . "bsd")
-			(c++-mode . "bsd")
 			(other . "gnu")))
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
