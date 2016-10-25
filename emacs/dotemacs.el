@@ -73,6 +73,8 @@
 
 (setq mode-require-final-newline nil)
 
+(add-hook 'text-mode-hook (lambda () (setq indent-tabs-mode nil)))
+
 ;; appearance
 
 (setq inhibit-startup-message t)
@@ -487,6 +489,10 @@
 (add-to-list 'auto-mode-alist '("\\.fun$" . sml-mode))
 (add-to-list 'auto-mode-alist '("\\.mlb$" . sml-mode))
 (add-hook 'sml-mode-hook (lambda () (setq indent-tabs-mode nil)))
+
+;; self
+
+(add-to-list 'auto-mode-alist '("\\.self$" . text-mode))
 
 ;; haskell
 
