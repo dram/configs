@@ -293,6 +293,10 @@
   (setq org-export-docbook-xsl-fo-proc-command
 	"d:/docbook/fop/fop -c d:/docbook/fop.xconf %i %o"))
 
+;; sam
+
+(add-to-list 'auto-mode-alist '("\\.sam$" . text-mode))
+
 ;; running-life
 
 (add-to-list 'load-path "~/emacs/running-life")
