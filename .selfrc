@@ -1,0 +1,73 @@
+"File: .selfrc"
+
+bootstrap addSlotsTo: x11Globals fontFamily From: (|
+  fixed = '-*-fixed-medium-r-normal--'.
+  fixedBold = '-*-fixed-bold-r-normal--'.
+  fixedItalic = '-*-fixed-medium-o-normal--'
+|).
+
+bootstrap addSlotsTo: generalModel parent From: (|
+  preferredEditorColor = (preferences outliner theme generalModelEditor)
+|).
+
+bootstrap addSlotsTo: preferences outliner themes base From: (|
+  generalModelEditor = (bodyColor)
+|).
+
+bootstrap addSlotsTo: preferences outliner themes night From: (|
+  generalModelEditor = (dull)
+|).
+
+bootstrap addSlotsTo: generalModel parent commentStyleProto parent From: (|
+  color = (myModel preferredEditorColor)
+|).
+
+bootstrap addSlotsTo: generalModel parent contentsEditorStyleProto parent From: (|
+  color = (myModel preferredEditorColor)
+|).
+
+bootstrap addSlotsTo: generalModel parent editWholeThingStyleProto parent From: (|
+  color = (myModel preferredEditorColor)
+|).
+
+bootstrap addSlotsTo: fontSpec parent From: (|
+  name: name Size: size = (
+    name: name.
+    size: size
+  )
+|).
+
+(|
+  globals* = globals.
+
+  sans = 'helvetica'. serif = 'times'. mono = 'courier'.
+  normal = 15. small = 12. tiny = 9.
+
+  run = (
+    preferences outliner theme: preferences outliner themes night.
+    preferences desktop backgroundColor: preferences outliner theme bodyColor.
+    carpetMorph color: preferences outliner theme borderColor.
+
+    evaluatorMorph preferredFontSpec name: sans Size: small.
+    generalCategoryModel objectTitleFontSpec name: serif Size: normal.
+    generalCategoryModel subcategoryTitleFontSpec name: serif Size: normal.
+    generalLeafModel commentButtonFontSpec name: sans Size: tiny.
+    generalLeafModel contentsLabelFontSpec name: serif Size: normal.
+    generalModel annotationInfoFontSpec name: serif Size: small.
+    generalModel titleFontSpec name: serif Size: normal.
+    generalProcessModel commandButtonFontSpec name: sans Size: normal.
+    outlinerPreferences headerButtonFontSpec name: sans Size: tiny.
+    outlinerPreferences myFontSpec name: serif Size: normal.
+    outlinerPreferences tinyFontSize: small.
+    selfCatOrObjModel moduleSummaryFontSpec name: serif Size: normal.
+    selfGeneralSlotModel privateTitleFontSpec name: serif Size: normal.
+    selfGeneralSlotModel publicTitleFontSpec name: serif Size: normal.
+    selfGeneralSlotModel undeclaredTitleFontSpec name: sans Size: normal.
+    ui2Button defaultFontSpec name: serif Size: normal.
+    ui2Menu defaultFontSpec name: serif Size: normal.
+    ui2_textField fontSpec name: mono Size: normal.
+    userQueryMorph defaultFontSpec name: serif Size: normal.
+
+    desktop open
+  )
+|) run
