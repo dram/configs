@@ -48,6 +48,8 @@ bootstrap addSlotsTo: fontSpec parent From: (|
     preferences desktop backgroundColor: preferences outliner theme bodyColor.
     carpetMorph color: preferences outliner theme borderColor.
 
+    ui2_textField fontSpec style: 'bold'.
+
     evaluatorMorph preferredFontSpec name: sans Size: small.
     generalCategoryModel objectTitleFontSpec name: serif Size: normal.
     generalCategoryModel subcategoryTitleFontSpec name: serif Size: normal.
