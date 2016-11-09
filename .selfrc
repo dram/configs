@@ -41,7 +41,7 @@ bootstrap addSlotsTo: fontSpec parent From: (|
   globals* = globals.
 
   sans = 'helvetica'. serif = 'times'. mono = 'courier'.
-  normal = 15. small = 12. tiny = 9.
+  normal = 16. small = 14. tiny = 10.
 
   run = (
     preferences outliner theme: preferences outliner themes night.
