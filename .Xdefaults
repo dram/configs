@@ -56,10 +56,9 @@ URxvt.background: #000000
 xterm*geometry: 80x30
 xterm*allowBoldFonts: false
 xterm*faceName: Source Code Pro:pixelsize=15
-xterm*faceNameDoublesize: FandolHei:style=Regular:pixelsize=15
+xterm*faceNameDoublesize: Source Han Sans CN:style=Medium:pixelsize=15
 
 xterm*scrollBar: off
-xterm*selectToClipboard: true
 xterm*iconHint: /usr/share/icons/Faenza/apps/48/terminal.xpm
 xterm*charClass: 35:48,37-38:48,45-47:48,58:48,61:48,63:48
 xterm*metaSendsEscape: true
