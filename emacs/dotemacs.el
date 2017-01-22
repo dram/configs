@@ -488,6 +488,14 @@
 
 (setq-default m2-indent 2)
 
+(add-hook 'm2-mode-hook (lambda () (setq indent-tabs-mode nil)))
+
+;; pascal
+
+(setq-default pascal-indent-level 2)
+
+(add-hook 'pascal-mode-hook (lambda () (setq indent-tabs-mode nil)))
+
 ;; sml
 
 (add-to-list 'auto-mode-alist '("\\.fun$" . sml-mode))
