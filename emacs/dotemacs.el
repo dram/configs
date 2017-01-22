@@ -496,6 +496,12 @@
 
 (add-hook 'pascal-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
+;; prolog
+
+(setq-default prolog-indent-width 2)
+
+(add-to-list 'auto-mode-alist '("\\.pro$" . prolog-mode))
+
 ;; sml
 
 (add-to-list 'auto-mode-alist '("\\.fun$" . sml-mode))
