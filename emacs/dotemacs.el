@@ -502,6 +502,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.pro$" . prolog-mode))
 
+(add-hook 'prolog-mode-hook (lambda () (setq indent-tabs-mode nil)))
+
 ;; sml
 
 (add-to-list 'auto-mode-alist '("\\.fun$" . sml-mode))
