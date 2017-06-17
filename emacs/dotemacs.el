@@ -464,6 +464,19 @@
 	  (lambda ()
 	    (setq indent-tabs-mode nil)))
 
+;; prolog
+
+(add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
+(add-to-list 'auto-mode-alist '("\\.pro$" . prolog-mode))
+
+(add-hook 'prolog-mode-hook (lambda ()
+			      (setq indent-tabs-mode t)
+			      (setq tab-width 4)))
+
+;; logtalk
+
+(add-to-list 'auto-mode-alist '("\\.lgt$" . prolog-mode))
+
 ;; erlang
 
 (add-to-list 'interpreter-mode-alist '("escript" . erlang-mode))
