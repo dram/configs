@@ -368,8 +368,8 @@
 
 ;; input method
 
-(when (require 'im-agent nil t)
-  (set-input-method 'im-agent))
+; (when (require 'im-agent nil t)
+;   (set-input-method 'im-agent))
 
 (case system-type
   (gnu/linux
