@@ -464,6 +464,24 @@
 	  (lambda ()
 	    (setq indent-tabs-mode nil)))
 
+;; clips
+
+(unless (require 'clips-mode nil t)
+  (package-install 'clips-mode))
+
+;; fIXME: Does not work for clips-indent-function
+(put 'foreach 'lisp-indent-function 2)
+
+(font-lock-add-keywords
+ 'clips-mode
+ (mapcar (lambda (x)
+	   (cons (concat "\\<" x "\\>") 'font-lock-keyword-face))
+	 '("foreach")))
+
+(add-hook 'clips-mode-hook
+	  (lambda ()
+	    (setq indent-tabs-mode nil)))
+
 ;; prolog
 
 (add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
