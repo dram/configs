@@ -20,7 +20,7 @@ case "$-" in *i*)
 
 	echo -ne '\033%G'
 
-	export EDITOR=vim
+	export EDITOR=vi
 	export LESSCHARSET=utf-8
 
 	export HISTSIZE=3000
