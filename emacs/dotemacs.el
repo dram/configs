@@ -512,6 +512,7 @@
 (put 'do-for-all-facts 'clips-indent-function 2)
 (put 'foreach 'clips-indent-function 2)
 (put 'if 'clips-indent-function 'clips-if-indent)
+(put 'while 'clips-indent-function 1)
 
 (font-lock-add-keywords
  'clips-mode
