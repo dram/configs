@@ -486,6 +486,7 @@
 
 (add-hook 'prolog-mode-hook (lambda ()
 			      (setq indent-tabs-mode t)
+                              (setq indent-line-function 'insert-tab)
 			      (setq tab-width 4)))
 
 ;; logtalk
