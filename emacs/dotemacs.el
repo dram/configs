@@ -469,63 +469,6 @@
 (unless (require 'clips-mode nil t)
   (package-install 'clips-mode))
 
-(defun clips-defrule-indent (indent-point state)
-  (let* ((defrule-form-column (progn (goto-char (elt state 1))
-				(current-column)))
-	 (this-form-end (progn (goto-char indent-point)
-			       (forward-sexp 1)
-			       (point)))
-	 (this-form (buffer-substring (progn (forward-sexp -1)
-					     (point))
-				      this-form-end)))
-    (if (string-equal this-form "=>")
-	(+ defrule-form-column 1)
-      (+ defrule-form-column lisp-body-indent))))
-
-(defun clips-if-indent (indent-point state)
-  (let* ((if-form-column (progn (goto-char (elt state 1))
-				(current-column)))
-	 (this-form-end (progn (goto-char indent-point)
-			       (forward-sexp 1)
-			       (point)))
-	 (this-form (buffer-substring (progn (forward-sexp -1)
-					     (point))
-				      this-form-end))
-	 (last-form-column (progn (goto-char (elt state 2))
-				  (current-column)))
-	 (last-form (buffer-substring (point)
-				      (progn (forward-sexp 1)
-					     (point)))))
-    (cond ((or (string-equal this-form "else")
-	       (string-equal this-form "then"))
-	   (+ if-form-column 1))
-	  ((or (string-equal last-form "else")
-	       (string-equal last-form "then"))
-	   (+ last-form-column lisp-body-indent))
-	  (t last-form-column))))
-
-(put 'assert 'clips-indent-function 0)
-(put 'bind 'clips-indent-function 1)
-(put 'defrule 'clips-indent-function 'clips-defrule-indent)
-(put 'delayed-do-for-all-facts 'clips-indent-function 2)
-(put 'do-for-fact 'clips-indent-function 2)
-(put 'do-for-all-facts 'clips-indent-function 2)
-(put 'foreach 'clips-indent-function 2)
-(put 'if 'clips-indent-function 'clips-if-indent)
-(put 'progn 'clips-indent-function 0)
-(put 'progn$ 'clips-indent-function 1)
-(put 'switch 'clips-indent-function 1)
-(put 'while 'clips-indent-function 1)
-
-(font-lock-add-keywords
- 'clips-mode
- (mapcar (lambda (x)
-	   (cons (concat "\\<" x "\\>") 'font-lock-keyword-face))
-	 '("delayed-do-for-all-facts"
-	   "do-for-fact"
-	   "do-for-all-facts"
-	   "foreach")))
-
 (add-hook 'clips-mode-hook
 	  (lambda ()
 	    (setq indent-tabs-mode nil)))
