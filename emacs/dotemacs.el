@@ -407,6 +407,12 @@
 (add-hook 'slime-repl-mode-hook #'enable-paredit-mode)
 )
 
+;; emacs-lisp
+
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (setq indent-tabs-mode nil)))
+
 ;; arc
 
 (when (require 'arc nil t)
