@@ -475,6 +475,8 @@
 (unless (require 'clips-mode nil t)
   (package-install 'clips-mode))
 
+(add-hook 'clips-mode-hook #'enable-paredit-mode)
+
 (add-hook 'clips-mode-hook
 	  (lambda ()
 	    (setq indent-tabs-mode nil)))
