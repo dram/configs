@@ -73,8 +73,6 @@
 
 (setq mode-require-final-newline nil)
 
-(add-hook 'text-mode-hook (lambda () (setq indent-tabs-mode nil)))
-
 ;; appearance
 
 (setq inhibit-startup-message t)
