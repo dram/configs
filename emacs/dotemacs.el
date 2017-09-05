@@ -71,8 +71,6 @@
 	(shell-command (concat "lynx -dump -nolist -width=78 " url))
 	(pop-to-buffer "*Shell Command Output*")))
 
-(setq mode-require-final-newline nil)
-
 ;; appearance
 
 (setq inhibit-startup-message t)
