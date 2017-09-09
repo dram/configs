@@ -478,6 +478,9 @@
 (unless (require 'clips-mode nil t)
   (package-install 'clips-mode))
 
+(put 'call-with-input-file 'clips-indent-function 1)
+(put 'call-with-output-file 'clips-indent-function 1)
+
 (add-hook 'clips-mode-hook #'enable-paredit-mode)
 
 (add-hook 'clips-mode-hook
