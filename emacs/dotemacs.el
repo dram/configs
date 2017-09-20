@@ -487,6 +487,10 @@
 	  (lambda ()
 	    (setq indent-tabs-mode nil)))
 
+;; perl
+
+(defalias 'perl-mode 'cperl-mode)
+
 ;; prolog
 
 (add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
