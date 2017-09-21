@@ -26,6 +26,10 @@
  '(font-lock-warning-face ((t (:foreground "yellow"))))
  '(font-lock-preprocessor-face ((t (:foreground "brightwhite"))))
 
+ ;; cperl
+ '(cperl-array-face ((t (:background "black" :foreground "cyan"))))
+ '(cperl-hash-face ((t (:background "black" :foreground "cyan"))))
+
  ;; diff
  '(diff-header ((t (:background "black" :foreground "green"))))
  '(diff-file-header ((t (:background "black" :foreground "green"))))
