@@ -477,7 +477,9 @@
   (package-install 'clips-mode))
 
 (put 'call-with-input-file 'clips-indent-function 1)
+(put 'call-with-input-process 'clips-indent-function 2)
 (put 'call-with-output-file 'clips-indent-function 1)
+(put 'call-with-output-process 'clips-indent-function 2)
 
 (add-hook 'clips-mode-hook #'enable-paredit-mode)
 
