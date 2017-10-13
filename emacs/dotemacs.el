@@ -363,9 +363,7 @@
 	    (define-key evil-normal-state-local-map "zo" 'nxml-show-direct-text-content)
 	    (define-key evil-normal-state-local-map "zc" 'nxml-hide-direct-text-content)
 	    (define-key evil-normal-state-local-map "zm" 'nxml-hide-all-text-content)
-	    (define-key evil-normal-state-local-map "zr" 'nxml-show-all)
-
-	    (define-key evil-insert-state-local-map ";;" 'nxml-insert-tag-with-cursor-word)))
+	    (define-key evil-normal-state-local-map "zr" 'nxml-show-all)))
 
 ;; input method
 
