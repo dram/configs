@@ -359,6 +359,8 @@
 
 (add-hook 'nxml-mode-hook
 	  (lambda ()
+            (setq indent-tabs-mode nil)
+            (setq tab-width 2)
 	    (local-set-key (kbd "\C-c\C-r") 'surround-region-with-tag)
 	    (define-key evil-normal-state-local-map "zo" 'nxml-show-direct-text-content)
 	    (define-key evil-normal-state-local-map "zc" 'nxml-hide-direct-text-content)
