@@ -158,15 +158,6 @@
 
 (add-hook 'minibuffer-exit-hook #'deactivate-input-method)
 
-;; markdown
-
-(unless (require 'markdown-mode nil t)
-  (package-install 'markdown-mode))
-
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-
 ;; recentf, ido, iswitchb
 
 (require 'recentf)
@@ -554,13 +545,6 @@
 ;; self
 
 (add-to-list 'auto-mode-alist '("\\.self$" . text-mode))
-
-;; haskell
-
-(unless (require 'haskell-mode nil t)
-  (package-install 'haskell-mode))
-
-(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 ;; python
 
