@@ -376,8 +376,6 @@
 (unless (require 'paredit nil t)
   (package-install 'paredit))
 
-(require 'paredit)
-
 (setq inferior-lisp-program "sbcl")
 
 (when (require 'slime nil t)
@@ -588,8 +586,6 @@
   ad-do-it)
 
 ;; tramp
-
-(require 'tramp)
 
 (setq tramp-default-method "plink")
 
