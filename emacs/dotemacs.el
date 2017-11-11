@@ -120,6 +120,13 @@
 		(set-fontset-font (frame-parameter frame 'font) 'cjk-misc font)
 		(set-fontset-font (frame-parameter frame 'font) 'symbol font)))))
 
+;; asciidoc
+
+(unless (require 'adoc-mode nil t)
+  (package-install 'adoc-mode))
+
+(add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
+
 ;; evil
 
 (unless (require 'undo-tree nil t)
