@@ -292,6 +292,10 @@
                             (setq indent-line-function 'insert-tab)
                             (setq tab-width 4)))
 
+;; cell
+
+(add-to-list 'auto-mode-alist '("\\.cell$" . c++-mode))
+
 ;; sam
 
 (add-to-list 'auto-mode-alist '("\\.sam$" . text-mode))
