@@ -296,6 +296,12 @@
 
 (add-to-list 'auto-mode-alist '("\\.cell$" . c++-mode))
 
+(add-hook 'c++-mode-hook (lambda ()
+                           (electric-indent-mode -1)
+                           (setq indent-tabs-mode nil)
+                           (setq indent-line-function 'insert-tab)
+                           (setq tab-width 2)))
+
 ;; sam
 
 (add-to-list 'auto-mode-alist '("\\.sam$" . text-mode))
