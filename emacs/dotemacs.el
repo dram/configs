@@ -294,13 +294,13 @@
 
 ;; cell
 
-(add-to-list 'auto-mode-alist '("\\.cell$" . c++-mode))
+(require 'cell-mode)
 
-(add-hook 'c++-mode-hook (lambda ()
-                           (electric-indent-mode -1)
-                           (setq indent-tabs-mode nil)
-                           (setq indent-line-function 'insert-tab)
-                           (setq tab-width 2)))
+(add-hook 'cell-mode-hook (lambda ()
+                            (electric-indent-mode -1)
+                            (setq indent-tabs-mode nil)
+                            (setq indent-line-function 'insert-tab)
+                            (setq tab-width 2)))
 
 ;; sam
 
