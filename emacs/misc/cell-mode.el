@@ -5,7 +5,8 @@
 (setq cell-font-lock-extra-types '("[[:upper:]]\\sw*"))
 
 (defvar cell-mode-font-lock-keywords
-  `((":\\sw+" . font-lock-constant-face)
+  `((":\\(\\sw+\\)" . (1 font-lock-constant-face))
+    ("[(,]\\(\\s-*\\sw+\\):" . (1 font-lock-reference-face))
     (,(concat "\\<"
               (c-make-keywords-re nil
                 '("after" "and" "apply" "assert" "assume" "break"
