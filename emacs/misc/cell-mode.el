@@ -17,6 +17,7 @@
   (c-initialize-cc-mode t)
   (c-init-language-vars cell-mode)
 
+  (font-lock-add-keywords nil c-font-lock-keywords-2 'set)
   (font-lock-add-keywords nil cell-mode-font-lock-keywords))
 
 (add-to-list 'auto-mode-alist '("\\.cell$" . cell-mode))
