@@ -14,7 +14,7 @@
  '(region ((t (:background "white" :foreground "black"))))
 
  ;; font-lock
- '(font-lock-builtin-face ((t (:foreground "magenta"))))
+ '(font-lock-builtin-face ((t (:foreground "brightblue"))))
  '(font-lock-comment-face ((t (:foreground "brightblack"))))
  '(font-lock-constant-face ((t (:foreground "cyan"))))
  '(font-lock-doc-string-face ((t (:foreground "cyan"))))
