@@ -14,12 +14,12 @@
  '(region ((t (:background "white" :foreground "black"))))
 
  ;; font-lock
- '(font-lock-builtin-face ((t (:foreground "brightblue"))))
+ '(font-lock-builtin-face ((t (:foreground "magenta"))))
  '(font-lock-comment-face ((t (:foreground "brightblack"))))
  '(font-lock-constant-face ((t (:foreground "cyan"))))
  '(font-lock-doc-string-face ((t (:foreground "cyan"))))
  '(font-lock-function-name-face ((t (:foreground "blue"))))
- '(font-lock-keyword-face ((t (:foreground "magenta"))))
+ '(font-lock-keyword-face ((t (:foreground "brightred"))))
  '(font-lock-string-face ((t (:foreground "green"))))
  '(font-lock-type-face ((t (:foreground "yellow"))))
  '(font-lock-variable-name-face ((t (:foreground "cyan"))))
