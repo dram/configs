@@ -1,5 +1,7 @@
 (require 'cc-mode)
 
+(require 'cc-langs)
+
 (c-add-language 'cell-mode 'c-mode)
 
 (setq cell-font-lock-extra-types '("[[:upper:]]\\sw*"))
@@ -39,11 +41,17 @@
               (syntax-propertize-rules ("\\(#\\)\\(#\\)"
                                         (1 "< 1b") (2 "< 2b"))))
 
+  (font-lock-add-keywords nil c-font-lock-keywords-2 'set)
+  (font-lock-add-keywords nil cell-mode-font-lock-keywords)
+
   (c-initialize-cc-mode t)
   (c-init-language-vars cell-mode)
+  (c-common-init 'cell-mode)
 
-  (font-lock-add-keywords nil c-font-lock-keywords-2 'set)
-  (font-lock-add-keywords nil cell-mode-font-lock-keywords))
+  (electric-indent-mode -1)
+  (setq-local indent-line-function 'insert-tab)
+  (setq-local indent-tabs-mode nil)
+  (setq-local tab-width 2))
 
 (add-to-list 'auto-mode-alist '("\\.cell$" . cell-mode))
 
