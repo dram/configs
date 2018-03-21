@@ -297,6 +297,13 @@
 
 (require 'cell-mode)
 
+;; cobol
+
+(unless (require 'cobol-mode nil t)
+  (package-install 'cobol-mode))
+
+(add-to-list 'auto-mode-alist '("\\.cob$" . cobol-mode))
+
 ;; sam
 
 (add-to-list 'auto-mode-alist '("\\.sam$" . text-mode))
