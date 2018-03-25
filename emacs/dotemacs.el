@@ -304,6 +304,11 @@
 
 (add-to-list 'auto-mode-alist '("\\.cob$" . cobol-mode))
 
+(add-hook 'cobol-mode-hook (lambda ()
+                             (setq indent-tabs-mode nil)
+                             (setq indent-line-function 'insert-tab)
+                             (setq tab-width 4)))
+
 ;; sam
 
 (add-to-list 'auto-mode-alist '("\\.sam$" . text-mode))
