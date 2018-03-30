@@ -302,6 +302,8 @@
 (unless (require 'cobol-mode nil t)
   (package-install 'cobol-mode))
 
+(setq cobol-source-format 'free)
+
 (add-to-list 'auto-mode-alist '("\\.cob$" . cobol-mode))
 
 (add-hook 'cobol-mode-hook (lambda ()
