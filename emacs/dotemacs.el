@@ -304,7 +304,7 @@
 
 (setq cobol-source-format 'free)
 
-(add-to-list 'auto-mode-alist '("\\.cob$" . cobol-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(cbl\\|cob\\|cpy\\)$" . cobol-mode))
 
 (add-hook 'cobol-mode-hook (lambda ()
                              (setq indent-tabs-mode nil)
