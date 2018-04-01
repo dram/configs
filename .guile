@@ -1,0 +1,6 @@
+(import (ice-9 readline))
+
+(activate-readline)
+
+(read-enable  'r7rs-symbols)                                                    
+(print-enable 'r7rs-symbols)
