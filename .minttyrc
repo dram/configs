@@ -3,9 +3,10 @@ BoldAsColour=no
 BoldAsFont=-1
 CursorBlinks=no
 CursorType=block
-Font=Consolas
-FontHeight=14
-Rows=26
+Font=IBM Plex Mono Text
+FontHeight=15
+Rows=22
+RowSpacing=6
 Scrollbar=none
 
 # https://github.com/oumu/mintty-color-schemes/
