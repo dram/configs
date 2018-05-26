@@ -88,7 +88,7 @@
 (setq tooltip-use-echo-area t)
 
 (add-to-list 'custom-theme-load-path "~/emacs/theme")
-(load-theme 'atelier t)
+(load-theme 'tsdh-light t)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
