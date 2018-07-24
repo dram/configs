@@ -1,10 +1,12 @@
 ; -*- mode: emacs-lisp; mode: outline-minor; outline-regexp: ";;+" -*-
 
+(setq config-root (file-name-directory (expand-file-name load-file-name)))
+
 ;; general
 
 (require 'cl)
 
-(add-to-list 'load-path "~/emacs/misc")
+(add-to-list 'load-path (concat config-root "misc"))
 
 (prefer-coding-system 'gbk-unix)
 (prefer-coding-system 'utf-8-unix)
@@ -87,7 +89,7 @@
 
 (setq tooltip-use-echo-area t)
 
-(add-to-list 'custom-theme-load-path "~/emacs/theme")
+(add-to-list 'custom-theme-load-path (concat config-root "theme"))
 (load-theme 'tsdh-light t)
 
 (add-hook 'rst-mode-hook
@@ -317,12 +319,14 @@
 
 ;; running-life
 
-(add-to-list 'load-path "~/emacs/running-life")
+(add-to-list 'load-path (concat config-root "running-life"))
 
 (when (require 'running-life nil t)
 
-(setq running-life-start-sound (expand-file-name "~/emacs/misc/crank.wav"))
-(setq running-life-finish-sound (expand-file-name "~/emacs/misc/deskbell.wav"))
+(setq running-life-start-sound (expand-file-name (concat config-root
+                                                         "misc/crank.wav")))
+(setq running-life-finish-sound (expand-file-name (concat config-root
+                                                          "misc/deskbell.wav")))
 (setq running-life-text-directory "~/RunningLife")
 (setq running-life-auto-insert-text
       "\n%Y/%m/%d %H:%M\n----------------\n\n.. rubric:: \n")
@@ -334,7 +338,7 @@
 
 ;; mingus
 
-(add-to-list 'load-path "~/emacs/mingus")
+(add-to-list 'load-path (concat config-root "mingus"))
 (when (require 'mingus nil t)
 
 (setq mingus-playlist-separator " ● ")
