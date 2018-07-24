@@ -1,4 +1,4 @@
-caption always "%{= gk} %-Lw%{= wK}%n*%f%t%{= gK}%+Lw %="
+caption always "%{= gk} %-Lw%{= kW}%n*%f%t%{= gk}%+Lw %="
 sorendition +b kG
 
 startup_message off
