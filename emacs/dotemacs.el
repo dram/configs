@@ -518,6 +518,18 @@
 (add-hook 'prolog-mode-hook (lambda ()
 			      (setq indent-tabs-mode nil)))
 
+;; mercury
+
+(add-to-list 'auto-mode-alist '("\\.m$" . mercury-mode))
+
+(add-hook 'mercury-mode-hook (lambda ()
+                               ;; dirty hack, reset with new `prolog-system'
+                               (prolog-mode-variables)
+                               ;; set `.' as a word constituent
+                               (modify-syntax-entry ?. "w")
+                               ;; dirty hack for `prolog-font-lock-keywords'
+                               (setq-local major-mode 'prolog-mode)))
+
 ;; logtalk
 
 (add-to-list 'auto-mode-alist '("\\.lgt$" . prolog-mode))
