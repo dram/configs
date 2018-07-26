@@ -516,9 +516,7 @@
 (add-to-list 'auto-mode-alist '("\\.pro$" . prolog-mode))
 
 (add-hook 'prolog-mode-hook (lambda ()
-			      (setq indent-tabs-mode t)
-                              (setq indent-line-function 'insert-tab)
-			      (setq tab-width 4)))
+			      (setq indent-tabs-mode nil)))
 
 ;; logtalk
 
@@ -555,14 +553,6 @@
 (setq-default pascal-indent-level 2)
 
 (add-hook 'pascal-mode-hook (lambda () (setq indent-tabs-mode nil)))
-
-;; prolog
-
-(setq-default prolog-indent-width 2)
-
-(add-to-list 'auto-mode-alist '("\\.pro$" . prolog-mode))
-
-(add-hook 'prolog-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
 ;; sml
 
