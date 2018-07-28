@@ -534,6 +534,14 @@
 
 (add-to-list 'auto-mode-alist '("\\.lgt$" . prolog-mode))
 
+;; poplog
+
+(require 'pop-mode)
+
+(add-hook 'pop-mode-hook (lambda ()
+                           (setq-local tab-width 4)
+                           (setq-local indent-tabs-mode t)))
+
 ;; erlang
 
 (add-to-list 'interpreter-mode-alist '("escript" . erlang-mode))
