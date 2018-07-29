@@ -90,7 +90,7 @@
 (setq tooltip-use-echo-area t)
 
 (add-to-list 'custom-theme-load-path (concat config-root "theme"))
-(load-theme 'tsdh-dark t)
+(load-theme 'atelier t)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
