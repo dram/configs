@@ -538,6 +538,8 @@
 
 (require 'pop-mode)
 
+(setq pop-program-name "poplog pop11")
+
 (add-hook 'pop-mode-hook (lambda ()
                            (setq-local tab-width 4)
                            (setq-local indent-tabs-mode t)))
