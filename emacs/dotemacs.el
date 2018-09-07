@@ -132,6 +132,8 @@
 
 ;; evil
 
+(setq evil-want-abbrev-expand-on-insert-exit nil)
+
 (unless (require 'undo-tree nil t)
   (package-install 'undo-tree))
 
