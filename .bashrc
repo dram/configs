@@ -1,8 +1,10 @@
 #!/bin/bash
 
+umask 027
+
 export LANG=en_US.UTF-8
 
-export PATH=$HOME/bin:/sbin:/usr/sbin:$PATH
+export PATH=$HOME/local/bin:/sbin:/usr/sbin:$PATH
 
 # export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd'
 
