@@ -22,6 +22,9 @@ case "$-" in *i*)
 
 	echo -ne '\033%G'
 
+	export SCREENDIR=$HOME/.screen
+	[ -d $SCREENDIR ] || mkdir -p -m 700 $SCREENDIR
+
 	export EDITOR=vi
 	export LESSCHARSET=utf-8
 
