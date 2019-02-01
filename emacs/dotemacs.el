@@ -410,7 +410,7 @@
 (unless (require 'paredit nil t)
   (package-install 'paredit))
 
-(setq inferior-lisp-program "sbcl")
+(setq slime-lisp-implementations '((sbcl ("sbcl")) (ecl ("ecl"))))
 
 (when (require 'slime nil t)
 (slime-setup '(slime-fancy))
