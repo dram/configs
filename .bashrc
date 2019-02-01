@@ -4,7 +4,7 @@ umask 027
 
 export LANG=en_US.UTF-8
 
-export PATH=$HOME/local/bin:/sbin:/usr/sbin:$PATH
+export PATH=$HOME/.local/bin:/sbin:/usr/sbin:$PATH
 
 case "$-" in *i*)
 
