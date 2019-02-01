@@ -319,6 +319,10 @@
 
 (add-to-list 'auto-mode-alist '("\\.sam$" . text-mode))
 
+;; lml
+
+(add-to-list 'auto-mode-alist '("\\.lml$" . text-mode))
+
 ;; running-life
 
 (add-to-list 'load-path (concat config-root "running-life"))
@@ -413,7 +417,7 @@
 (when (require 'slime nil t)
 (slime-setup '(slime-fancy))
 (setq slime-net-coding-system 'utf-8-unix)
-(setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
+(setq common-lisp-hyperspec-root "~/Live/Lisp/HyperSpec/")
 
 (add-to-list 'auto-mode-alist '("\\.lisp-expr$" . lisp-mode))
 
