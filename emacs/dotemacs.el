@@ -125,10 +125,9 @@
 
 ;; asciidoc
 
-(unless (require 'adoc-mode nil t)
-  (package-install 'adoc-mode))
-
+(when (require 'adoc-mode nil t)
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
+)
 
 ;; evil
 
@@ -297,15 +296,18 @@
                             (add-to-list 'paredit-space-for-delimiter-predicates
                                          (lambda (endp delimiter) nil))))
 
+;; html
+
+(add-hook 'mhtml-mode-hook (lambda ()
+                             (setq indent-tabs-mode nil)))
+
 ;; cell
 
 (require 'cell-mode)
 
 ;; cobol
 
-(unless (require 'cobol-mode nil t)
-  (package-install 'cobol-mode))
-
+(when (require 'cobol-mode nil t)
 (setq cobol-source-format 'free)
 
 (add-to-list 'auto-mode-alist '("\\.\\(cbl\\|cob\\|cpy\\)$" . cobol-mode))
@@ -314,6 +316,7 @@
                              (setq indent-tabs-mode nil)
                              (setq indent-line-function 'insert-tab)
                              (setq tab-width 4)))
+)
 
 ;; sam
 
@@ -409,8 +412,10 @@
 
 ;; slime
 
-(unless (require 'paredit nil t)
-  (package-install 'paredit))
+(when (require 'paredit nil t)
+(add-hook 'lisp-mode-hook #'enable-paredit-mode)
+(add-hook 'slime-repl-mode-hook #'enable-paredit-mode)
+)
 
 (setq slime-lisp-implementations '((sbcl ("sbcl")) (ecl ("ecl"))))
 
@@ -428,9 +433,6 @@
 	  (lambda ()
 	    (set-variable lisp-indent-function 'common-lisp-indent-function t)
 	    (local-set-key [tab] 'slime-indent-and-complete-symbol)))
-
-(add-hook 'lisp-mode-hook #'enable-paredit-mode)
-(add-hook 'slime-repl-mode-hook #'enable-paredit-mode)
 )
 
 ;; emacs-lisp
@@ -498,9 +500,7 @@
 
 ;; clips
 
-(unless (require 'clips-mode nil t)
-  (package-install 'clips-mode))
-
+(when (require 'clips-mode nil t)
 (put 'call-with-input-file 'clips-indent-function 1)
 (put 'call-with-input-process 'clips-indent-function 2)
 (put 'call-with-output-file 'clips-indent-function 1)
@@ -509,8 +509,9 @@
 (add-hook 'clips-mode-hook #'enable-paredit-mode)
 
 (add-hook 'clips-mode-hook
-	  (lambda ()
-	    (setq indent-tabs-mode nil)))
+          (lambda ()
+            (setq indent-tabs-mode nil)))
+)
 
 ;; perl
 
