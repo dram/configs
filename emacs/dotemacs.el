@@ -461,10 +461,9 @@
 (mapc (lambda (sym) (put sym 'scheme-indent-function 1))
       '(call-with-input-process
 	call-with-port
-	eval-when for guard match module parameterize unless when))
+	eval-when for guard match module))
 
 (put 'let-optionals 'scheme-indent-function 2)
-(put 'define-library 'scheme-indent-function 'defun)
 
 (font-lock-add-keywords
  'scheme-mode
@@ -472,21 +471,16 @@
 	   (cons (concat "\\<" x "\\>") 'font-lock-keyword-face))
 	 '("call-with-port"
 	   "call-with-values"
-	   "case-lambda"
-	   "cond-expand"
 	   "define-constant"
-	   "define-library"
-	   "define-record-type"
 	   "export"
 	   "for"
 	   "import"
 	   "match"
 	   "module"
-	   "parameterize"
 	   "syntax-case"
-	   "unless"
 	   "values"
-	   "when"
+	   "with-input-from-file"
+	   "with-output-to-file"
 	   "with-syntax")))
 
 (setq scheme-program-name "chibi")
