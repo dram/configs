@@ -417,10 +417,10 @@
 (add-hook 'slime-repl-mode-hook #'enable-paredit-mode)
 )
 
-(setq slime-lisp-implementations '((sbcl ("sbcl")) (ecl ("ecl"))))
-
 (when (require 'slime nil t)
-(slime-setup '(slime-fancy))
+(slime-setup '(slime-cl-indent slime-fancy))
+
+(setq slime-lisp-implementations '((sbcl ("sbcl")) (ecl ("ecl"))))
 (setq slime-net-coding-system 'utf-8-unix)
 (setq common-lisp-hyperspec-root "~/Live/Lisp/HyperSpec/")
 
