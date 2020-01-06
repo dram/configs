@@ -66,11 +66,7 @@
 
 (column-number-mode 1)
 
-(setq browse-url-browser-function
-      (lambda (url &rest ignore)
-	(interactive)
-	(shell-command (concat "lynx -dump -nolist -width=78 " url))
-	(pop-to-buffer "*Shell Command Output*")))
+(setq browse-url-browser-function #'eww-browse-url)
 
 ;; appearance
 
@@ -422,7 +418,8 @@
 
 (setq slime-lisp-implementations '((sbcl ("sbcl")) (ecl ("ecl"))))
 (setq slime-net-coding-system 'utf-8-unix)
-(setq common-lisp-hyperspec-root "~/Live/Lisp/HyperSpec/")
+(setq common-lisp-hyperspec-root
+      (concat "file://" (expand-file-name "~/Lisp/HyperSpec/")))
 
 (add-to-list 'auto-mode-alist '("\\.lisp-expr$" . lisp-mode))
 
