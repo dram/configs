@@ -1,5 +1,6 @@
 [core]
 	pager = less -+F
+	quotepath = off
 [user]
 	email = dram.wang@gmail.com
 	name = Xin Wang
