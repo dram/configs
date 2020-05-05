@@ -55,8 +55,8 @@ URxvt.background: #000000
 !xterm*faceName: Meslo LG M
 xterm*geometry: 80x25
 xterm*allowBoldFonts: false
-xterm*faceName: IBM Plex Mono:style=Text:pixelsize=18
-xterm*faceNameDoublesize: Source Han Sans CN:style=Medium:pixelsize=18
+xterm*faceName: IBM Plex Mono:style=Text:pixelsize=15
+xterm*faceNameDoublesize: Source Han Sans CN:style=Medium:pixelsize=15
 
 xterm*scrollBar: off
 xterm*selectToClipboard: true
