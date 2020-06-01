@@ -414,12 +414,12 @@
 )
 
 (when (require 'slime nil t)
-(slime-setup '(slime-cl-indent slime-fancy))
+(slime-setup '(slime-fancy slime-indentation))
 
 (setq slime-lisp-implementations '((sbcl ("sbcl")) (ecl ("ecl"))))
 (setq slime-net-coding-system 'utf-8-unix)
 (setq common-lisp-hyperspec-root
-      (concat "file://" (expand-file-name "~/Lisp/HyperSpec/")))
+      (concat "file://" (expand-file-name "~/common-lisp/HyperSpec/")))
 
 (add-to-list 'auto-mode-alist '("\\.lisp-expr$" . lisp-mode))
 
@@ -428,8 +428,8 @@
 
 (add-hook 'slime-mode-hook
 	  (lambda ()
-	    (set-variable lisp-indent-function 'common-lisp-indent-function t)
 	    (local-set-key [tab] 'slime-indent-and-complete-symbol)))
+
 )
 
 ;; emacs-lisp
