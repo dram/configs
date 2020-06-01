@@ -285,6 +285,11 @@
   (setq org-export-docbook-xsl-fo-proc-command
 	"d:/docbook/fop/fop -c d:/docbook/fop.xconf %i %o"))
 
+;; rust
+
+(add-hook 'rust-mode-hook (lambda ()
+                            (setq rust-format-on-save t)))
+
 ;; text
 
 (add-hook 'text-mode-hook (lambda ()
