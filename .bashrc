@@ -6,6 +6,8 @@ export LANG=en_US.UTF-8
 
 export PATH=$HOME/.local/bin:/sbin:/usr/sbin:$PATH
 
+export EMACS_SOCKET_NAME=$HOME/.emacs.d/server
+
 case "$-" in *i*)
 
 	case "$TERM" in

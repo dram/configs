@@ -4,7 +4,7 @@
 
 ;; general
 
-(require 'cl)
+(require 'cl-lib)
 
 (add-to-list 'load-path (concat config-root "misc"))
 
@@ -103,7 +103,7 @@
 	    (when (display-graphic-p)
 	      (set-frame-size frame 80 30)
 
-	      (case system-type
+	      (cl-case system-type
 		(gnu/linux
 		 (set-frame-font "Source Code Pro-11" nil (list frame)))
 		(windows-nt
@@ -111,7 +111,7 @@
 
 	      (setq-default line-spacing 0)
 
-	      (let ((font (case system-type
+	      (let ((font (cl-case system-type
 			    (windows-nt "Microsoft YaHei")
 			    (gnu/linux (font-spec :family"WenQuanYi Micro Hei"
 						  :size 16)))))
@@ -210,12 +210,12 @@
 	    (when (display-graphic-p)
 	      (let ((set
 		     (create-fontset-from-fontset-spec
-		      (case system-type
+		      (cl-case system-type
 			(windows-nt
 			 "-b&h-Lucida Console-normal-normal-*-*-14-*-*-*-m-0-fontset-orgmode")
 			(gnu/linux
 			 "-*-Inconsolata-normal-normal-*-*-15-*-*-*-m-0-fontset-orgmode"))))
-		    (font (case system-type
+		    (font (cl-case system-type
 			    (windows-nt "华文仿宋")
 			    (gnu/linux "WenQuanYi Micro Hei"))))
 		(set-fontset-font set 'han (font-spec :family font :size 16))
@@ -403,7 +403,7 @@
 ; (when (require 'im-agent nil t)
 ;   (set-input-method 'im-agent))
 
-(case system-type
+(cl-case system-type
   (gnu/linux
    (define-key evil-insert-state-map (kbd "C-SPC") 'toggle-input-method)
    (unless (display-graphic-p)
@@ -614,7 +614,7 @@
 
 (setq eshell-cmpl-cycle-completions nil)
 
-(add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+(add-hook 'eshell-output-filter-functions #'eshell-truncate-buffer)
 
 (defun eshell/e (file)
   (find-file file))
