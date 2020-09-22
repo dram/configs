@@ -165,7 +165,7 @@
 
 (add-hook 'minibuffer-exit-hook #'deactivate-input-method)
 
-;; recentf, ido, iswitchb
+;; recentf, ido
 
 (require 'recentf)
 (setq recentf-max-saved-items 100)
@@ -195,9 +195,7 @@
 (ido-mode 'files)
 (add-to-list 'ido-ignore-files "__pycache__")
 
-(iswitchb-mode 1)
-
-(define-key evil-normal-state-map ",b" 'iswitchb-buffer)
+(define-key evil-normal-state-map ",b" 'ido-switch-buffer)
 (define-key evil-normal-state-map ",f" 'ido-find-file)
 (define-key evil-normal-state-map ",k" (lambda ()
 					 (interactive)
