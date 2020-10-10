@@ -129,9 +129,6 @@
 
 (setq evil-want-abbrev-expand-on-insert-exit nil)
 
-(unless (require 'undo-tree nil t)
-  (package-install 'undo-tree))
-
 (unless (require 'evil nil t)
   (package-install 'evil))
 
@@ -643,11 +640,3 @@
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
 (setq tramp-auto-save-directory "~/.emacs.d/tramp-auto-saves")
-
-;; diminish
-
-(unless (require 'diminish nil t)
-  (package-install 'diminish))
-
-(diminish 'undo-tree-mode)
-(eval-after-load "face-remap" '(diminish 'buffer-face-mode))
