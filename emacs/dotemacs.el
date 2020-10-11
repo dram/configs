@@ -129,6 +129,11 @@
 
 (setq evil-want-abbrev-expand-on-insert-exit nil)
 
+(unless (require 'undo-fu nil t)
+  (package-install 'undo-fu))
+
+(setq evil-undo-system 'undo-fu)
+
 (unless (require 'evil nil t)
   (package-install 'evil))
 
