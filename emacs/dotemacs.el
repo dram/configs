@@ -597,6 +597,13 @@
 
 (setq python-shell-virtualenv-path "~/venv/")
 
+;; java
+
+(add-hook 'java-mode-hook
+          (lambda ()
+            (setq c-basic-offset 4
+                  indent-tabs-mode nil)))
+
 ;; javascript
 
 (setq js-indent-level 2)
