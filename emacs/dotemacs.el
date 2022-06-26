@@ -139,8 +139,6 @@
 (unless (require 'evil nil t)
   (package-install 'evil))
 
-(evil-mode 1)
-
 (evil-set-toggle-key "C-S-z")
 
 (setq evil-want-fine-undo t)
