@@ -167,41 +167,14 @@
 
 (add-hook 'minibuffer-exit-hook #'deactivate-input-method)
 
-;; recentf, ido
-
-(require 'recentf)
-(setq recentf-max-saved-items 100)
-(setq recentf-show-file-shortcuts-flag nil)
-(recentf-mode t)
-
-(evil-set-initial-state 'recentf-dialog-mode 'normal)
-
-(define-key evil-normal-state-map ",m" (lambda ()
-					 (interactive)
-					 (split-window nil nil 'above)
-					 (recentf-open-files)))
-
-(evil-define-key 'normal recentf-dialog-mode-map "q"
-  (lambda ()
-    (interactive)
-    (recentf-cancel-dialog)
-    (delete-window)))
-
-(evil-define-key 'normal recentf-dialog-mode-map (kbd "RET")
-  (lambda ()
-    (interactive)
-    (delete-window (previous-window))
-    (evil-ret)))
+;; ido
 
 (require 'ido)
-(ido-mode 'files)
-(add-to-list 'ido-ignore-files "__pycache__")
 
-(define-key evil-normal-state-map ",b" 'ido-switch-buffer)
-(define-key evil-normal-state-map ",f" 'ido-find-file)
-(define-key evil-normal-state-map ",k" (lambda ()
-					 (interactive)
-					 (kill-buffer (current-buffer))))
+(setq recentf-max-saved-items 100)
+(setq ido-use-virtual-buffers t)
+(ido-mode t)
+(add-to-list 'ido-ignore-files "__pycache__")
 
 ;; org
 
