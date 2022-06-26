@@ -429,19 +429,12 @@
 (add-to-list 'auto-mode-alist '("\\.lisp-expr$" . lisp-mode))
 
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
-(add-hook 'lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
 (add-hook 'slime-mode-hook
 	  (lambda ()
 	    (local-set-key [tab] 'slime-indent-and-complete-symbol)))
 
 )
-
-;; emacs-lisp
-
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (setq indent-tabs-mode nil)))
 
 ;; arc
 
@@ -451,9 +444,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.arc$" . arc-mode))
 
-(add-hook 'arc-mode-hook
-	  (lambda ()
-	      (setq indent-tabs-mode nil)))
 )
 
 ;; scheme
@@ -490,10 +480,6 @@
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 (add-hook 'inferior-scheme-mode-hook #'enable-paredit-mode)
 
-(add-hook 'scheme-mode-hook
-	  (lambda ()
-	    (setq indent-tabs-mode nil)))
-
 ;; clips
 
 (when (require 'clips-mode nil t)
@@ -504,9 +490,6 @@
 
 (add-hook 'clips-mode-hook #'enable-paredit-mode)
 
-(add-hook 'clips-mode-hook
-          (lambda ()
-            (setq indent-tabs-mode nil)))
 )
 
 ;; perl
