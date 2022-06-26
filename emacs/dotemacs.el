@@ -29,6 +29,8 @@
       kept-old-versions 2
       version-control t)
 
+(setq mode-require-final-newline nil)
+
 (setq scroll-conservatively 100)
 
 (require 'linum)
