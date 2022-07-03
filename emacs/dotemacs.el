@@ -263,13 +263,6 @@
 (add-hook 'rust-mode-hook (lambda ()
                             (setq rust-format-on-save t)))
 
-;; text
-
-(add-hook 'text-mode-hook (lambda ()
-                            (enable-paredit-mode)
-                            (add-to-list 'paredit-space-for-delimiter-predicates
-                                         (lambda (endp delimiter) nil))))
-
 ;; html
 
 (add-hook 'mhtml-mode-hook (lambda ()
