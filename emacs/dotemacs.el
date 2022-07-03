@@ -87,8 +87,7 @@
 
 (setq tooltip-use-echo-area t)
 
-(add-to-list 'custom-theme-load-path (concat config-root "theme"))
-(load-theme 'atelier t)
+(load-theme 'deeper-blue)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
