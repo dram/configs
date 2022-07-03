@@ -25,7 +25,7 @@ case "$-" in *i*)
 	export SCREENDIR=$HOME/.screen
 	[ -d $SCREENDIR ] || mkdir -p -m 700 $SCREENDIR
 
-	export EDITOR=vi
+	export EDITOR=jmacs
 	export LESSCHARSET=utf-8
 
 	export HISTSIZE=3000
