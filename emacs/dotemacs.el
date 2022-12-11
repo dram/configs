@@ -20,7 +20,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (require 'saveplace)
-(setq-default save-place t)
+(save-place-mode)
 
 (setq backup-by-copying t
       backup-directory-alist `(("." . "~/.emacs-saves"))
