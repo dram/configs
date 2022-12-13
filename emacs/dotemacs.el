@@ -126,46 +126,6 @@
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
 )
 
-;; evil
-
-(setq evil-want-abbrev-expand-on-insert-exit nil)
-
-(unless (require 'undo-fu nil t)
-  (package-install 'undo-fu))
-
-(setq evil-undo-system 'undo-fu)
-
-(unless (require 'evil nil t)
-  (package-install 'evil))
-
-(evil-set-toggle-key "C-S-z")
-
-(setq evil-want-fine-undo t)
-
-(setq evil-search-module 'evil-search)
-
-(setq-default evil-symbol-word-search t)
-
-(defadvice outline-minor-mode (after bind-key-for-outline-minor-mode activate)
-  (define-key evil-normal-state-local-map "zo" 'show-entry)
-  (define-key evil-normal-state-local-map "zc" 'hide-entry)
-  (define-key evil-normal-state-local-map "zm" 'hide-body)
-  (define-key evil-normal-state-local-map "zr" 'show-all))
-
-(add-hook 'evil-insert-state-exit-hook
-	  (lambda ()
-	    (if (eolp)
-		(delete-horizontal-space t))))
-
-(define-key evil-normal-state-map "," nil)
-
-(define-key evil-normal-state-map ",o" #'browse-url-at-point)
-
-(define-key evil-normal-state-map ",vv" #'vc-next-action)
-(define-key evil-normal-state-map ",v=" #'vc-diff)
-
-(add-hook 'minibuffer-exit-hook #'deactivate-input-method)
-
 ;; ido
 
 (require 'ido)
@@ -197,11 +157,6 @@
 	      (defface org-default-buffer-face '((t :font "fontset-orgmode")) "")
 	      (set-face-attribute 'org-default-buffer-face frame
 				  :fontset "fontset-orgmode"))))
-
-(add-hook 'org-mode-hook
-	  (lambda ()
-	    (setq evil-auto-indent nil)
-	    (define-key evil-normal-state-local-map (kbd "TAB") 'org-cycle)))
 
 (mapc (lambda (hook)
 	(add-hook hook 
@@ -327,11 +282,6 @@
   (let ((orig header-line-format))
     ad-do-it
     (setq header-line-format orig)))
-
-(evil-set-initial-state 'mingus-help-mode 'emacs)
-(evil-set-initial-state 'mingus-browse-mode 'emacs)
-(evil-set-initial-state 'mingus-playlist-mode 'emacs)
-
 )
 
 ;; nxml
@@ -355,24 +305,12 @@
 
 (add-hook 'nxml-mode-hook
 	  (lambda ()
-	    (local-set-key (kbd "\C-c\C-r") 'surround-region-with-tag)
-	    (define-key evil-normal-state-local-map "zo" 'nxml-show-direct-text-content)
-	    (define-key evil-normal-state-local-map "zc" 'nxml-hide-direct-text-content)
-	    (define-key evil-normal-state-local-map "zm" 'nxml-hide-all-text-content)
-	    (define-key evil-normal-state-local-map "zr" 'nxml-show-all)))
+	    (local-set-key (kbd "\C-c\C-r") 'surround-region-with-tag)))
 
 ;; input method
 
 ; (when (require 'im-agent nil t)
 ;   (set-input-method 'im-agent))
-
-(cl-case system-type
-  (gnu/linux
-   (define-key evil-insert-state-map (kbd "C-SPC") 'toggle-input-method)
-   (unless (display-graphic-p)
-     (define-key evil-insert-state-map (kbd "C-@") 'toggle-input-method)))
-  (windows-nt
-   (define-key evil-insert-state-map [apps] 'toggle-input-method)))
 
 ;; slime
 
