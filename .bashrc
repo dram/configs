@@ -10,6 +10,8 @@ export EMACS_SOCKET_NAME=$HOME/.emacs.d/server
 
 case "$-" in *i*)
 
+	export TERM=xterm-direct
+
 	case "$TERM" in
 	screen*)
 		trap 'echo -ne "\ek${BASH_COMMAND:0:10}\e\\"' DEBUG
