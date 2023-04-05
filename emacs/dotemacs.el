@@ -87,7 +87,7 @@
 
 (setq tooltip-use-echo-area t)
 
-(load-theme 'deeper-blue)
+(load-theme 'spacemacs-dark t)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
