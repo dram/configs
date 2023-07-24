@@ -10,8 +10,6 @@ export EMACS_SOCKET_NAME=$HOME/.emacs.d/server
 
 case "$-" in *i*)
 
-	export TERM=xterm-direct
-
 	export PS1='\e]0;\u@\h\a\e[32m\w\e[31m${?/#0}\e[m\n% '
 
 	export EDITOR=jmacs
