@@ -328,8 +328,7 @@
 
 (setq slime-lisp-implementations '((sbcl ("sbcl")) (ecl ("ecl"))))
 (setq slime-net-coding-system 'utf-8-unix)
-(setq common-lisp-hyperspec-root
-      (concat "file://" (expand-file-name "~/common-lisp/HyperSpec/")))
+(setq common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/")
 
 (add-to-list 'auto-mode-alist '("\\.lisp-expr$" . lisp-mode))
 
