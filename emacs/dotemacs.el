@@ -87,7 +87,7 @@
 
 (setq tooltip-use-echo-area t)
 
-(load-theme 'spacemacs-dark t)
+(load-theme 'modus-vivendi)
 
 (add-hook 'rst-mode-hook
 	  (lambda ()
