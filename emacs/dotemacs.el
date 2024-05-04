@@ -56,7 +56,8 @@
 (require 'package)
 (setq package-archives
       '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-        ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+        ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+        ("nongnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")))
 (package-initialize)
 
 (require 'uniquify)
