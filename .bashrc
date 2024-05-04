@@ -12,7 +12,7 @@ case "$-" in *i*)
 
 	export PS1='\e]0;\u@\h\a\e[32m\w\e[31m${?/#0}\e[m\n% '
 
-	export EDITOR=jmacs
+	export EDITOR='jmacs -nobackups'
 	export LESSCHARSET=utf-8
 
 	export HISTSIZE=3000
