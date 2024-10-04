@@ -71,9 +71,7 @@
 
 (setq browse-url-browser-function #'eww-browse-url)
 
-(global-set-key (kbd "C-c /") "Ⳇ")
-(global-set-key (kbd "C-c =") "Ⲷ")
-(global-set-key (kbd "C-c -") "Ⲻ")
+(global-set-key (kbd "C-c =") "Ξ")
 
 ;; appearance
 
